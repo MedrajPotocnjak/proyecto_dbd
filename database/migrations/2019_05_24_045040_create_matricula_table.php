@@ -20,6 +20,7 @@ class CreateMatriculaTable extends Migration
              $table->string('estado_matricula',20);
              /*Como integer ya que money es raro D:*/
             $table->integer('costo');
+            $table->timestamp();
         });
     }
 
