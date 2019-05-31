@@ -14,7 +14,11 @@ class CreateEstudioTable extends Migration
     public function up()
     {
         Schema::create('estudio', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->bigIncrements('codigo');
+			$table->string("area",32);
+			$table->string("titulo",32);
+			$table->string("contenido");
+			$table->string("ruta_estudio");
             $table->timestamps();
         });
     }
