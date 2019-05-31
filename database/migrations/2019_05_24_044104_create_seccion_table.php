@@ -14,7 +14,9 @@ class CreateSeccionTable extends Migration
     public function up()
     {
         Schema::create('seccion', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->bigIncrements('codigo');
+			$table->integer("cupos");
+			$table->char("tipo",1);
             $table->timestamps();
         });
     }

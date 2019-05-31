@@ -14,7 +14,16 @@ class CreateAsignaturaTable extends Migration
     public function up()
     {
         Schema::create('asignatura', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->bigIncrements('codigo');
+			$table->string("nombre",60);
+			$table->string("jornada",10);
+			$table->integer("asistencia_minima");
+			$table->string("ponderacion",5);
+			$table->integer("nivel");
+			$table->integer("horas_teoria");
+			$table->integer("horas_laboratorio");
+			$table->integer("horas_ejercicios");
+			$table->string("version_plan_estudios",6);
             $table->timestamps();
         });
     }
