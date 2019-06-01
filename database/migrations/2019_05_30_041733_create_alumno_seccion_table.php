@@ -14,7 +14,16 @@ class CreateAlumnoSeccionTable extends Migration
     public function up()
     {
         Schema::create('alumno_seccion', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->bigIncrements('codigo');
+            $table->smallInteger("aprobado");
+            $table->float('promedio');
+            $table->float('nota_p1');
+            $table->float('nota_p2');
+            $table->float('nota_p3');
+            $table->float('nota_c1');
+            $table->float('nota_c2');
+            $table->float('nota_c3');
+            $table->string('estado_cursado',1);
             $table->timestamps();
         });
     }

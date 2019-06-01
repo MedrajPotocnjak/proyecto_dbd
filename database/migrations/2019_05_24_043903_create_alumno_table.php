@@ -35,6 +35,7 @@ class CreateAlumnoTable extends Migration
             $table->string("provincia",30);
             $table->string("comuna",30);
             $table->string("correo",40);
+            $table->timestamps();
         });
     }
 

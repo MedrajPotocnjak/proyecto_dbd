@@ -17,7 +17,7 @@ class CreateCarreraTable extends Migration
             $table->bigIncrements('codigo');
 			$table->smallInteger("asignaturas_plan");
 			$table->smallInteger("cantidad_alumnos");
-			$table->Integer("araancel");
+			$table->Integer("arancel");
             $table->timestamps();
         });
     }

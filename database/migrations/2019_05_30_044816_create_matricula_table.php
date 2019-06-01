@@ -14,7 +14,9 @@ class CreateMatriculaTable extends Migration
     public function up()
     {
         Schema::create('matricula', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->bigIncrements('codigo');
+            $table->string('estado_matricula',20);
+            $table->integer('costo');
             $table->timestamps();
         });
     }
