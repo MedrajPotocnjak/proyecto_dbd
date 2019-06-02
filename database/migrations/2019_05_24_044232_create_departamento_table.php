@@ -15,7 +15,9 @@ class CreateDepartamentoTable extends Migration
     {
         Schema::create('departamento', function (Blueprint $table) {
             $table->bigIncrements('codigo');
-			$table->string("nombre",60);
+            $table->foreign('rut_coordinador')
+            ->references('rut')->on('coordinador_docente');
+            $table->string("nombre",60);
             $table->timestamps();
         });
     }

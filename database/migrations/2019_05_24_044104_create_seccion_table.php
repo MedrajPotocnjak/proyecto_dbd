@@ -15,7 +15,11 @@ class CreateSeccionTable extends Migration
     {
         Schema::create('seccion', function (Blueprint $table) {
             $table->bigIncrements('codigo');
-			$table->integer("cupos");
+            $table->foreign('rut_profesor')
+            ->references('rut')->on('profesor');
+            $table->foreign('codigo_asignatura')
+            ->references('codigo')->on('asignatura')->onDelete('cascade');
+            $table->integer("cupos");
 			$table->char("tipo",1);
             $table->timestamps();
         });

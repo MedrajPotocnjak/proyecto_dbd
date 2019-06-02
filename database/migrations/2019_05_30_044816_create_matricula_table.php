@@ -15,6 +15,8 @@ class CreateMatriculaTable extends Migration
     {
         Schema::create('matricula', function (Blueprint $table) {
             $table->bigIncrements('codigo');
+            $table->foreign('codigo_pago')
+            ->references('codigo')->on('pago')->onDelete('cascade');
             $table->string('estado_matricula',20);
             $table->integer('costo');
             $table->timestamps();

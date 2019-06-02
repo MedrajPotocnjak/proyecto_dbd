@@ -15,6 +15,8 @@ class CreatePagoTable extends Migration
     {
         Schema::create('pago', function (Blueprint $table) {
             $table->bigIncrements('codigo');
+            $table->foreign('rut_alumno')
+            ->references('rut')->on('alumno')->onDelete('cascade');
             $table->string('tipo_pago',1);
             $table->integer('forma_pago');
             $table->timestamps('fecha_pago');

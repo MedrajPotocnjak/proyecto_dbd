@@ -15,6 +15,10 @@ class CreateAlumnoSeccionTable extends Migration
     {
         Schema::create('alumno_seccion', function (Blueprint $table) {
             $table->bigIncrements('codigo');
+            $table->foreign('rut_alumno')
+            ->references('rut')->on('alumno')->onDelete('cascade');
+            $table->foreign('codigo_seccion')
+            ->references('codigo')->on('seccion')->onDelete('cascade');
             $table->smallInteger("aprobado");
             $table->float('promedio');
             $table->float('nota_p1');
