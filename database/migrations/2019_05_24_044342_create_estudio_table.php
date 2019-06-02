@@ -15,6 +15,7 @@ class CreateEstudioTable extends Migration
     {
         Schema::create('estudio', function (Blueprint $table) {
             $table->bigIncrements('codigo');
+			$table->integer('codigo_departamento');
             $table->foreign('codigo_departamento')
             ->references('codigo')->on('departamento')->onDelete('cascade');
 			$table->string("area",32);

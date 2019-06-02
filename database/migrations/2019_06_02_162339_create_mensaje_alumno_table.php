@@ -14,7 +14,13 @@ class CreateMensajeAlumnoTable extends Migration
     public function up()
     {
         Schema::create('mensaje_alumno', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->bigIncrements('codigo');
+			$table->integer('codigo_mensaje');
+			$table->foreign('codigo_mensaje')
+            ->references('id')->on('mensaje')->onDelete('cascade');
+			$table->integer('rut_alumno');
+			$table->foreign('rut_alumno')
+            ->references('rut')->on('alumno')->onDelete('cascade');
             $table->timestamps();
         });
     }

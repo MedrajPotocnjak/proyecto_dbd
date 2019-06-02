@@ -15,6 +15,7 @@ class CreatePagoTable extends Migration
     {
         Schema::create('pago', function (Blueprint $table) {
             $table->bigIncrements('codigo');
+			$table->integer('rut_alumno');
             $table->foreign('rut_alumno')
             ->references('rut')->on('alumno')->onDelete('cascade');
             $table->string('tipo_pago',1);

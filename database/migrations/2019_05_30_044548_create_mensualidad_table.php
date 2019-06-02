@@ -15,6 +15,7 @@ class CreateMensualidadTable extends Migration
     {
         Schema::create('mensualidad', function (Blueprint $table) {
             $table->bigIncrements('codigo');
+			$table->integer('codigo_pago');
             $table->foreign('codigo_pago')
             ->references('codigo')->on('pago')->onDelete('cascade');
             $table->integer('numero_mensualidad');

@@ -15,8 +15,10 @@ class CreateSeccionSalasTable extends Migration
     {
         Schema::create('seccion_salas', function (Blueprint $table) {
             $table->bigIncrements('id');
+			$table->integer('codigo_seccion');
             $table->foreign('codigo_seccion')
             ->references('codigo')->on('seccion')->onDelete('cascade');
+			$table->integer('codigo_sala');
             $table->foreign('codigo_sala')
             ->references('codigo')->on('sala')->onDelete('cascade');
             $table->string('bloque',2);

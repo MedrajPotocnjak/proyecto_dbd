@@ -15,8 +15,10 @@ class CreateSolicitudAlumnoTable extends Migration
     {
         Schema::create('solicitud_alumno', function (Blueprint $table) {
             $table->bigIncrements('id');
+			$table->integer('rut_alumno');
             $table->foreign('rut_alumno')
             ->references('rut')->on('alumno')->onDelete('cascade');
+			$table->integer('folio_certificado');
             $table->foreign('folio_certificado')
             ->references('folio')->on('certificado')->onDelete('cascade');
             $table->timestamps();

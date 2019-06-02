@@ -15,6 +15,7 @@ class CreateCarreraTable extends Migration
     {
         Schema::create('carrera', function (Blueprint $table) {
             $table->bigIncrements('codigo');
+			$table->integer('codigo_departamento');
             $table->foreign('codigo_departamento')
             ->references('codigo')->on('departamento')->onDelete('cascade');
 			$table->smallInteger("asignaturas_plan");
