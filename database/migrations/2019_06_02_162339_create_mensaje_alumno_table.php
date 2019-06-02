@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMatriculaTable extends Migration
+class CreateMensajeAlumnoTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,8 @@ class CreateMatriculaTable extends Migration
      */
     public function up()
     {
-        Schema::create('matricula', function (Blueprint $table) {
-            $table->bigIncrements('codigo');
-            $table->foreign('codigo_pago')
-            ->references('codigo')->on('pago')->onDelete('cascade');
-            $table->string('estado_matricula',20);
-            $table->integer('costo');
+        Schema::create('mensaje_alumno', function (Blueprint $table) {
+            $table->bigIncrements('id');
             $table->timestamps();
         });
     }
@@ -30,6 +26,6 @@ class CreateMatriculaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('matricula');
+        Schema::dropIfExists('mensaje_alumno');
     }
 }
