@@ -15,4 +15,7 @@ class pago extends Model
     public function matriculas(){
     	return $this->hasMany('App\Matricula');
     }
+    public function pagos(){
+    	return $this->belongsTo('App\Alumno');
+    }
 }
