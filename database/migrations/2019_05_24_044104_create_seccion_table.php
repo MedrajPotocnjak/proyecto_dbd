@@ -21,6 +21,7 @@ class CreateSeccionTable extends Migration
 			$table->integer('codigo_asignatura');
             $table->foreign('codigo_asignatura')
             ->references('codigo')->on('asignatura')->onDelete('cascade');
+            $table->string("nombre",60);
             $table->integer("cupos");
 			$table->char("tipo",1);
             $table->timestamps();
