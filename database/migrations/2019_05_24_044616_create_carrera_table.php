@@ -18,6 +18,7 @@ class CreateCarreraTable extends Migration
 			$table->integer('codigo_departamento');
             $table->foreign('codigo_departamento')
             ->references('codigo')->on('departamento')->onDelete('cascade');
+            $table->string("nombre",60);
 			$table->smallInteger("asignaturas_plan");
 			$table->smallInteger("cantidad_alumnos");
 			$table->Integer("arancel");

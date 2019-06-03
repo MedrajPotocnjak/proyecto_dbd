@@ -27,7 +27,7 @@ class CreateAlumnoTable extends Migration
             $table->float("nar");
             $table->timestamps("fecha_nacimiento");
             $table->string("nacionalidad",20);
-            $table->string("nacionalidad",12);
+            $table->string("estado_civil",12);
             $table->char("sexo");
             $table->string("telefono",12);
             $table->string("region",30);
