@@ -12,3 +12,7 @@ $factory->define(coordinador_docente::class, function (Faker $faker) {
         'apellido_materrno' => $faker->lastName,
     ];
 });
+
+//
+//$algo_ide  = DN::table()->select(id)->Get();
+//return ["algo_ide"=> $id->random()->id;]

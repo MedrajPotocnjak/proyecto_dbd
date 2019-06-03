@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Mensaje_Alumno extends Model
+class mensaje_alumno extends Model
 {
     //
 }
