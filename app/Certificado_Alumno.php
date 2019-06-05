@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Certificado_Alumno extends Model
 {
     //
-    protected $table = 'certificados_alumnos';
+    protected $table = 'certificado_alumno';
     public function certificados(){
     	return $this->belongsTo('App\Certificado','folio_certificado');
     }
