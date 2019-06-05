@@ -2,10 +2,10 @@
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
-use App\profesor;
+use App\Profesor;
 use Faker\Generator as Faker;
 
-$factory->define(profesor::class, function (Faker $faker) {
+$factory->define(Profesor::class, function (Faker $faker) {
     return [
         //
         'rut'=> $faker->unique()->numberBetween($min = 10000000, $max = 999999999),

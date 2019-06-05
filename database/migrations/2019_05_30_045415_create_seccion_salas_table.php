@@ -13,7 +13,7 @@ class CreateSeccionSalasTable extends Migration
      */
     public function up()
     {
-        Schema::create('seccion_salas', function (Blueprint $table) {
+        Schema::create('seccion_sala', function (Blueprint $table) {
             $table->bigIncrements('id');
 			$table->integer('codigo_seccion');
             $table->foreign('codigo_seccion')
@@ -33,6 +33,6 @@ class CreateSeccionSalasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('seccion_salas');
+        Schema::dropIfExists('seccion_sala');
     }
 }

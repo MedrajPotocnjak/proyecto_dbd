@@ -2,13 +2,13 @@
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
-use App\alumno;
+use App\Alumno;
 use Faker\Generator as Faker;
 
-$factory->define(alumno::class, function (Faker $faker) {
+$factory->define(Alumno::class, function (Faker $faker) {
     return [
         //
-        'rut'=> $faker->unique()->numberBetween($min = 10000000, $max = 999999999),
+        'rut'=> $faker->unique()->numberBetween($min = 100000000, $max = 999999999),
         'nombre' => $faker->firstName, 
         'apellido_paterno' => $faker->lastName,
         'apellido_materno' => $faker->lastName,
@@ -28,7 +28,5 @@ $factory->define(alumno::class, function (Faker $faker) {
         "provincia" => $faker->randomElement($array = array ('los rios','metropolitana','cordillera','provincia')),
         "comuna" => $faker->randomElement($array = array ('comuna 1','comuna 2','comuna 3','santiago')),
         "correo" => $faker-> safeEmail,
-        
-
     ];
 });

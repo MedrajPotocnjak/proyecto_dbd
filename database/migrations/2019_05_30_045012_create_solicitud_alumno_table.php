@@ -18,9 +18,9 @@ class CreateSolicitudAlumnoTable extends Migration
 			$table->integer('rut_alumno');
             $table->foreign('rut_alumno')
             ->references('rut')->on('alumno')->onDelete('cascade');
-			$table->integer('folio_certificado');
-            $table->foreign('folio_certificado')
-            ->references('folio')->on('certificado')->onDelete('cascade');
+			$table->integer('codigo_solicitud');
+            $table->foreign('codigo_solicitud')
+            ->references('codigo')->on('solicitud')->onDelete('cascade');
             $table->timestamps();
         });
     }

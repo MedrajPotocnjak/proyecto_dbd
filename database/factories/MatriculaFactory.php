@@ -2,13 +2,15 @@
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
-use App\matricula;
+use App\Matricula;
 use Faker\Generator as Faker;
 
-$factory->define(matricula::class, function (Faker $faker) {
+$factory->define(Matricula::class, function (Faker $faker) {
+	$CodigoPago = App\Pago::pluck('codigo')->toArray();
     return [
         //
-		"estado_matricula" => $faker->randomElement($array = array ('pagado','no pagado')),
-		"costo" => $faker->random_int(60000,65000),
+		'estado_matricula' => $faker->randomElement($array = array ('pagado','no pagado')),
+		'costo' => 65000,
+		'codigo_pago' => $faker->randomElement($CodigoPago),
     ];
 });

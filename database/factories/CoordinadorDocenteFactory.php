@@ -2,14 +2,16 @@
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
-use App\coordinador_docente;
+use App\CoordinadorDocente;
 use Faker\Generator as Faker;
 
-$factory->define(coordinador_docente::class, function (Faker $faker) {
+$factory->define(CoordinadorDocente::class, function (Faker $faker) {
     return [
+		'rut'=> $faker->unique()->numberBetween($min = 100000000, $max = 999999999),
         'nombre' => $faker->firstName, 
         'apellido_paterrno' => $faker->lastName,
         'apellido_materrno' => $faker->lastName,
+		'password' => '1234',
     ];
 });
 

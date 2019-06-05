@@ -13,7 +13,7 @@ class CreateAlumnoSeccionTable extends Migration
      */
     public function up()
     {
-        Schema::create('alumno_seccion', function (Blueprint $table) {
+        Schema::create('seccion_alumno', function (Blueprint $table) {
             $table->bigIncrements('codigo');
 			$table->integer('rut_alumno');
             $table->foreign('rut_alumno')
@@ -29,7 +29,7 @@ class CreateAlumnoSeccionTable extends Migration
             $table->float('nota_c1');
             $table->float('nota_c2');
             $table->float('nota_c3');
-            $table->string('estado_cursado',1);
+            $table->char('estado_cursado',1);
             $table->timestamps();
         });
     }
@@ -41,6 +41,6 @@ class CreateAlumnoSeccionTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('alumno_seccion');
+        Schema::dropIfExists('seccion_alumno');
     }
 }

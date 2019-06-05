@@ -2,10 +2,10 @@
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
-use App\asignatura;
+use App\Asignatura;
 use Faker\Generator as Faker;
 
-$factory->define(asignatura::class, function (Faker $faker) {
+$factory->define(Asignatura::class, function (Faker $faker) {
     return [
         //
         'nombre' => $faker->randomElement($array = array ('20/80','100/0','50/50','75/25')),
