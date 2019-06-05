@@ -7,10 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Departamento extends Model
 {
     //
-    protected $table= 'departamentos';
+    protected $table= 'departamento';
     protected $fillable='nombre';
     public function coordinador_docente(){
-    	return $this->hasOne('App\Coordinador_Docente');
+    	return $this->hasOne('App\Coordinador_Docente','rut_coordinador');
     }
     public function estudios(){
     	return $this->hasMany('App\Estudio');

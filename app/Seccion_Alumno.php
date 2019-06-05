@@ -7,12 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class Seccion_Alumno extends Model
 {
     //
-    protected $table='secciones_alumnos';
+    protected $table='alumno_seccion';
  	protected $fillable= ['aprobado','promedio','nota_p1','nota_p2','nota_p3','nota_c1','nota_c2','nota_c3','estado_cursado'];
  	public function secciones(){
- 		return $this->belongsTo('App\Seccion');
+ 		return $this->belongsTo('App\Seccion','codigo_seccion');
  	}  
  	public function alumnos(){
- 		return $this->belongsTo('App\Alumno');
+ 		return $this->belongsTo('App\Alumno','rut_alumno');
  	} 
 }
