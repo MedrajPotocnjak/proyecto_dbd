@@ -8,9 +8,9 @@ class Mensaje_Alumno extends Model
 {
     //
     public function alumnos(){
-    	return $this->belongsTo('App\Alumno');
+    	return $this->belongsTo('App\Alumno','rut_alumno');
     }
     public function mensajes(){
-    	return $this->belongsTo('App\Mensaje');
+    	return $this->belongsTo('App\Mensaje','codigo_mensaje');
     }
 }

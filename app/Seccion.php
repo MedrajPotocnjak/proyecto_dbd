@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Seccion extends Model
 {
     //
-    protected $table='secciones';
+    protected $table='seccion';
     protected $fillable=['nombre','cupos','tipo'];
     public function seccion_salas(){
     	return $this->hasMany('App\Seccion_Sala');
@@ -16,9 +16,9 @@ class Seccion extends Model
     	return $this->hasMany('App\Seccion_Alumno');
     }
     public function profesores(){
-    	return $this->belongsTo('App\Profesor');
+    	return $this->belongsTo('App\Profesor','rut_profesor');
     }
     public function asignaturas(){
-    	return $this->belongsTo('App\Asignatura');
+    	return $this->belongsTo('App\Asignatura','codigo_asignatura');
     }
 }
