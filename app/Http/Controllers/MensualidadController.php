@@ -75,9 +75,14 @@ class MensualidadController extends Controller
      * @param  \App\Mensualidad  $mensualidad
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Mensualidad $mensualidad)
+    public function update(Request $request, $id)
     {
         //
+        $mensualidad = Mensualidad::find('$id');
+        $mensualidad->numero_mensualidad = $request->numero_mensualidad;
+        $mensualidad->costo = $request->costo;
+        $mensualidad->save();
+        return response()->json($mensualidad);
     }
 
     /**

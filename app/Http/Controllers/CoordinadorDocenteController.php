@@ -78,9 +78,17 @@ class CoordinadorDocenteController extends Controller
      * @param  \App\CoordinadorDocente  $coordinador_docente
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, CoordinadorDocente $coordinador_docente)
+    public function update(Request $request, $id)
     {
         //
+        $coordinador = CoordinadorDocente::find('$id');
+        $coordinador->rut = $request->rut;
+        $coordinador->password = $request->password;
+        $coordinador->nombres = $request->nombres;
+        $coordinador->apellido_paterno = $request->apellido_paterno;
+        $coordinador->apellido_materno = $request->apellido_materno;
+        $coordinador->save();
+        return response()->json($coordinador);
     }
 
     /**

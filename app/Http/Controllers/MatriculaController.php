@@ -75,9 +75,14 @@ class MatriculaController extends Controller
      * @param  \App\Matricula  $matricula
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Matricula $matricula)
+    public function update(Request $request, $id)
     {
         //
+        $matricula = Matricula::find('$id');
+        $matricula->estado_matricula = $request->estado_matricula;
+        $matricula->costo = $request->costo;
+        $matricula->save();
+        return response()->json($matricula);
     }
 
     /**

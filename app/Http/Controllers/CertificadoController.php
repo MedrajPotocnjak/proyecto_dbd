@@ -77,9 +77,16 @@ class CertificadoController extends Controller
      * @param  \App\Certificado  $certificado
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Certificado $certificado)
+    public function update(Request $request, $id)
     {
         //
+        $certificado = Certificado::find('$id');
+        $certificado->codigo_verificacion = $request->codigo_verificacion;
+        $certificado->contenido = $request->contenido;
+        $certificado->fecha = $request->fecha;
+        $certificado->ruta_formato = $request->ruta_formato;
+        $certificado->save();
+        return response()->json($certificado);
     }
 
     /**

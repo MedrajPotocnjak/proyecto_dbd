@@ -78,9 +78,17 @@ class administrador extends Controller
      * @param  \App\Administrador  $administrador
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Administrador $administrador)
+    public function update(Request $request, $id)
     {
         //
+        $administrador = Administrador::find('$id');
+        $administrador->rut = $request->rut;
+        $administrador->password = $request->password;
+        $administrador->nombres = $request->nombres;
+        $administrador->apellido_paterno = $request->apellido_paterno;
+        $administrador->apellido_materno = $request->apellido_materno;
+        $administrador->save();
+        return response()->json($administrador);
     }
 
     /**

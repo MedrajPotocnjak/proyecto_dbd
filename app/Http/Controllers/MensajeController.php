@@ -75,9 +75,14 @@ class MensajeController extends Controller
      * @param  \App\Mensaje  $mensaje
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Mensaje $mensaje)
+    public function update(Request $request, $id)
     {
         //
+        $mensaje = Mensaje::find('$id');
+        $mensaje->asunto = $request->asunto;
+        $mensaje->fecha = $request->fecha;
+        $mensaje->save();
+        return response()->json($mensaje);
     }
 
     /**
