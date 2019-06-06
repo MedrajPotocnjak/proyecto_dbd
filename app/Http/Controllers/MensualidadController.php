@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\mensualidad;
+use App\Mensualidad;
 use Illuminate\Http\Request;
 
 class MensualidadController extends Controller
@@ -41,10 +41,10 @@ class MensualidadController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\mensualidad  $mensualidad
+     * @param  \App\Mensualidad  $mensualidad
      * @return \Illuminate\Http\Response
      */
-    public function show(mensualidad $mensualidad)
+    public function show(Mensualidad $mensualidad)
     {
         //
     }
@@ -52,10 +52,10 @@ class MensualidadController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\mensualidad  $mensualidad
+     * @param  \App\Mensualidad  $mensualidad
      * @return \Illuminate\Http\Response
      */
-    public function edit(mensualidad $mensualidad)
+    public function edit(Mensualidad $mensualidad)
     {
         //
     }
@@ -64,10 +64,10 @@ class MensualidadController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\mensualidad  $mensualidad
+     * @param  \App\Mensualidad  $mensualidad
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, mensualidad $mensualidad)
+    public function update(Request $request, Mensualidad $mensualidad)
     {
         //
     }
@@ -75,10 +75,10 @@ class MensualidadController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\mensualidad  $mensualidad
+     * @param  \App\Mensualidad  $mensualidad
      * @return \Illuminate\Http\Response
      */
-    public function destroy(mensualidad $mensualidad)
+    public function destroy(Mensualidad $mensualidad)
     {
         //
     }

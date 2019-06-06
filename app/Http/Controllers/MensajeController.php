@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\mensaje;
+use App\Mensaje;
 use Illuminate\Http\Request;
 
 class MensajeController extends Controller
@@ -41,10 +41,10 @@ class MensajeController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\mensaje  $mensaje
+     * @param  \App\Mensaje  $mensaje
      * @return \Illuminate\Http\Response
      */
-    public function show(mensaje $mensaje)
+    public function show(Mensaje $mensaje)
     {
         //
     }
@@ -52,10 +52,10 @@ class MensajeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\mensaje  $mensaje
+     * @param  \App\Mensaje  $mensaje
      * @return \Illuminate\Http\Response
      */
-    public function edit(mensaje $mensaje)
+    public function edit(Mensaje $mensaje)
     {
         //
     }
@@ -64,10 +64,10 @@ class MensajeController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\mensaje  $mensaje
+     * @param  \App\Mensaje  $mensaje
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, mensaje $mensaje)
+    public function update(Request $request, Mensaje $mensaje)
     {
         //
     }
@@ -75,10 +75,10 @@ class MensajeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\mensaje  $mensaje
+     * @param  \App\Mensaje  $mensaje
      * @return \Illuminate\Http\Response
      */
-    public function destroy(mensaje $mensaje)
+    public function destroy(Mensaje $mensaje)
     {
         //
     }

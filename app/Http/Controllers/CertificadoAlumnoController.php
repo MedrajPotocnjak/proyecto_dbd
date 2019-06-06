@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\certificado_alumno;
+use App\Certificado_Alumno;
 use Illuminate\Http\Request;
 
 class CertificadoAlumnoController extends Controller
@@ -41,10 +41,10 @@ class CertificadoAlumnoController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\certificado_alumno  $certificado_alumno
+     * @param  \App\Certificado_Alumno  $certificado_alumno
      * @return \Illuminate\Http\Response
      */
-    public function show(certificado_alumno $certificado_alumno)
+    public function show(Certificado_Alumno $certificado_alumno)
     {
         //
     }
@@ -52,10 +52,10 @@ class CertificadoAlumnoController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\certificado_alumno  $certificado_alumno
+     * @param  \App\Certificado_Alumno  $certificado_alumno
      * @return \Illuminate\Http\Response
      */
-    public function edit(certificado_alumno $certificado_alumno)
+    public function edit(Certificado_Alumno $certificado_alumno)
     {
         //
     }
@@ -64,10 +64,10 @@ class CertificadoAlumnoController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\certificado_alumno  $certificado_alumno
+     * @param  \App\Certificado_Alumno  $certificado_alumno
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, certificado_alumno $certificado_alumno)
+    public function update(Request $request, Certificado_Alumno $certificado_alumno)
     {
         //
     }
@@ -75,10 +75,10 @@ class CertificadoAlumnoController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\certificado_alumno  $certificado_alumno
+     * @param  \App\Certificado_Alumno  $certificado_alumno
      * @return \Illuminate\Http\Response
      */
-    public function destroy(certificado_alumno $certificado_alumno)
+    public function destroy(Certificado_Alumno $certificado_alumno)
     {
         //
     }

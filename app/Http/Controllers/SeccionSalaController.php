@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\seccion_sala;
+use App\Seccion_Sala;
 use Illuminate\Http\Request;
 
 class SeccionSalaController extends Controller
@@ -41,10 +41,10 @@ class SeccionSalaController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\seccion_sala  $seccion_sala
+     * @param  \App\Seccion_Sala  $seccion_sala
      * @return \Illuminate\Http\Response
      */
-    public function show(seccion_sala $seccion_sala)
+    public function show(Seccion_Sala $seccion_sala)
     {
         //
     }
@@ -52,10 +52,10 @@ class SeccionSalaController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\seccion_sala  $seccion_sala
+     * @param  \App\Seccion_Sala  $seccion_sala
      * @return \Illuminate\Http\Response
      */
-    public function edit(seccion_sala $seccion_sala)
+    public function edit(Seccion_Sala $seccion_sala)
     {
         //
     }
@@ -64,10 +64,10 @@ class SeccionSalaController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\seccion_sala  $seccion_sala
+     * @param  \App\Seccion_Sala  $seccion_sala
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, seccion_sala $seccion_sala)
+    public function update(Request $request, Seccion_Sala $seccion_sala)
     {
         //
     }
@@ -75,10 +75,10 @@ class SeccionSalaController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\seccion_sala  $seccion_sala
+     * @param  \App\Seccion_Sala  $seccion_sala
      * @return \Illuminate\Http\Response
      */
-    public function destroy(seccion_sala $seccion_sala)
+    public function destroy(Seccion_Sala $seccion_sala)
     {
         //
     }

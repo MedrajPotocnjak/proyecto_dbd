@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\administrador;
+use App\Administrador;
 use Illuminate\Http\Request;
 
 class administrador extends Controller
@@ -41,10 +41,10 @@ class administrador extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\administrador  $administrador
+     * @param  \App\Administrador  $administrador
      * @return \Illuminate\Http\Response
      */
-    public function show(administrador $administrador)
+    public function show(Administrador $administrador)
     {
         //
     }
@@ -52,10 +52,10 @@ class administrador extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\administrador  $administrador
+     * @param  \App\Administrador  $administrador
      * @return \Illuminate\Http\Response
      */
-    public function edit(administrador $administrador)
+    public function edit(Administrador $administrador)
     {
         //
     }
@@ -64,10 +64,10 @@ class administrador extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\administrador  $administrador
+     * @param  \App\Administrador  $administrador
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, administrador $administrador)
+    public function update(Request $request, Administrador $administrador)
     {
         //
     }
@@ -75,10 +75,10 @@ class administrador extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\administrador  $administrador
+     * @param  \App\Administrador  $administrador
      * @return \Illuminate\Http\Response
      */
-    public function destroy(administrador $administrador)
+    public function destroy(Administrador $administrador)
     {
         //
     }

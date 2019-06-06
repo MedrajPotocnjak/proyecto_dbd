@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\coordinador_docente;
+use App\CoordinadorDocente;
 use Illuminate\Http\Request;
 
 class CoordinadorDocenteController extends Controller
@@ -41,10 +41,10 @@ class CoordinadorDocenteController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\coordinador_docente  $coordinador_docente
+     * @param  \App\CoordinadorDocente  $coordinador_docente
      * @return \Illuminate\Http\Response
      */
-    public function show(coordinador_docente $coordinador_docente)
+    public function show(CoordinadorDocente $coordinador_docente)
     {
         //
     }
@@ -52,10 +52,10 @@ class CoordinadorDocenteController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\coordinador_docente  $coordinador_docente
+     * @param  \App\CoordinadorDocente  $coordinador_docente
      * @return \Illuminate\Http\Response
      */
-    public function edit(coordinador_docente $coordinador_docente)
+    public function edit(CoordinadorDocente $coordinador_docente)
     {
         //
     }
@@ -64,10 +64,10 @@ class CoordinadorDocenteController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\coordinador_docente  $coordinador_docente
+     * @param  \App\CoordinadorDocente  $coordinador_docente
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, coordinador_docente $coordinador_docente)
+    public function update(Request $request, CoordinadorDocente $coordinador_docente)
     {
         //
     }
@@ -75,10 +75,10 @@ class CoordinadorDocenteController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\coordinador_docente  $coordinador_docente
+     * @param  \App\CoordinadorDocente  $coordinador_docente
      * @return \Illuminate\Http\Response
      */
-    public function destroy(coordinador_docente $coordinador_docente)
+    public function destroy(CoordinadorDocente $coordinador_docente)
     {
         //
     }

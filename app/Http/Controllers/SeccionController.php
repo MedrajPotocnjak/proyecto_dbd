@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\seccion;
+use App\Seccion;
 use Illuminate\Http\Request;
 
 class SeccionController extends Controller
@@ -41,10 +41,10 @@ class SeccionController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\seccion  $seccion
+     * @param  \App\Seccion  $seccion
      * @return \Illuminate\Http\Response
      */
-    public function show(seccion $seccion)
+    public function show(Seccion $seccion)
     {
         //
     }
@@ -52,10 +52,10 @@ class SeccionController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\seccion  $seccion
+     * @param  \App\Seccion  $seccion
      * @return \Illuminate\Http\Response
      */
-    public function edit(seccion $seccion)
+    public function edit(Seccion $seccion)
     {
         //
     }
@@ -64,10 +64,10 @@ class SeccionController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\seccion  $seccion
+     * @param  \App\Seccion  $seccion
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, seccion $seccion)
+    public function update(Request $request, Seccion $seccion)
     {
         //
     }
@@ -75,10 +75,10 @@ class SeccionController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\seccion  $seccion
+     * @param  \App\Seccion  $seccion
      * @return \Illuminate\Http\Response
      */
-    public function destroy(seccion $seccion)
+    public function destroy(Seccion $seccion)
     {
         //
     }

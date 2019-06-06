@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\certificado;
+use App\Certificado;
 use Illuminate\Http\Request;
 
 class CertificadoController extends Controller
@@ -41,10 +41,10 @@ class CertificadoController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\certificado  $certificado
+     * @param  \App\Certificado  $certificado
      * @return \Illuminate\Http\Response
      */
-    public function show(certificado $certificado)
+    public function show(Certificado $certificado)
     {
         //
     }
@@ -52,10 +52,10 @@ class CertificadoController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\certificado  $certificado
+     * @param  \App\Certificado  $certificado
      * @return \Illuminate\Http\Response
      */
-    public function edit(certificado $certificado)
+    public function edit(Certificado $certificado)
     {
         //
     }
@@ -64,10 +64,10 @@ class CertificadoController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\certificado  $certificado
+     * @param  \App\Certificado  $certificado
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, certificado $certificado)
+    public function update(Request $request, Certificado $certificado)
     {
         //
     }
@@ -75,10 +75,10 @@ class CertificadoController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\certificado  $certificado
+     * @param  \App\Certificado  $certificado
      * @return \Illuminate\Http\Response
      */
-    public function destroy(certificado $certificado)
+    public function destroy(Certificado $certificado)
     {
         //
     }

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\matricula;
+use App\Matricula;
 use Illuminate\Http\Request;
 
 class MatriculaController extends Controller
@@ -41,10 +41,10 @@ class MatriculaController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\matricula  $matricula
+     * @param  \App\Matricula  $matricula
      * @return \Illuminate\Http\Response
      */
-    public function show(matricula $matricula)
+    public function show(Matricula $matricula)
     {
         //
     }
@@ -52,10 +52,10 @@ class MatriculaController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\matricula  $matricula
+     * @param  \App\Matricula  $matricula
      * @return \Illuminate\Http\Response
      */
-    public function edit(matricula $matricula)
+    public function edit(Matricula $matricula)
     {
         //
     }
@@ -64,10 +64,10 @@ class MatriculaController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\matricula  $matricula
+     * @param  \App\Matricula  $matricula
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, matricula $matricula)
+    public function update(Request $request, Matricula $matricula)
     {
         //
     }
@@ -75,10 +75,10 @@ class MatriculaController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\matricula  $matricula
+     * @param  \App\Matricula  $matricula
      * @return \Illuminate\Http\Response
      */
-    public function destroy(matricula $matricula)
+    public function destroy(Matricula $matricula)
     {
         //
     }

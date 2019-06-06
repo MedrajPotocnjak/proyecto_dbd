@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\solicitud_alumno;
+use App\Solicitud_Alumno;
 use Illuminate\Http\Request;
 
 class SolicitudAlumnoController extends Controller
@@ -41,10 +41,10 @@ class SolicitudAlumnoController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\solicitud_alumno  $solicitud_alumno
+     * @param  \App\Solicitud_Alumno  $solicitud_alumno
      * @return \Illuminate\Http\Response
      */
-    public function show(solicitud_alumno $solicitud_alumno)
+    public function show(Solicitud_Alumno $solicitud_alumno)
     {
         //
     }
@@ -52,10 +52,10 @@ class SolicitudAlumnoController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\solicitud_alumno  $solicitud_alumno
+     * @param  \App\Solicitud_Alumno  $solicitud_alumno
      * @return \Illuminate\Http\Response
      */
-    public function edit(solicitud_alumno $solicitud_alumno)
+    public function edit(Solicitud_Alumno $solicitud_alumno)
     {
         //
     }
@@ -64,10 +64,10 @@ class SolicitudAlumnoController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\solicitud_alumno  $solicitud_alumno
+     * @param  \App\Solicitud_Alumno  $solicitud_alumno
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, solicitud_alumno $solicitud_alumno)
+    public function update(Request $request, Solicitud_Alumno $solicitud_alumno)
     {
         //
     }
@@ -75,10 +75,10 @@ class SolicitudAlumnoController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\solicitud_alumno  $solicitud_alumno
+     * @param  \App\Solicitud_Alumno  $solicitud_alumno
      * @return \Illuminate\Http\Response
      */
-    public function destroy(solicitud_alumno $solicitud_alumno)
+    public function destroy(Solicitud_Alumno $solicitud_alumno)
     {
         //
     }
