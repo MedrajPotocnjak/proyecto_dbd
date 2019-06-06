@@ -39,6 +39,13 @@ class CarreraController extends Controller
     public function store(Request $request)
     {
         //
+        $carrera= new Carrera();
+        $carrera->nombre= $request->nombre;
+        $carrera->asignaturas_plan= $request->asignaturas_plan;
+        $carrera->cantidad_alumnos= $request->cantidad_alumnos;
+        $carrera->arancel= $request->arancel;
+        $carrera->save();
+        return response()->json($carrera);
     }
 
     /**

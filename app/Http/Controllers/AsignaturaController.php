@@ -39,6 +39,18 @@ class AsignaturaController extends Controller
     public function store(Request $request)
     {
         //
+        $asignatura= new Asignatura();
+        $asignatura->nombre= $request->nombre;
+        $asignatura->jornada= $request->jornada;
+        $asignatura->asistencia_minima= $request->asistencia_minima;
+        $asignatura->ponderacion= $request->ponderacion;
+        $asignatura->nivel= $request->nivel;
+        $asignatura->horas_teoria= $request->horas_teoria;
+        $asignatura->horas_laboratorio= $request->horas_laboratorio;
+        $asignatura->horas_ejercicios= $request->horas_ejercicios;
+        $asignatura->version_plan_estudios= $request->version_plan_estudios;
+        $asignatura->save();
+        return response()->json($asignatura);
     }
 
     /**

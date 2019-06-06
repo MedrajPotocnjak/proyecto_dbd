@@ -14,7 +14,7 @@ class CreateAlumnoTable extends Migration
     public function up()
     {
         Schema::create('alumno', function (Blueprint $table) {
-<<<<<<< HEAD
+<<<<<< HEAD
 			$table->bigIncrements('id');
 =======
             $table->bigIncrements('id');
@@ -26,7 +26,7 @@ class CreateAlumnoTable extends Migration
             $table->integer("nivel");
             $table->string("ingreso",5); /* 1/2019 */ 
             $table->string("password",14);
-            $table->integer("asignaturas_aprovadas");
+            $table->integer("asignaturas_aprobadas");
             $table->float("nas");
             $table->float("ppa");
             $table->float("nar");

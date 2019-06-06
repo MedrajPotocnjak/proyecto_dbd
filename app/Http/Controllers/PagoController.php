@@ -39,6 +39,13 @@ class PagoController extends Controller
     public function store(Request $request)
     {
         //
+        $pago= new Pago();
+        //$pago->rut_alumno= $request->rut_alumno;
+        $pago->tipo_pago= $request->tipo_pago;
+        $pago->forma_pago= $request->forma_pago;
+        $pago->fecha_pago= $request->fecha_pago;
+        $pago->save();
+        return response()->json($pago);
     }
 
     /**

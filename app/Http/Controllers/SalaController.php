@@ -39,6 +39,13 @@ class SalaController extends Controller
     public function store(Request $request)
     {
         //
+        $sala= new Sala();
+        $sala->nombre= $request->nombre;
+        $sala->ubicacion= $request->ubicacion;
+        $sala->cantidad_puestos= $request->cantidad_puestos;
+        $sala->cantidad_computadores= $request->cantidad_computadores;
+        $sala->save();
+        return response()->json($sala);
     }
 
     /**

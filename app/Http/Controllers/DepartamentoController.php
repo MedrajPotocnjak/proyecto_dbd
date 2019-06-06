@@ -39,6 +39,10 @@ class DepartamentoController extends Controller
     public function store(Request $request)
     {
         //
+        $departamento= new Departamento();
+        $departamento->nombre= $request->nombre;
+        $departamento->save();
+        return response()->json($departamento); 
     }
 
     /**

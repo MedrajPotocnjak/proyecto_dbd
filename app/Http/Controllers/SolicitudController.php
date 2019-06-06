@@ -40,6 +40,12 @@ class SolicitudController extends Controller
     public function store(Request $request)
     {
         //
+        $solicitud= new Solicitud();
+        $solicitud->fecha= $request->fecha;
+        $solicitud->contenido= $request->contenido;
+        $solicitud->ruta_formato= $request->ruta_formato;
+        $solicitud->save();
+        return response()->json($solicitud);
     }
 
     /**

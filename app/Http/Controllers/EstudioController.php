@@ -39,6 +39,14 @@ class EstudioController extends Controller
     public function store(Request $request)
     {
         //
+        $estudio= new Estudio();
+        $estudio->area= $request->area;
+        $estudio->titulo= $request->titulo;
+        $estudio->contenido= $request->contenido;
+        $estudio->ruta_estudio= $request->ruta_estudio;
+        $estudio->save();
+        return response()->json($estudio);
+
     }
 
     /**
