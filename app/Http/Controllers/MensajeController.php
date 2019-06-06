@@ -91,8 +91,11 @@ class MensajeController extends Controller
      * @param  \App\Mensaje  $mensaje
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Mensaje $mensaje)
+    public function destroy($id)
     {
         //
+        $mensaje = Mensaje::find('$id');
+        $mensaje->delete();
+        return "Borrado";
     }
 }

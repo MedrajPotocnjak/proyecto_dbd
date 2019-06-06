@@ -97,8 +97,11 @@ class administrador extends Controller
      * @param  \App\Administrador  $administrador
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Administrador $administrador)
+    public function destroy($id)
     {
         //
+        $administrador = Administrador::find('$id');
+        $administrador->delete();
+        return "Borrado";
     }
 }

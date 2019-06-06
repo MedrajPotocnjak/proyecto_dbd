@@ -91,8 +91,11 @@ class MensualidadController extends Controller
      * @param  \App\Mensualidad  $mensualidad
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Mensualidad $mensualidad)
+    public function destroy($id)
     {
         //
+        $mensualidad = Mensualidad::find('$id');
+        $mensualidad->delete();
+        return "Borrado";
     }
 }

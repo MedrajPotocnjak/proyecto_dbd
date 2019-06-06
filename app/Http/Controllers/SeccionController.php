@@ -93,8 +93,11 @@ class SeccionController extends Controller
      * @param  \App\Seccion  $seccion
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Seccion $seccion)
+    public function destroy($id)
     {
         //
+        $seccion = Seccion::find('$id');
+        $seccion->delete();
+        return "Borrado";
     }
 }

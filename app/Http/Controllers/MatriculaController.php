@@ -91,8 +91,11 @@ class MatriculaController extends Controller
      * @param  \App\Matricula  $matricula
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Matricula $matricula)
+    public function destroy($id)
     {
         //
+        $matricula = Matricula::find('$id');
+        $matricula->delete();
+        return "Borrado";
     }
 }

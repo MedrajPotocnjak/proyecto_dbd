@@ -95,8 +95,11 @@ class CertificadoController extends Controller
      * @param  \App\Certificado  $certificado
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Certificado $certificado)
+    public function destroy($id)
     {
         //
+        $certificado = Certificado::find('$id');
+        $certificado->delete();
+        return "Borrado";
     }
 }

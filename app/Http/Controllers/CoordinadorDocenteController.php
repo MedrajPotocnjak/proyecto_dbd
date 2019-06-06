@@ -97,8 +97,11 @@ class CoordinadorDocenteController extends Controller
      * @param  \App\CoordinadorDocente  $coordinador_docente
      * @return \Illuminate\Http\Response
      */
-    public function destroy(CoordinadorDocente $coordinador_docente)
+    public function destroy($id)
     {
         //
+        $coordinador = CoordinadorDocente::find('$id');
+        $coordinador->delete();
+        return "Borrado";
     }
 }
