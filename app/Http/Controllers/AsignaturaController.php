@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\asignatura;
+use App\Asignatura;
 use Illuminate\Http\Request;
 
 class AsignaturaController extends Controller
@@ -15,6 +15,9 @@ class AsignaturaController extends Controller
     public function index()
     {
         //
+        $asignaturas=Asignatura::all();
+
+        return response()->json($asignaturas);
     }
 
     /**
@@ -41,10 +44,10 @@ class AsignaturaController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\asignatura  $asignatura
+     * @param  \App\Asignatura  $asignatura
      * @return \Illuminate\Http\Response
      */
-    public function show(asignatura $asignatura)
+    public function show(Asignatura $asignatura)
     {
         //Buscar por id .w.
     }
@@ -52,10 +55,10 @@ class AsignaturaController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\asignatura  $asignatura
+     * @param  \App\Asignatura  $asignatura
      * @return \Illuminate\Http\Response
      */
-    public function edit(asignatura $asignatura)
+    public function edit(Asignatura $asignatura)
     {
         //
     }
@@ -64,10 +67,10 @@ class AsignaturaController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\asignatura  $asignatura
+     * @param  \App\Asignatura  $asignatura
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, asignatura $asignatura)
+    public function update(Request $request, Asignatura $asignatura)
     {
         // Recibir todos los datos 'dato'=> 'required' 
         //Guardar en el historial -> Id del que hace la modificacion, se crea
@@ -77,10 +80,10 @@ class AsignaturaController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\asignatura  $asignatura
+     * @param  \App\Asignatura  $asignatura
      * @return \Illuminate\Http\Response
      */
-    public function destroy(asignatura $asignatura)
+    public function destroy(Asignatura $asignatura)
     {
         //encontrar cosa por su ID
         //$cosa -> delete();

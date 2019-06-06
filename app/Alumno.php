@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Alumno extends Model
 {
     //
-<<<<<<< HEAD
+<<<<<<<< HEAD
     protected $table= 'alumnos';
 =======
     protected $table= 'alumno';

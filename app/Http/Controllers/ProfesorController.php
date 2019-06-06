@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\profesor;
+use App\Profesor;
 use Illuminate\Http\Request;
 
 class ProfesorController extends Controller
@@ -15,6 +15,9 @@ class ProfesorController extends Controller
     public function index()
     {
         //
+        $profesores=Profesor::all();
+
+        return response()->json($profesores);
     }
 
     /**
@@ -41,10 +44,10 @@ class ProfesorController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\profesor  $profesor
+     * @param  \App\Profesor  $profesor
      * @return \Illuminate\Http\Response
      */
-    public function show(profesor $profesor)
+    public function show(Profesor $profesor)
     {
         //
     }
@@ -52,10 +55,10 @@ class ProfesorController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\profesor  $profesor
+     * @param  \App\Profesor  $profesor
      * @return \Illuminate\Http\Response
      */
-    public function edit(profesor $profesor)
+    public function edit(Profesor $profesor)
     {
         //
     }
@@ -64,10 +67,10 @@ class ProfesorController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\profesor  $profesor
+     * @param  \App\Profesor  $profesor
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, profesor $profesor)
+    public function update(Request $request, Profesor $profesor)
     {
         //
     }
@@ -75,10 +78,10 @@ class ProfesorController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\profesor  $profesor
+     * @param  \App\Profesor  $profesor
      * @return \Illuminate\Http\Response
      */
-    public function destroy(profesor $profesor)
+    public function destroy(Profesor $profesor)
     {
         //
     }

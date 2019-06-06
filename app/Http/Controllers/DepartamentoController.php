@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\departamento;
+use App\Departamento;
 use Illuminate\Http\Request;
 
 class DepartamentoController extends Controller
@@ -15,6 +15,9 @@ class DepartamentoController extends Controller
     public function index()
     {
         //
+        $departamentos=Departamento::all();
+
+        return response()->json($departamentos);
     }
 
     /**
@@ -41,10 +44,10 @@ class DepartamentoController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\departamento  $departamento
+     * @param  \App\Departamento  $departamento
      * @return \Illuminate\Http\Response
      */
-    public function show(departamento $departamento)
+    public function show(Departamento $departamento)
     {
         //
     }
@@ -52,10 +55,10 @@ class DepartamentoController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\departamento  $departamento
+     * @param  \App\Departamento  $departamento
      * @return \Illuminate\Http\Response
      */
-    public function edit(departamento $departamento)
+    public function edit(Departamento $departamento)
     {
         //
     }
@@ -64,10 +67,10 @@ class DepartamentoController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\departamento  $departamento
+     * @param  \App\Departamento  $departamento
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, departamento $departamento)
+    public function update(Request $request, Departamento $departamento)
     {
         //
     }
@@ -75,10 +78,10 @@ class DepartamentoController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\departamento  $departamento
+     * @param  \App\Departamento  $departamento
      * @return \Illuminate\Http\Response
      */
-    public function destroy(departamento $departamento)
+    public function destroy(Departamento $departamento)
     {
         //
     }

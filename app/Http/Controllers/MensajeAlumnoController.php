@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\mensaje_alumno;
+use App\Mensaje_Alumno;
 use Illuminate\Http\Request;
 
 class MensajeAlumnoController extends Controller
@@ -15,6 +15,9 @@ class MensajeAlumnoController extends Controller
     public function index()
     {
         //
+        $mensajes_alumnos=Mensaje_Alumno::all();
+
+        return response()->json($mensajes_alumnos);
     }
 
     /**
@@ -41,10 +44,10 @@ class MensajeAlumnoController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\mensaje_alumno  $mensaje_alumno
+     * @param  \App\Mensaje_Alumno  $mensaje_alumno
      * @return \Illuminate\Http\Response
      */
-    public function show(mensaje_alumno $mensaje_alumno)
+    public function show(Mensaje_Alumno $mensaje_alumno)
     {
         //
     }
@@ -52,10 +55,10 @@ class MensajeAlumnoController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\mensaje_alumno  $mensaje_alumno
+     * @param  \App\Mensaje_Alumno  $mensaje_alumno
      * @return \Illuminate\Http\Response
      */
-    public function edit(mensaje_alumno $mensaje_alumno)
+    public function edit(Mensaje_Alumno $mensaje_alumno)
     {
         //
     }
@@ -64,10 +67,10 @@ class MensajeAlumnoController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\mensaje_alumno  $mensaje_alumno
+     * @param  \App\Mensaje_Alumno  $mensaje_alumno
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, mensaje_alumno $mensaje_alumno)
+    public function update(Request $request, Mensaje_Alumno $mensaje_alumno)
     {
         //
     }
@@ -75,10 +78,10 @@ class MensajeAlumnoController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\mensaje_alumno  $mensaje_alumno
+     * @param  \App\Mensaje_Alumno  $mensaje_alumno
      * @return \Illuminate\Http\Response
      */
-    public function destroy(mensaje_alumno $mensaje_alumno)
+    public function destroy(Mensaje_Alumno $mensaje_alumno)
     {
         //
     }

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\estudio;
+use App\Estudio;
 use Illuminate\Http\Request;
 
 class EstudioController extends Controller
@@ -15,6 +15,9 @@ class EstudioController extends Controller
     public function index()
     {
         //
+        $estudios=Estudio::all();
+
+        return response()->json($estudios);
     }
 
     /**
@@ -41,10 +44,10 @@ class EstudioController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\estudio  $estudio
+     * @param  \App\Estudio  $estudio
      * @return \Illuminate\Http\Response
      */
-    public function show(estudio $estudio)
+    public function show(Estudio $estudio)
     {
         //
     }
@@ -52,10 +55,10 @@ class EstudioController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\estudio  $estudio
+     * @param  \App\Estudio  $estudio
      * @return \Illuminate\Http\Response
      */
-    public function edit(estudio $estudio)
+    public function edit(Estudio $estudio)
     {
         //
     }
@@ -64,10 +67,10 @@ class EstudioController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\estudio  $estudio
+     * @param  \App\Estudio  $estudio
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, estudio $estudio)
+    public function update(Request $request, Estudio $estudio)
     {
         //
     }
@@ -75,10 +78,10 @@ class EstudioController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\estudio  $estudio
+     * @param  \App\Estudio  $estudio
      * @return \Illuminate\Http\Response
      */
-    public function destroy(estudio $estudio)
+    public function destroy(Estudio $estudio)
     {
         //
     }

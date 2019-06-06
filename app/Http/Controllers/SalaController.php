@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\sala;
+use App\Sala;
 use Illuminate\Http\Request;
 
 class SalaController extends Controller
@@ -15,6 +15,9 @@ class SalaController extends Controller
     public function index()
     {
         //
+        $salas=Sala::all(); 
+
+        return response()->json($salas);
     }
 
     /**
@@ -41,10 +44,10 @@ class SalaController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\sala  $sala
+     * @param  \App\Sala  $sala
      * @return \Illuminate\Http\Response
      */
-    public function show(sala $sala)
+    public function show(Sala $sala)
     {
         //
     }
@@ -52,10 +55,10 @@ class SalaController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\sala  $sala
+     * @param  \App\Sala  $sala
      * @return \Illuminate\Http\Response
      */
-    public function edit(sala $sala)
+    public function edit(Sala $sala)
     {
         //
     }
@@ -64,10 +67,10 @@ class SalaController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\sala  $sala
+     * @param  \App\Sala  $sala
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, sala $sala)
+    public function update(Request $request, Sala $sala)
     {
         //
     }
@@ -75,10 +78,10 @@ class SalaController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\sala  $sala
+     * @param  \App\Sala  $sala
      * @return \Illuminate\Http\Response
      */
-    public function destroy(sala $sala)
+    public function destroy(Sala $sala)
     {
         //
     }

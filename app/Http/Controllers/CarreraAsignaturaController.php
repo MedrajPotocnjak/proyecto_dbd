@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\carrera_asignatura;
+use App\Carrera_Asignatura;
 use Illuminate\Http\Request;
 
 class CarreraAsignaturaController extends Controller
@@ -15,6 +15,9 @@ class CarreraAsignaturaController extends Controller
     public function index()
     {
         //
+        $carrera_asignaturas=Carrera_Asignatura::all();
+
+        return response()->json($carrera_asignatura);
     }
 
     /**
@@ -41,10 +44,10 @@ class CarreraAsignaturaController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\carrera_asignatura  $carrera_asignatura
+     * @param  \App\Carrera_Asignatura  $carrera_asignatura
      * @return \Illuminate\Http\Response
      */
-    public function show(carrera_asignatura $carrera_asignatura)
+    public function show(Carrera_Asignatura $carrera_asignatura)
     {
         //
     }
@@ -52,10 +55,10 @@ class CarreraAsignaturaController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\carrera_asignatura  $carrera_asignatura
+     * @param  \App\Carrera_Asignatura  $carrera_asignatura
      * @return \Illuminate\Http\Response
      */
-    public function edit(carrera_asignatura $carrera_asignatura)
+    public function edit(Carrera_Asignatura $carrera_asignatura)
     {
         //
     }
@@ -64,10 +67,10 @@ class CarreraAsignaturaController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\carrera_asignatura  $carrera_asignatura
+     * @param  \App\Carrera_Asignatura  $carrera_asignatura
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, carrera_asignatura $carrera_asignatura)
+    public function update(Request $request, Carrera_Asignatura $carrera_asignatura)
     {
         //
     }
@@ -75,10 +78,10 @@ class CarreraAsignaturaController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\carrera_asignatura  $carrera_asignatura
+     * @param  \App\Carrera_Asignatura  $carrera_asignatura
      * @return \Illuminate\Http\Response
      */
-    public function destroy(carrera_asignatura $carrera_asignatura)
+    public function destroy(Carrera_Asignatura $carrera_asignatura)
     {
         //
     }

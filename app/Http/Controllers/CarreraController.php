@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\carrera;
+use App\Carrera;
 use Illuminate\Http\Request;
 
 class CarreraController extends Controller
@@ -15,6 +15,9 @@ class CarreraController extends Controller
     public function index()
     {
         //
+        $carreras=Carrera::all();
+
+        return response()->json($carreras);
     }
 
     /**
@@ -41,10 +44,10 @@ class CarreraController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\carrera  $carrera
+     * @param  \App\Carrera  $carrera
      * @return \Illuminate\Http\Response
      */
-    public function show(carrera $carrera)
+    public function show(Carrera $carrera)
     {
         //
     }
@@ -52,10 +55,10 @@ class CarreraController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\carrera  $carrera
+     * @param  \App\Carrera  $carrera
      * @return \Illuminate\Http\Response
      */
-    public function edit(carrera $carrera)
+    public function edit(Carrera $carrera)
     {
         //
     }
@@ -64,10 +67,10 @@ class CarreraController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\carrera  $carrera
+     * @param  \App\Carrera  $carrera
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, carrera $carrera)
+    public function update(Request $request, Carrera $carrera)
     {
         //
     }
@@ -75,10 +78,10 @@ class CarreraController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\carrera  $carrera
+     * @param  \App\Carrera  $carrera
      * @return \Illuminate\Http\Response
      */
-    public function destroy(carrera $carrera)
+    public function destroy(Carrera $carrera)
     {
         //
     }

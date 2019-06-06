@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\pago;
+use App\Pago;
 use Illuminate\Http\Request;
 
 class PagoController extends Controller
@@ -15,6 +15,9 @@ class PagoController extends Controller
     public function index()
     {
         //
+        $pagos=Pago::all();
+
+        return response()->json($pagos);
     }
 
     /**
@@ -41,10 +44,10 @@ class PagoController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\pago  $pago
+     * @param  \App\Pago  $pago
      * @return \Illuminate\Http\Response
      */
-    public function show(pago $pago)
+    public function show(Pago $pago)
     {
         //
     }
@@ -52,10 +55,10 @@ class PagoController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\pago  $pago
+     * @param  \App\Pago  $pago
      * @return \Illuminate\Http\Response
      */
-    public function edit(pago $pago)
+    public function edit(Pago $pago)
     {
         //
     }
@@ -64,10 +67,10 @@ class PagoController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\pago  $pago
+     * @param  \App\Pago  $pago
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, pago $pago)
+    public function update(Request $request, Pago $pago)
     {
         //
     }
@@ -75,10 +78,10 @@ class PagoController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\pago  $pago
+     * @param  \App\Pago  $pago
      * @return \Illuminate\Http\Response
      */
-    public function destroy(pago $pago)
+    public function destroy(Pago $pago)
     {
         //
     }
