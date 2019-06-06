@@ -15,6 +15,9 @@ class SeccionController extends Controller
     public function index()
     {
         //
+        $seccion = Seccion::all();
+
+        return response()->json($seccion);
     }
 
     /**
@@ -36,6 +39,12 @@ class SeccionController extends Controller
     public function store(Request $request)
     {
         //
+        $seccion = new Seccion();
+        $seccion->nombre = $request->nombre;
+        $seccion->cupos = $request->cupos;
+        $seccion->tipos = $reques->tipo;
+        $seccion->save();
+        return response()->json($seccion);
     }
 
     /**

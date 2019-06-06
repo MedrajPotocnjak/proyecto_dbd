@@ -15,6 +15,9 @@ class MatriculaController extends Controller
     public function index()
     {
         //
+        $matricula = Matricula::all();
+
+        return response()->json($matricula);
     }
 
     /**
@@ -36,6 +39,11 @@ class MatriculaController extends Controller
     public function store(Request $request)
     {
         //
+        $matricula = new Matricula();
+        $matricula->estado_matricula = $request->estado_matricula;
+        $matricula->costo = $request->costo;
+        $matricula->save();
+        return response()->json($matricula);
     }
 
     /**

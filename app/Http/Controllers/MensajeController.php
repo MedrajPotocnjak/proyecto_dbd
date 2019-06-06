@@ -15,6 +15,9 @@ class MensajeController extends Controller
     public function index()
     {
         //
+        $mensaje = Mensaje::all();
+
+        return response()->json($mensaje);
     }
 
     /**
@@ -36,6 +39,11 @@ class MensajeController extends Controller
     public function store(Request $request)
     {
         //
+        $mensaje = new Mensaje();
+        $mensaje->asunto = $request->asunto;
+        $mensaje->fecha = $request->fecha;
+        $mensaje->save();
+        return response()->json($mensaje);
     }
 
     /**

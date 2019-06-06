@@ -15,6 +15,9 @@ class CertificadoController extends Controller
     public function index()
     {
         //
+        $certificado = Certificado::all();
+
+        return response()->json($certificado);
     }
 
     /**
@@ -36,6 +39,13 @@ class CertificadoController extends Controller
     public function store(Request $request)
     {
         //
+        $certificado = new Certificado();
+        $certificado->codigo_verificacion = $request->codigo_verificacion;
+        $certificado->contenido = $request->contenido;
+        $certificado->fecha = $request->fecha;
+        $certificado->ruta_formato = $request->ruta_formato;
+        $certificado->save();
+        return response()->json($certificado);
     }
 
     /**

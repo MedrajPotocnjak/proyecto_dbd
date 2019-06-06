@@ -15,6 +15,9 @@ class CoordinadorDocenteController extends Controller
     public function index()
     {
         //
+        $coordinador = CoordinadorDocente::all();
+
+        return response()->json($coordinador);
     }
 
     /**
@@ -36,6 +39,14 @@ class CoordinadorDocenteController extends Controller
     public function store(Request $request)
     {
         //
+        $coordinador = new CoordinadorDocente();
+        $coordinador->rut = $request->rut;
+        $coordinador->password = $request->password;
+        $coordinador->nombres = $request->nombres;
+        $coordinador->apellido_paterno = $request->apellido_paterno;
+        $coordinador->apellido_materno = $request->apellido_materno;
+        $coordinador->save();
+        return response()->json($coordinador);
     }
 
     /**

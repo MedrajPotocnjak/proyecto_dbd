@@ -15,6 +15,9 @@ class MensualidadController extends Controller
     public function index()
     {
         //
+        $mensualidad = Mensualidad::all();
+
+        return response()->json($mensualidad);
     }
 
     /**
@@ -36,6 +39,11 @@ class MensualidadController extends Controller
     public function store(Request $request)
     {
         //
+        $mensualidad = new Mensualidad();
+        $mensualidad->numero_mensualidad = $request->numero_mensualidad;
+        $mensualidad->costo = $request->costo;
+        $mensualidad->save();
+        return response()->json($mensualidad);
     }
 
     /**

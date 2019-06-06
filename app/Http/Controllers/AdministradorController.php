@@ -15,6 +15,9 @@ class administrador extends Controller
     public function index()
     {
         //
+        $administrador = Administrador::all();
+
+        return response()->json($administrador);
     }
 
     /**
@@ -36,6 +39,14 @@ class administrador extends Controller
     public function store(Request $request)
     {
         //
+        $administrador = new Administrador();
+        $administrador->rut = $request->rut;
+        $administrador->password = $request->password;
+        $administrador->nombres = $request->nombres;
+        $administrador->apellido_paterno = $request->apellido_paterno;
+        $administrador->apellido_materno = $request->apellido_materno;
+        $administrador->save();
+        return response()->json($administrador);
     }
 
     /**
