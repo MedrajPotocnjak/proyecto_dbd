@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Database\Seeder;
-
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -11,25 +10,30 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
-        /* Para utilizar los factorys creados::
-        factory('app\administrador',2)->create();
-        factory('app\alumno',10)->create();
-        factory('app\asignatura',10)->create();
-        factory('app\carrera',10)->create();
-        factory('app\certificado',10)->create();
-        factory('app\coordinador_docente',10)->create();
-        factory('app\departamento',10)->create();
-        factory('app\estudio',10)->create();
-        factory('app\matricula',10)->create();
-        factory('app\mensaje',10)->create();
-        factory('app\mensualidad',10)->create();
-        factory('app\pago',20)->create();
-        factory('app\profesor',10)->create();
-        factory('app\sala',10)->create();
-        factory('app\seccion',10)->create();
-        factory('app\solicitud',10)->create();
-        factory('app\user',10)->create();
-        */
+        
+        
+        factory('app\Alumno',10)->create();
+        factory('app\Asignatura',10)->create();
+        factory('app\Carrera',10)->create();
+        factory('app\CarreraAsignatura',10)->create();
+        factory('app\Certificado',10)->create();
+        factory('app\CertificadoAlumno',10)->create();
+        factory('app\Coordinador_docente',3)->create();
+        factory('app\Departamento',10)->create();
+        factory('app\Estudio',10)->create();
+        factory('app\Matricula',10)->create();
+        factory('app\Mensaje',10)->create();
+        factory('app\MensajeAlumno',10)->create();
+        factory('app\Mensualidad',10)->create();
+        factory('app\Pago',20)->create();
+        factory('app\Profesor',10)->create();
+        factory('app\Sala',10)->create();
+        factory('app\Seccion',10)->create();
+        factory('app\SeccionSala',10)->create();
+        factory('app\SeccionAlumno',10)->create();
+        factory('app\Solicitud',10)->create();
+        factory('app\User',10)->create();
+        factory('app\Administrador',2)->create();
+
     }
 }

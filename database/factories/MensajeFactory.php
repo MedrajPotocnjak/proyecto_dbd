@@ -9,8 +9,8 @@ $factory->define(mensaje::class, function (Faker $faker) {
 	$RutProfesores = App\Profesor::pluck('rut')->toArray();
     return [
         //
-		'asunto'=> $faker->sentence($nbWords = 6, $variableNbWords = true );
-		'contenido'=> $faker->sentence($nbWords = 200, $variableNbWords = true );
+		'asunto'=> $faker->sentence($nbWords = 6, $variableNbWords = true ),
+		'contenido'=> $faker->sentence($nbWords = 200, $variableNbWords = true ),
 		'fecha'=>$faker->dateTime($max = 'now', $timezone = null),
 		'rut_profesor' => $faker->randomElement($RutProfesores),
     ];
