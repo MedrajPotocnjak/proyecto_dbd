@@ -21,7 +21,7 @@ class CreateProfesorTable extends Migration
             $table->string("apellido_materno", 15);; 
             $table->string("password",14);
             $table->string("area",30);
-            $table->timestamps("fecha_nacimiento");
+            $table->dateTime("fecha_nacimiento");
             $table->string("nacionalidad",20);
             $table->char("sexo");
             $table->string("telefono",12);

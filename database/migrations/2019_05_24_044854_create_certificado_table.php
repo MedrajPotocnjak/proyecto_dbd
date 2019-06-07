@@ -17,7 +17,7 @@ class CreateCertificadoTable extends Migration
             $table->bigIncrements('folio');
             $table->string('codigo_verificacion',32);
             $table->text('contenido');
-            $table->timestamps('fecha');
+            $table->dateTime('fecha');
             $table->string('ruta_formato',4);
             $table->timestamps();
         });
