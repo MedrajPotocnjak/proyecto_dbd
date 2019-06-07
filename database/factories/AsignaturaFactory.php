@@ -16,6 +16,6 @@ $factory->define(Asignatura::class, function (Faker $faker) {
         'horas_teoria' => $faker->numberBetween($min = 0, $max = 6),
         'horas_laboratorio' => $faker->numberBetween($min = 0, $max = 6),
         'horas_ejercicios' => $faker->numberBetween($min = 0, $max = 6),
-        'version_plan_estudios' => $faker->,randomElement($array = array ('2001.1','2012.2','2015.3','2018.4')),
+        'version_plan_estudios' => $faker->randomElement($array = array ('2001.1','2012.2','2015.3','2018.4')),
     ];
 });
