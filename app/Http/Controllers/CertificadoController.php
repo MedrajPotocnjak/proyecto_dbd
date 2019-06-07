@@ -80,7 +80,7 @@ class CertificadoController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $certificado = Certificado::find('$id');
+        $certificado = Certificado::find($id);
         $certificado->codigo_verificacion = $request->codigo_verificacion;
         $certificado->contenido = $request->contenido;
         $certificado->fecha = $request->fecha;
@@ -98,7 +98,7 @@ class CertificadoController extends Controller
     public function destroy($id)
     {
         //
-        $certificado = Certificado::find('$id');
+        $certificado = Certificado::find($id);
         $certificado->delete();
         return "Borrado";
     }
