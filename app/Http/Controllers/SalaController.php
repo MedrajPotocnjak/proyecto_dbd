@@ -77,9 +77,16 @@ class SalaController extends Controller
      * @param  \App\Sala  $sala
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Sala $sala)
+    public function update(Request $request, $id)
     {
         //
+        $sala= Sala::find($id);
+        $sala->nombre= $request->nombre;
+        $sala->ubicacion= $request->ubicacion;
+        $sala->cantidad_puestos= $request->cantidad_puestos;
+        $sala->cantidad_computadores= $request->cantidad_computadores;
+        $sala->save();
+        return response()->json($sala);
     }
 
     /**
@@ -91,5 +98,8 @@ class SalaController extends Controller
     public function destroy(Sala $sala)
     {
         //
+        $sala = Sala::find($id);
+        $sala->delete();
+        return 'Borrado';
     }
 }

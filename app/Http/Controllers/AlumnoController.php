@@ -93,9 +93,32 @@ class AlumnoController extends Controller
      * @param  \App\Alumno  $alumno
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Alumno $alumno)
+    public function update(Request $request, $id)
     {
         //
+        $alumno= Alumno::find('$id');
+        $alumno->rut= $request->rut;
+        $alumno->nombre= $request->nombre;
+        $alumno->apellido_paterno= $request->apellido_paterno;
+        $alumno->apellido_materno= $request->apellido_materno;
+        $alumno->nivel= $request->nivel;
+        $alumno->ingreso= $request->ingreso;
+        $alumno->password= $request->password;
+        $alumno->asignaturas_aprobadas= $request->asignaturas_aprobadas;
+        $alumno->nas= $request->nas;
+        $alumno->ppa= $request->ppa;
+        $alumno->nar= $request->nar;
+        $alumno->fecha_nacimiento= $request->fecha_nacimiento;
+        $alumno->nacionalidad= $request->nacionalidad;
+        $alumno->estado_civil= $request->estado_civil;
+        $alumno->sexo= $request->sexo;
+        $alumno->telefono= $request->telefono;
+        $alumno->region= $request->region;
+        $alumno->provincia= $request->provincia;
+        $alumno->comuna= $request->comuna;
+        $alumno->correo= $request->correo;
+        $alumno->save();
+        return response()->json($alumno);
     }
 
     /**
@@ -104,8 +127,11 @@ class AlumnoController extends Controller
      * @param  \App\Alumno  $alumno
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Alumno $alumno)
+    public function destroy($id)
     {
         //
+        $alumno = Alumno::find($id);
+        $alumno->delete();
+        return 'Borrado';
     }
 }

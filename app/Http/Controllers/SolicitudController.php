@@ -77,9 +77,15 @@ class SolicitudController extends Controller
      * @param  \App\Solicitud  $solicitud
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Solicitud $solicitud)
+    public function update(Request $request, $id)
     {
         //
+        $solicitud= Solicitud::find($id);
+        $solicitud->fecha= $request->fecha;
+        $solicitud->contenido= $request->contenido;
+        $solicitud->ruta_formato= $request->ruta_formato;
+        $solicitud->save();
+        return response()->json($solicitud);
     }
 
     /**
@@ -91,5 +97,8 @@ class SolicitudController extends Controller
     public function destroy(Solicitud $solicitud)
     {
         //
+        $solicitud = Solicitud::find($id);
+        $solicitud->delete();
+        return 'Borrado';
     }
 }

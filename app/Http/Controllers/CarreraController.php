@@ -77,9 +77,16 @@ class CarreraController extends Controller
      * @param  \App\Carrera  $carrera
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Carrera $carrera)
+    public function update(Request $request, $id)
     {
         //
+        $carrera= Carrera::find($id);
+        $carrera->nombre= $request->nombre;
+        $carrera->asignaturas_plan= $request->asignaturas_plan;
+        $carrera->cantidad_alumnos= $request->cantidad_alumnos;
+        $carrera->arancel= $request->arancel;
+        $carrera->save();
+        return response()->json($carrera);
     }
 
     /**
@@ -88,8 +95,11 @@ class CarreraController extends Controller
      * @param  \App\Carrera  $carrera
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Carrera $carrera)
+    public function destroy($id)
     {
         //
+        $carrera = Carrera::find($id);
+        $carrera->delete();
+        return 'Borrado';
     }
 }

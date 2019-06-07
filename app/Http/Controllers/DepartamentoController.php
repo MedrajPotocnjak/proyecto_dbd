@@ -74,9 +74,13 @@ class DepartamentoController extends Controller
      * @param  \App\Departamento  $departamento
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Departamento $departamento)
+    public function update(Request $request, $id)
     {
         //
+        $departamento= Departamento::find($id);
+        $departamento->nombre= $request->nombre;
+        $departamento->save();
+        return response()->json($departamento);
     }
 
     /**
@@ -85,8 +89,11 @@ class DepartamentoController extends Controller
      * @param  \App\Departamento  $departamento
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Departamento $departamento)
+    public function destroy( $id)
     {
         //
+        $departamento = Departamento::find($id);
+        $departamento->delete();
+        return 'Borrado';
     }
 }

@@ -78,9 +78,16 @@ class EstudioController extends Controller
      * @param  \App\Estudio  $estudio
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Estudio $estudio)
+    public function update(Request $request, $id)
     {
         //
+        $estudio= Estudio::find($id);
+        $estudio->area= $request->area;
+        $estudio->titulo= $request->titulo;
+        $estudio->contenido= $request->contenido;
+        $estudio->ruta_estudio= $request->ruta_estudio;
+        $estudio->save();
+        return response()->json($estudio);
     }
 
     /**
@@ -92,5 +99,8 @@ class EstudioController extends Controller
     public function destroy(Estudio $estudio)
     {
         //
+        $estudio = Estudio::find($id);
+        $estudio->delete();
+        return 'Borrado';
     }
 }

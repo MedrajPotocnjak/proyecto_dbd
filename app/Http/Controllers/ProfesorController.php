@@ -87,9 +87,26 @@ class ProfesorController extends Controller
      * @param  \App\Profesor  $profesor
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Profesor $profesor)
+    public function update(Request $request, $id)
     {
         //
+        $profesor= Profesor::find($id);
+        $profesor->rut= $request->rut;
+        $profesor->nombres= $request->nombres;
+        $profesor->apellido_paterno= $request->apellido_paterno;
+        $profesor->apellido_materno= $request->apellido_materno;
+        $profesor->password= $request->password;
+        $profesor->area= $request->area;
+        $profesor->fecha_nacimiento= $request->fecha_nacimiento;
+        $profesor->nacionalidad= $request->nacionalidad;
+        $profesor->sexo= $request->sexo;
+        $profesor->telefono= $request->telefono;
+        $profesor->region= $request->region;
+        $profesor->provincia= $request->provincia;
+        $profesor->comuna= $request->comuna;
+        $profesor->correo= $request->correo;
+        $profesor->save();
+        return response()->json($profesor);
     }
 
     /**
@@ -98,8 +115,11 @@ class ProfesorController extends Controller
      * @param  \App\Profesor  $profesor
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Profesor $profesor)
+    public function destroy($id)
     {
         //
+        $profesor = Profesor::find($id);
+        $profesor->delete();
+        return 'Borrado';
     }
 }

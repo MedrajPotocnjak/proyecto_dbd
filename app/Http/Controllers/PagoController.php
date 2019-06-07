@@ -77,9 +77,16 @@ class PagoController extends Controller
      * @param  \App\Pago  $pago
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Pago $pago)
+    public function update(Request $request, $id)
     {
         //
+        $pago= Pago::find($id);
+        //$pago->rut_alumno= $request->rut_alumno;
+        $pago->tipo_pago= $request->tipo_pago;
+        $pago->forma_pago= $request->forma_pago;
+        $pago->fecha_pago= $request->fecha_pago;
+        $pago->save();
+        return response()->json($pago);
     }
 
     /**
@@ -88,8 +95,11 @@ class PagoController extends Controller
      * @param  \App\Pago  $pago
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Pago $pago)
+    public function destroy($id)
     {
         //
+        $pago = Pago::find($id);
+        $pago->delete();
+        return 'Borrado';
     }
 }

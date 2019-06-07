@@ -82,11 +82,23 @@ class AsignaturaController extends Controller
      * @param  \App\Asignatura  $asignatura
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Asignatura $asignatura)
+    public function update(Request $request, $id)
     {
         // Recibir todos los datos 'dato'=> 'required' 
         //Guardar en el historial -> Id del que hace la modificacion, se crea
         //Retornar mensajes?
+        $asignatura= Asignatura::find($id);
+        $asignatura->nombre= $request->nombre;
+        $asignatura->jornada= $request->jornada;
+        $asignatura->asistencia_minima= $request->asistencia_minima;
+        $asignatura->ponderacion= $request->ponderacion;
+        $asignatura->nivel= $request->nivel;
+        $asignatura->horas_teoria= $request->horas_teoria;
+        $asignatura->horas_laboratorio= $request->horas_laboratorio;
+        $asignatura->horas_ejercicios= $request->horas_ejercicios;
+        $asignatura->version_plan_estudios= $request->version_plan_estudios;
+        $asignatura->save();
+        return response()->json($asignatura);
     }
 
     /**
@@ -95,10 +107,13 @@ class AsignaturaController extends Controller
      * @param  \App\Asignatura  $asignatura
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Asignatura $asignatura)
+    public function destroy($id)
     {
         //encontrar cosa por su ID
         //$cosa -> delete();
+        $asignatura = Asignatura::find($id);
+        $asignatura->delete();
+        return 'Borrado';
     }
 }
 //Importar el elemento de la migracion correspondiente $horario = horario::all();
