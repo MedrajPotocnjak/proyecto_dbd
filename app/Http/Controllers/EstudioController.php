@@ -96,7 +96,7 @@ class EstudioController extends Controller
      * @param  \App\Estudio  $estudio
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Estudio $estudio)
+    public function destroy($id)
     {
         //
         $estudio = Estudio::find($id);
