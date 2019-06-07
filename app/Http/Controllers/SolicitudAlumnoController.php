@@ -15,6 +15,9 @@ class SolicitudAlumnoController extends Controller
     public function index()
     {
         //
+        $solicitudAlumno = Solicitud_Alumno::all();
+
+        return response()->json($solicitudAlumno); 
     }
 
     /**
@@ -36,6 +39,9 @@ class SolicitudAlumnoController extends Controller
     public function store(Request $request)
     {
         //
+        $solicitudAlumno = new Solicitud_Alumno();
+        $solicitudAlumno->save();
+        return response()->json($solicitudAlumno);
     }
 
     /**
@@ -67,9 +73,12 @@ class SolicitudAlumnoController extends Controller
      * @param  \App\Solicitud_Alumno  $solicitud_alumno
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Solicitud_Alumno $solicitud_alumno)
+    public function update(Request $request, $id)
     {
         //
+        $solicitudAlumno = Solicitud_Alumno::find($id);
+        $solicitudAlumno->save();
+        return response()->json($solicitudAlumno);
     }
 
     /**
@@ -78,8 +87,11 @@ class SolicitudAlumnoController extends Controller
      * @param  \App\Solicitud_Alumno  $solicitud_alumno
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Solicitud_Alumno $solicitud_alumno)
+    public function destroy($id)
     {
         //
+        $solicitudAlumno = Solicitud_Alumno::find($id);
+        $solicitudAlumno->delete();
+        return 'Borrado';
     }
 }

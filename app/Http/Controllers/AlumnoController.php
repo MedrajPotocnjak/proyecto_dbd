@@ -96,7 +96,7 @@ class AlumnoController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $alumno= Alumno::find('$id');
+        $alumno= Alumno::find($id);
         $alumno->rut= $request->rut;
         $alumno->nombre= $request->nombre;
         $alumno->apellido_paterno= $request->apellido_paterno;

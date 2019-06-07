@@ -15,6 +15,8 @@ class AlumnoSeccionController extends Controller
     public function index()
     {
         //
+        $alumnoSeccion = Seccion_Alumno()::all();
+        return response()->json($alumnoSeccion);
     }
 
     /**
@@ -36,6 +38,18 @@ class AlumnoSeccionController extends Controller
     public function store(Request $request)
     {
         //
+        $alumnoSeccion = new Seccion_Alumno();
+        $alumnoSeccion->aprobado = $request->aprobado;
+        $alumnoSeccion->promedio = $request->promedio;
+        $alumnoSeccion->nota_p1 = $request->nota_p1;
+        $alumnoSeccion->nota_p2 = $request->nota_p2;
+        $alumnoSeccion->nota_p3 = $request->nota_p3;
+        $alumnoSeccion->nota_c1 = $request->nota_c1;
+        $alumnoSeccion->nota_c2 = $request->nota_c2;
+        $alumnoSeccion->nota_c3 = $request->nota_c3;
+        $alumnoSeccion->estado_cursado = $request->estado_cursado;
+        $alumnoSeccion->save();
+        return response()->json($alumnoSeccion);
     }
 
     /**
@@ -67,9 +81,21 @@ class AlumnoSeccionController extends Controller
      * @param  \App\Seccion_Alumno  $alumno_seccion
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Seccion_Alumno $alumno_seccion)
+    public function update(Request $request, $id)
     {
         //
+        $alumnoSeccion = Seccion_Alumno::find($id);
+        $alumnoSeccion->aprobado = $request->aprobado;
+        $alumnoSeccion->promedio = $request->promedio;
+        $alumnoSeccion->nota_p1 = $request->nota_p1;
+        $alumnoSeccion->nota_p2 = $request->nota_p2;
+        $alumnoSeccion->nota_p3 = $request->nota_p3;
+        $alumnoSeccion->nota_c1 = $request->nota_c1;
+        $alumnoSeccion->nota_c2 = $request->nota_c2;
+        $alumnoSeccion->nota_c3 = $request->nota_c3;
+        $alumnoSeccion->estado_cursado = $request->estado_cursado;
+        $alumnoSeccion->save();
+        return response()->json($alumnoSeccion);
     }
 
     /**
@@ -78,8 +104,11 @@ class AlumnoSeccionController extends Controller
      * @param  \App\Seccion_Alumno  $alumno_seccion
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Seccion_Alumno $alumno_seccion)
+    public function destroy($id)
     {
         //
+        $alumnoSeccion = Seccion_Alumno::find($id);
+        $alumnoSeccion ->delete();
+        return "Borrado";
     }
 }
