@@ -7,11 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Alumno extends Model
 {
     //
-<<<<<<<< HEAD
-    protected $table= 'alumnos';
-=======
     protected $table= 'alumno';
->>>>>>> master
     protected $filliable= ['rut','nombre','apellido_paterno','apellido_materno','nivel','ingreso','password','asignaturas_aprobadas','nas','ppa','nar','fecha_nacimiento','nacionalidad','estado_civil','sexo','telefono','region','provincia','comuna','correo'];
     public function pagos(){
     	return $this->hasMany('App\Pago');

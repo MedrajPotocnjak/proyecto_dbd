@@ -1,12 +1,12 @@
 <?php
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
-
+use App\Departamento;
 use App\Carrera;
 use Faker\Generator as Faker;
 
 $factory->define(Carrera::class, function (Faker $faker) {
-	$CodigoDepartamento = App\Departamento::pluck('codigo')->toArray();
+	$CodigoDepartamento = Departamento::pluck('codigo')->toArray();
     return [
 		'nombre'=> $faker-> sentence($nbWords = 6, $variableNbWords = true), 
     'asignaturas_plan' => $faker->numberBetween($min = 40, $max = 60),

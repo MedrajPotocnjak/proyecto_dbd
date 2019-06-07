@@ -4,13 +4,15 @@
 
 use App\Solicitud_Alumno;
 use Faker\Generator as Faker;
+use App\Alumno;
+use App\Solicitud;
 
 $factory->define(Solicitud_Alumno::class, function (Faker $faker) {
-	$RutAlumno = App\Alumno::pluck('rut')->toArray();
-	$CodigoSolicitud = App\Solicitud::pluck('codigo')->toArray();
+	$RutAlumno = Alumno::inRandomOrder()->first();//Alumno::pluck('rut')->toArray();
+	$CodigoSolicitud = Solicitud::inRandomOrder()->first();//Solicitud::pluck('codigo')->toArray();
     return [
         //
-		'rut_alumno'=>$faker->randomElement($RutAlumno),
-		'codigo_solicitud'=>$faker->randomElement($CodigoSolicitud),
+		'rut_alumno'=>$RutAlumno->random('id'),
+		'codigo_solicitud'=>$CodigoSolicitud->random('codigo'),
     ];
 });
