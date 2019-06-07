@@ -39,6 +39,9 @@ class MensajeAlumnoController extends Controller
     public function store(Request $request)
     {
         //
+        $mensajes_alumnos = new Mensaje_Alumno();
+        $mensajes_alumnos->save();
+        return response()->json($mensajes_alumnos);
     }
 
     /**
@@ -70,9 +73,12 @@ class MensajeAlumnoController extends Controller
      * @param  \App\Mensaje_Alumno  $mensaje_alumno
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Mensaje_Alumno $mensaje_alumno)
+    public function update(Request $request, $id)
     {
         //
+        $mensajes_alumnos = Mensaje_Alumno::find($id);
+        $mensajes_alumnos->save();
+        return response()->json($mensajes_alumnos);
     }
 
     /**
@@ -81,8 +87,11 @@ class MensajeAlumnoController extends Controller
      * @param  \App\Mensaje_Alumno  $mensaje_alumno
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Mensaje_Alumno $mensaje_alumno)
+    public function destroy($id)
     {
         //
+        $mensajes_alumnos = Mensaje_Alumno::find($id);
+        $mensajes_alumnos->delete();
+        return "Borrado";
     }
 }

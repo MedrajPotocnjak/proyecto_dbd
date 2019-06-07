@@ -98,6 +98,6 @@ class SeccionController extends Controller
         //
         $seccion = Seccion::find($id);
         $seccion->delete();
-        return "Borrado";
+        return 'Borrado';
     }
 }

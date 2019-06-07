@@ -100,6 +100,6 @@ class PagoController extends Controller
         //
         $pago = Pago::find($id);
         $pago->delete();
-        return 'Borrado';
+        return "Borrado";
     }
 }

@@ -100,6 +100,6 @@ class CertificadoController extends Controller
         //
         $certificado = Certificado::find($id);
         $certificado->delete();
-        return "Borrado";
+        return 'Borrado';
     }
 }

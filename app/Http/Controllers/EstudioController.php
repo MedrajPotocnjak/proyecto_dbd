@@ -101,6 +101,6 @@ class EstudioController extends Controller
         //
         $estudio = Estudio::find($id);
         $estudio->delete();
-        return 'Borrado';
+        return "Borrado";
     }
 }
