@@ -40,7 +40,7 @@ class DepartamentoController extends Controller
     {
         //
         $departamento= new Departamento();
-        $departamento->nombre= $request->nombre;
+        $departamento->nombre= $request->get('nombre');
         $departamento->save();
         return response()->json($departamento); 
     }
