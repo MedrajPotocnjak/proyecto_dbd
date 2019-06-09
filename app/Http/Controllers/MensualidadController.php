@@ -78,7 +78,7 @@ class MensualidadController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $mensualidad = Mensualidad::find('$id');
+        $mensualidad = Mensualidad::find($id);
         $mensualidad->numero_mensualidad = $request->numero_mensualidad;
         $mensualidad->costo = $request->costo;
         $mensualidad->save();
@@ -94,7 +94,7 @@ class MensualidadController extends Controller
     public function destroy($id)
     {
         //
-        $mensualidad = Mensualidad::find('$id');
+        $mensualidad = Mensualidad::find($id);
         $mensualidad->delete();
         return "Borrado";
     }

@@ -17,7 +17,7 @@ class CarreraAsignaturaController extends Controller
         //
         $carrera_asignaturas=Carrera_Asignatura::all();
 
-        return response()->json($carrera_asignatura);
+        return response()->json($carrera_asignaturas);
     }
 
     /**
@@ -39,6 +39,9 @@ class CarreraAsignaturaController extends Controller
     public function store(Request $request)
     {
         //
+        $carrera_asignaturas = new Carrera_Asignatura();
+        $carrera_asignaturas->save();
+        return response()->json($carrera_asignaturas);
     }
 
     /**
@@ -70,9 +73,12 @@ class CarreraAsignaturaController extends Controller
      * @param  \App\Carrera_Asignatura  $carrera_asignatura
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Carrera_Asignatura $carrera_asignatura)
+    public function update(Request $request, $id)
     {
         //
+        $carrera_asignaturas = Carrera_Asignatura::find($id);
+        $carrera_asignaturas->save();
+        return response()->json($carrera_asignaturas);
     }
 
     /**
@@ -81,8 +87,11 @@ class CarreraAsignaturaController extends Controller
      * @param  \App\Carrera_Asignatura  $carrera_asignatura
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Carrera_Asignatura $carrera_asignatura)
+    public function destroy($id)
     {
         //
+        $carrera_asignaturas = Carrera_Asignatura::find($id);
+        $carrera_asignaturas->delete();
+        return 'Borrado';
     }
 }

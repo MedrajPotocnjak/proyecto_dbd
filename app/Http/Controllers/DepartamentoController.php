@@ -40,7 +40,7 @@ class DepartamentoController extends Controller
     {
         //
         $departamento= new Departamento();
-        $departamento->nombre= $request->nombre;
+        $departamento->nombre= $request->get('nombre');
         $departamento->save();
         return response()->json($departamento); 
     }
@@ -89,7 +89,7 @@ class DepartamentoController extends Controller
      * @param  \App\Departamento  $departamento
      * @return \Illuminate\Http\Response
      */
-    public function destroy( $id)
+    public function destroy($id)
     {
         //
         $departamento = Departamento::find($id);

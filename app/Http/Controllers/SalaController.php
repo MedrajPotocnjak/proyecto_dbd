@@ -95,7 +95,7 @@ class SalaController extends Controller
      * @param  \App\Sala  $sala
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Sala $sala)
+    public function destroy($id)
     {
         //
         $sala = Sala::find($id);

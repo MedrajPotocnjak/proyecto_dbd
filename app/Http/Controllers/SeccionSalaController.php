@@ -15,6 +15,9 @@ class SeccionSalaController extends Controller
     public function index()
     {
         //
+        $seccionSala = Seccion_Sala::all();
+
+        return response()->json($seccionSala);
     }
 
     /**
@@ -36,6 +39,10 @@ class SeccionSalaController extends Controller
     public function store(Request $request)
     {
         //
+        $seccionSala = new Seccion_Sala();
+        $seccionSala->bloque = $request->bloque;
+        $seccionSala->save();
+        return response()->json($seccionSala);
     }
 
     /**
@@ -67,9 +74,13 @@ class SeccionSalaController extends Controller
      * @param  \App\Seccion_Sala  $seccion_sala
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Seccion_Sala $seccion_sala)
+    public function update(Request $request, $id)
     {
         //
+        $seccionSala = Seccion_Sala::find($id);
+        $seccionSala->bloque = $request->bloque;
+        $seccionSala->save();
+        return response()->json($seccionSala);
     }
 
     /**
@@ -78,8 +89,11 @@ class SeccionSalaController extends Controller
      * @param  \App\Seccion_Sala  $seccion_sala
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Seccion_Sala $seccion_sala)
+    public function destroy($id)
     {
         //
+        $seccionSala = Seccion_Sala::find($id);
+        $seccionSala->delete();
+        return 'Borrado';
     }
 }

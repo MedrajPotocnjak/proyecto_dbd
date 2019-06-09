@@ -78,7 +78,7 @@ class MensajeController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $mensaje = Mensaje::find('$id');
+        $mensaje = Mensaje::find($id);
         $mensaje->asunto = $request->asunto;
         $mensaje->fecha = $request->fecha;
         $mensaje->save();
@@ -94,7 +94,7 @@ class MensajeController extends Controller
     public function destroy($id)
     {
         //
-        $mensaje = Mensaje::find('$id');
+        $mensaje = Mensaje::find($id);
         $mensaje->delete();
         return "Borrado";
     }

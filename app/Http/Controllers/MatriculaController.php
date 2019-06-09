@@ -78,7 +78,7 @@ class MatriculaController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $matricula = Matricula::find('$id');
+        $matricula = Matricula::find($id);
         $matricula->estado_matricula = $request->estado_matricula;
         $matricula->costo = $request->costo;
         $matricula->save();
@@ -94,7 +94,7 @@ class MatriculaController extends Controller
     public function destroy($id)
     {
         //
-        $matricula = Matricula::find('$id');
+        $matricula = Matricula::find($id);
         $matricula->delete();
         return "Borrado";
     }
