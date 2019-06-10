@@ -81,7 +81,7 @@ class CoordinadorDocenteController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $coordinador = CoordinadorDocente::find('$id');
+        $coordinador = CoordinadorDocente::find($id);
         $coordinador->rut = $request->rut;
         $coordinador->password = $request->password;
         $coordinador->nombres = $request->nombres;
@@ -100,7 +100,7 @@ class CoordinadorDocenteController extends Controller
     public function destroy($id)
     {
         //
-        $coordinador = CoordinadorDocente::find('$id');
+        $coordinador = CoordinadorDocente::find($id);
         $coordinador->delete();
         return "Borrado";
     }

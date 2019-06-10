@@ -9,12 +9,10 @@ $factory->define(Profesor::class, function (Faker $faker) {
     return [
         //
         'rut'=> $faker->unique()->numberBetween($min = 10000000, $max = 999999999),
-        'nombre' => $faker->firstName, 
+        'nombres' => $faker->firstName, 
         'apellido_paterno' => $faker->lastName,
         'apellido_materno' => $faker->lastName,
-        "nivel" => $faker->random_int(1,12),
-        "ingreso" => $faker-> randomElement($array = array ('1/2018','2/2018','1/2019','2/1019')),
-        "password" => '1234',
+		"password" => '1234',
         'area' => $faker->randomElement($array = array ('area1','area2','area3','area4')),
         "fecha_nacimiento" => $faker-> date($format = 'Y-m-d', $max = 'now'),
         "nacionalidad" => $faker->randomElement($array = array ('chile','argentina','mexico')),

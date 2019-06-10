@@ -15,7 +15,7 @@ $factory->define(Alumno::class, function (Faker $faker) {
         "nivel" => $faker->numberBetween($min = 1, $max = 12),
         "ingreso" => $faker-> randomElement($array = array ('1/2018','2/2018','1/2019','2/1019')),
         "password" => '1234',
-        "asignaturas_aprovadas" => $faker->numberBetween($min = 0, $max = 60),
+        "asignaturas_aprobadas" => $faker->numberBetween($min = 0, $max = 60),
         "nas" => $faker->randomFloat($nbMaxDecimals = 2, $min = 0, $max = 5),
         "ppa" => $faker->randomFloat($nbMaxDecimals = 2, $min = 0, $max = 5),
         "nar" => $faker->randomFloat($nbMaxDecimals = 2, $min = 0, $max = 5),

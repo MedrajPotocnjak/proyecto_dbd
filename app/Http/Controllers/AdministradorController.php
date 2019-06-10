@@ -81,7 +81,7 @@ class administrador extends Controller
     public function update(Request $request, $id)
     {
         //
-        $administrador = Administrador::find('$id');
+        $administrador = Administrador::find($id);
         $administrador->rut = $request->rut;
         $administrador->password = $request->password;
         $administrador->nombres = $request->nombres;
@@ -100,7 +100,7 @@ class administrador extends Controller
     public function destroy($id)
     {
         //
-        $administrador = Administrador::find('$id');
+        $administrador = Administrador::find($id);
         $administrador->delete();
         return "Borrado";
     }

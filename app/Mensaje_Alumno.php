@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Mensaje_Alumno extends Model
 {
     //
+	protected $primaryKey='codigo';
+	
     public function alumnos(){
     	return $this->belongsTo('App\Alumno','rut_alumno');
     }

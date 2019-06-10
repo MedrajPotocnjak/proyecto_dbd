@@ -15,6 +15,9 @@ class CertificadoAlumnoController extends Controller
     public function index()
     {
         //
+        $certificadoAlumno = Certificado_Alumno::all();
+
+        return response()->json($certificadoAlumno);
     }
 
     /**
@@ -36,6 +39,9 @@ class CertificadoAlumnoController extends Controller
     public function store(Request $request)
     {
         //
+        $certificadoAlumno = new Certificado_Alumno();
+        $certificadoAlumno->save();
+        return response()->json($certificadoAlumno);
     }
 
     /**
@@ -67,9 +73,12 @@ class CertificadoAlumnoController extends Controller
      * @param  \App\Certificado_Alumno  $certificado_alumno
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Certificado_Alumno $certificado_alumno)
+    public function update(Request $request, $id)
     {
         //
+        $certificadoAlumno = Certificado_Alumno::find($id);
+        $certificadoAlumno->save();
+        return response()->json($certificadoAlumno);
     }
 
     /**
@@ -78,8 +87,11 @@ class CertificadoAlumnoController extends Controller
      * @param  \App\Certificado_Alumno  $certificado_alumno
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Certificado_Alumno $certificado_alumno)
+    public function destroy($id)
     {
         //
+        $certificadoAlumno = Certificado_Alumno::find($id);
+        $certificadoAlumno->delete();
+        return 'Borrado';
     }
 }

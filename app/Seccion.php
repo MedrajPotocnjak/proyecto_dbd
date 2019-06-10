@@ -8,6 +8,7 @@ class Seccion extends Model
 {
     //
     protected $table='seccion';
+	protected $primaryKey='codigo';
     protected $fillable=['nombre','cupos','tipo'];
     public function seccion_salas(){
     	return $this->hasMany('App\Seccion_Sala');

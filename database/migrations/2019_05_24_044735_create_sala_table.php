@@ -16,7 +16,7 @@ class CreateSalaTable extends Migration
         Schema::create('sala', function (Blueprint $table) {
             $table->bigIncrements('codigo');
 			$table->string('nombre',15);
-			$table->string('ubicacion',10);
+			$table->string('ubicacion',25);
 			$table->smallInteger('cantidad_puestos');
 			$table->smallInteger('cantidad_computadores');
             $table->timestamps();

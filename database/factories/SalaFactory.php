@@ -9,7 +9,7 @@ $factory->define(Sala::class, function (Faker $faker) {
     return [
         //
 		'nombre' => $faker->buildingNumber,
-		'ubicacion' => $faker->streetName,
+		'ubicacion' => $faker->randomElement($array = array ('diinf 2 piso','eao 1 piso','dimension oscura')),
 		'cantidad_puestos'=> $faker->numberBetween($min = 20, $max = 50),
 		'cantidad_computadores'=> $faker->numberBetween($min = 0, $max = 20),
     ];

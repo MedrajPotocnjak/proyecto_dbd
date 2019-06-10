@@ -8,6 +8,7 @@ class Pago extends Model
 {
     //
     protected $table = 'pago';
+	protected $primaryKey='codigo';
     protected $fillable = ['tipo_pago', 'forma_pago', 'fecha_pago'];
     public function mensualidades(){
     	return $this->hasMany('App\Mensualidad');

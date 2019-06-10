@@ -79,7 +79,7 @@ class SeccionController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $seccion = Seccion::find('$id');
+        $seccion = Seccion::find($id);
         $seccion->nombre = $request->nombre;
         $seccion->cupos = $request->cupos;
         $seccion->tipos = $reques->tipo;
@@ -96,8 +96,8 @@ class SeccionController extends Controller
     public function destroy($id)
     {
         //
-        $seccion = Seccion::find('$id');
+        $seccion = Seccion::find($id);
         $seccion->delete();
-        return "Borrado";
+        return 'Borrado';
     }
 }

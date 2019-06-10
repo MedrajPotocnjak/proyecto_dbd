@@ -8,6 +8,7 @@ class Mensualidad extends Model
 {
     //
     protected $table = 'mensualidad';
+	protected $primaryKey='codigo';
     protected $fillable = ['numero_mensualidad', 'costo'];
     public function pagos(){
     	return $this->belongsTo('App\Pago','codigo_pago');
