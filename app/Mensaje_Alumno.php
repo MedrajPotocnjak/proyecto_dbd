@@ -10,9 +10,9 @@ class Mensaje_Alumno extends Model
 	protected $primaryKey='codigo';
 	
     public function alumnos(){
-    	return $this->belongsTo('App\Alumno','rut_alumno');
+    	return $this->belongsTo(Alumno::class);
     }
     public function mensajes(){
-    	return $this->belongsTo('App\Mensaje','codigo_mensaje');
+    	return $this->belongsTo(Mensaje::class);
     }
 }

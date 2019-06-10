@@ -10,9 +10,9 @@ class Profesor extends Model
     protected $table='profesor';
     protected $fillable=['rut','nombres','apellido_paterno','apellido_materno','password','area','fecha_nacimiento','nacionalidad','sexo','telefono','region','provincia','comuna','correo'];
     public function secciones(){
-    	return $this->hasMany('App\Seccion');
+    	return $this->hasMany(Seccion::class);
     }
-    public function mesajes(){
-    	return $this->hasMany('App\Mensaje');
+    public function mensajes(){
+    	return $this->hasMany(Mensaje::class);
     }
 }

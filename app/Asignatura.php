@@ -11,9 +11,9 @@ class Asignatura extends Model
 	protected $primaryKey='codigo';
     protected $fillable = ['nombre','jornada','asistencia_minima','ponderacion','nivel','horas_teoria','horas_laboratorio','horas_ejercicios','version_plan_estudios'];
     public function carreras_asignatura(){
-    	return $this->hasMany('App\Carrera_Asignatura');
+    	return $this->hasMany(Carrera_Asignatura::class);
     }
     public function secciones(){
-    	return $this->hasMany('App\Seccion');
+    	return $this->hasMany(Seccion::class);
     }
 }

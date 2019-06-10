@@ -12,7 +12,7 @@ class Certificado extends Model
     protected $fillable=['codigo_verificacion','contenido','fecha','ruta_formato'];
     protected $primaryKey='folio';
     public function certificados_alumno(){
-    	return $this->hasMany('App\Certificado_Alumno');
+    	return $this->hasMany(Certificado_Alumno::class);
     }
 }
 

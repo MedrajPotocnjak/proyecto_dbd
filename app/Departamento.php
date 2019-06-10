@@ -11,12 +11,12 @@ class Departamento extends Model
     protected $fillable=['nombre'];
 	protected $primaryKey='codigo';
     public function coordinador_docente(){
-    	return $this->hasOne('App\Coordinador_Docente','rut_coordinador');
+    	return $this->hasOne(CoordinadorDocente::class);
     }
     public function estudios(){
-    	return $this->hasMany('App\Estudio');
+    	return $this->hasMany(Estudio::class);
     }
     public function carreras(){
-    	return $this->hasMany('App\Carrera');
+    	return $this->hasMany(Carrera::class);
     }
 }

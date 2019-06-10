@@ -15,7 +15,7 @@ class MensajeAlumnoController extends Controller
     public function index()
     {
         //
-        $mensajes_alumnos=Mensaje_Alumno::all();
+        $mensajes_alumnos = Mensaje_Alumno::all();
 
         return response()->json($mensajes_alumnos);
     }
