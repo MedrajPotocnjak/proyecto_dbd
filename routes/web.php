@@ -77,3 +77,6 @@ Route::post('/Profesor','ProfesorController@store');
 //Route::get();SHOW
 Route::put('/Profesor/{id}','ProfesorController@update');
 Route::delete('/Profesor/{id}','ProfesorController@destroy');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
