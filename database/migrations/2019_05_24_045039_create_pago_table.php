@@ -20,7 +20,7 @@ class CreatePagoTable extends Migration
             ->references('rut')->on('alumno')->onDelete('cascade');
             $table->string('tipo_pago',1);
             $table->integer('forma_pago');
-            $table->dateTime('fecha_pago');
+           // $table->dateTime('fecha_pago');
             $table->timestamps();
         });
     }

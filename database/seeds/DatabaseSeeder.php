@@ -10,15 +10,20 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+		//Model::unguard();
+       
+		//Model::reguard();
+        
         $this->call(AlumnoTableSeeder::class);
 		$this->call(AsignaturaTableSeeder::class);
 		$this->call(ProfesorTableSeeder::class);
 		$this->call(SalaTableSeeder::class);
-		$this->call(SeccionTableSeeder::class);
+        $this->call(SeccionTableSeeder::class);
+        $this->call(CoordinadorDocenteTableSeeder::class);
 		$this->call(DepartamentoTableSeeder::class);
 		$this->call(CarreraTableSeeder::class);
 		$this->call(CertificadoTableSeeder::class);
-		$this->call(CoordinadorDocenteTableSeeder::class);
+		
 		
 		$this->call(EstudioSeeder::class);
 		$this->call(PagoTableSeeder::class);
