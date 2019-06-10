@@ -11,17 +11,19 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
 		//Model::unguard();
-        $this->call(AlumnoTableSeeder::class);
+       
 		//Model::reguard();
-		/*
+        
+        $this->call(AlumnoTableSeeder::class);
 		$this->call(AsignaturaTableSeeder::class);
 		$this->call(ProfesorTableSeeder::class);
 		$this->call(SalaTableSeeder::class);
-		$this->call(SeccionTableSeeder::class);
+        $this->call(SeccionTableSeeder::class);
+        $this->call(CoordinadorDocenteTableSeeder::class);
 		$this->call(DepartamentoTableSeeder::class);
 		$this->call(CarreraTableSeeder::class);
 		$this->call(CertificadoTableSeeder::class);
-		$this->call(CoordinadorDocenteTableSeeder::class);
+		
 		
 		$this->call(EstudioSeeder::class);
 		$this->call(PagoTableSeeder::class);
@@ -37,7 +39,7 @@ class DatabaseSeeder extends Seeder
 		$this->call(SeccionSalaTableSeeder::class);
 		$this->call(SolicitudAlumnoTableSeeder::class);
 		$this->call(SolicitudTableSeeder::class);
-        
+        /*
         factory('app\Alumno',10)->create();
         factory('app\Asignatura',10)->create();
         factory('app\Carrera',10)->create();

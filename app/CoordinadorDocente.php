@@ -9,7 +9,7 @@ class CoordinadorDocente extends Model
     //
     protected $table= 'coordinador_docente';
     protected $fillable=['rut','password','nombres','apellido_paterno','apellido_materno'];
-    publci function departamento(){
+    public function departamento(){
     	return $this->belongsTo('App\Departamento');
     }
 }

@@ -18,7 +18,7 @@ class CreateDepartamentoTable extends Migration
 			$table->integer('rut_coordinador');
             $table->foreign('rut_coordinador')
             ->references('rut')->on('coordinador_docente');
-            $table->string("nombre",60);
+            $table->string('nombre',60);
             $table->timestamps();
         });
     }
