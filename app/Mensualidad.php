@@ -14,4 +14,4 @@ class Mensualidad extends Model
     	return $this->belongsTo('App\Pago','codigo_pago');
     }
 }
-}
+

@@ -32,13 +32,13 @@ class DatabaseSeeder extends Seeder
 		
 		//tablas intermedias
 		$this->call(CarreraAsignaturaTableSeeder::class);
-		$this->call(CertificadoAlumnoTableSeeder::class);
-		$this->call(MensajeAlumnoTableSeeder::class);
-		$this->call(MensualidadTableSeeder::class);
+		$this->call(CertificadoAlumnoTableSeeder::class);//----
 		$this->call(SeccionAlumnoTableSeeder::class);
 		$this->call(SeccionSalaTableSeeder::class);
 		$this->call(SolicitudAlumnoTableSeeder::class);
-		$this->call(SolicitudTableSeeder::class);
+        $this->call(SolicitudTableSeeder::class);
+        $this->call(MensajeAlumnoTableSeeder::class);//1
+        $this->call(MensualidadTableSeeder::class);//2
         /*
         factory('app\Alumno',10)->create();
         factory('app\Asignatura',10)->create();
