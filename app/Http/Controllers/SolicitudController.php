@@ -41,7 +41,6 @@ class SolicitudController extends Controller
     {
         //
         $solicitud= new Solicitud();
-        $solicitud->fecha= $request->fecha;
         $solicitud->contenido= $request->contenido;
         $solicitud->ruta_formato= $request->ruta_formato;
         $solicitud->save();
@@ -81,7 +80,6 @@ class SolicitudController extends Controller
     {
         //
         $solicitud= Solicitud::find($id);
-        $solicitud->fecha= $request->fecha;
         $solicitud->contenido= $request->contenido;
         $solicitud->ruta_formato= $request->ruta_formato;
         $solicitud->save();

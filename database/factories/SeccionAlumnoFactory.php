@@ -20,7 +20,7 @@ $factory->define(Seccion_Alumno::class, function (Faker $faker) {
 		'nota_c3'=>$faker->randomFloat($nbMaxDecimals = 1, $min = 2, $max = 7),
 		'promedio'=>$faker->randomFloat($nbMaxDecimals = 1, $min = 2, $max = 7),
 		'estado_cursado'=>$faker->randomElement($array = array ('s','n')),
-		'aprovado'=>$faker->randomElement($array = array (1,0)),
+		'aprobado'=>$faker->randomElement($array = array (1,0)),
 		'estado_cursado'=>$faker->randomElement($array = array ('s','n')),
     ];
 });

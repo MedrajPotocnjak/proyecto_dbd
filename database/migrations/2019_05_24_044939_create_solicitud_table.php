@@ -15,9 +15,8 @@ class CreateSolicitudTable extends Migration
     {
         Schema::create('solicitud', function (Blueprint $table) {
             $table->bigIncrements('codigo');
-            $table->dateTime('fecha');
             $table->text('contenido');
-            $table->string('ruta_formato',4);
+            $table->string('ruta_formato',50);
             $table->timestamps();
         });
     }

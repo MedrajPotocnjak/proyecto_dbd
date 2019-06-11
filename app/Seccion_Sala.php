@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Seccion_Sala extends Model
 {
     //
-    protected $table = 'seccion_salas';
+    protected $table = 'seccion_sala';
     protected $fillable = ['bloque'];
     public function secciones(){
     	return $this->belongsTo(Seccion::class);

@@ -9,7 +9,7 @@ class Solicitud extends Model
     //
 	protected $table = 'solicitud';
 	protected $primaryKey='codigo';
-	protected $fillable = ['fecha', 'contenido', 'ruta_formato'];
+	protected $fillable = ['contenido', 'ruta_formato'];
 	public function solicitudes(){
 		return $this->hasMany(Solicitud_Alumno::class);
 	}

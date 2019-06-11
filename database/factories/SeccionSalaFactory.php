@@ -2,12 +2,14 @@
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
+use App\Seccion;
+use App\Sala;
 use App\Seccion_Sala;
 use Faker\Generator as Faker;
 
 $factory->define(Seccion_Sala::class, function (Faker $faker) {
-	$CodSec = App\Seccion::pluck('codigo')->toArray();
-	$CodSala = App\Sala::pluck('codigo')->toArray();
+	$CodSec = Seccion::all()->pluck('codigo')->toArray();
+	$CodSala =Sala::all()->pluck('codigo')->toArray();
     return [
         //
 		'codigo_seccion'=>$faker->randomElement($CodSec),

@@ -17,7 +17,7 @@ class CreateAdministradorTable extends Migration
             $table->bigIncrements('id');
             $table->integer('rut')->unique();
 			$table->string("password",14);
-			$table->string("nombres",30);
+			$table->string("nombre",30);
 			$table->string("apellido_paterno",15);
 			$table->string("apellido_materno",15);
             $table->timestamps();
