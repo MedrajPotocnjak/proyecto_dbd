@@ -11,12 +11,12 @@ class Pago extends Model
 	protected $primaryKey='codigo';
     protected $fillable = ['tipo_pago', 'forma_pago', 'fecha_pago'];
     public function mensualidades(){
-    	return $this->hasMany('App\Mensualidad');
+    	return $this->hasMany(Mensualidad::class);
     }
     public function matriculas(){
-    	return $this->hasMany('App\Matricula');
+    	return $this->hasMany(Matricula::class);
     }
-    public function pagos(){
-    	return $this->belongsTo('App\Alumno','rut_alumno');
+    public function alumnos(){
+    	return $this->belongsTo(Alumno::class);
     }
 }

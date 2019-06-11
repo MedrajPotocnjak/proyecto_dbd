@@ -9,9 +9,9 @@ class Carrera_Asignatura extends Model
     //
     protected $table='carrera_asignaturas';
     public function asignaturas(){
-    	return $this->belongsTo('App\Asignatura','codigo_asignatura');
+    	return $this->belongsTo(Asignatura::class);
     }
     public function carreras(){
-    	return $this->belongsTo('App\Carrera','codigo_carrera');
+    	return $this->belongsTo(Carrera::class);
     }
 }

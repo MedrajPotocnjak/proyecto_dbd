@@ -41,6 +41,7 @@ class MensajeController extends Controller
         //
         $mensaje = new Mensaje();
         $mensaje->asunto = $request->asunto;
+        $mensaje->contenido = $request->contenido;
         $mensaje->fecha = $request->fecha;
         $mensaje->save();
         return response()->json($mensaje);
@@ -80,6 +81,7 @@ class MensajeController extends Controller
         //
         $mensaje = Mensaje::find($id);
         $mensaje->asunto = $request->asunto;
+        $mensaje->contenido = $request->contenido;
         $mensaje->fecha = $request->fecha;
         $mensaje->save();
         return response()->json($mensaje);

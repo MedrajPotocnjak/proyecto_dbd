@@ -10,9 +10,9 @@ class Mensaje extends Model
     protected $table='mensaje';
     protected $fillable=['asunto','contenido','fecha'];
     public function mensaje_alumnos(){
-    	return $this->hasMany('App\Mensaje_Alumno');
+    	return $this->hasMany(Mensaje_Alumno::class);
     }
     public function profesores(){
-    	return $this->belongsTo('App\Profesor','rut_profesor');
+    	return $this->belongsTo(Profesor::class);
     }
 }

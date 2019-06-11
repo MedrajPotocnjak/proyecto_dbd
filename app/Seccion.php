@@ -11,15 +11,15 @@ class Seccion extends Model
 	protected $primaryKey='codigo';
     protected $fillable=['nombre','cupos','tipo'];
     public function seccion_salas(){
-    	return $this->hasMany('App\Seccion_Sala');
+    	return $this->hasMany(Seccion_Sala::class);
     }
     public function seccion_alumnos(){
-    	return $this->hasMany('App\Seccion_Alumno');
+    	return $this->hasMany(Seccion_Alumno::class);
     }
     public function profesores(){
-    	return $this->belongsTo('App\Profesor','rut_profesor');
+    	return $this->belongsTo(Profesor::class);
     }
     public function asignaturas(){
-    	return $this->belongsTo('App\Asignatura','codigo_asignatura');
+    	return $this->belongsTo(Asignatura::class);
     }
 }

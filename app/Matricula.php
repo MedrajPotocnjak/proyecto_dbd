@@ -11,6 +11,6 @@ class Matricula extends Model
 	protected $primaryKey='codigo';
     protected $fillable=['estado_matricula','costo'];
     public function pagos(){
-    	return $this->belogsTo('App\Pago','codigo_pago');
+    	return $this->belogsTo(Pago::class);
     }
 }

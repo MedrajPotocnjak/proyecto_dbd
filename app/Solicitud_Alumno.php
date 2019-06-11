@@ -9,9 +9,9 @@ class Solicitud_Alumno extends Model
     //
     protected $table = 'solicitud_alumno';
     public function solicitudes(){
-    	return $this->belongsTo('App\Solicitud','codigo_solicitud');
+    	return $this->belongsTo(Solicitud::class);
     }
     public function alumnos(){
-    	return $this->belongsTo('App\Alumno','rut_alumno');
+    	return $this->belongsTo(Alumno::class);
     }
 }

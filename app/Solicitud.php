@@ -11,6 +11,6 @@ class Solicitud extends Model
 	protected $primaryKey='codigo';
 	protected $fillable = ['fecha', 'contenido', 'ruta_formato'];
 	public function solicitudes(){
-		return $this->hasMany('App\Solicitud_Alumno');
+		return $this->hasMany(Solicitud_Alumno::class);
 	}
 }

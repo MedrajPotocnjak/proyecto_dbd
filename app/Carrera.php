@@ -11,9 +11,9 @@ class Carrera extends Model
 	protected $primaryKey='codigo';
     protected $fillable= ['nombre','asignaturas_plan','cantidad_alumnos','arancel'];
     public function departamento(){
-    	return $this->belongsTo('App\Departamento','codigo_departamento');
+    	return $this->belongsTo(Departamento::class);
     }
     public function carreras_asignatura(){
-    	return $this->hasMany('App\Carrera_Asignatura');
+    	return $this->hasMany(Carrera_Asignatura::class);
     }
 }
