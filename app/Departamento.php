@@ -8,7 +8,7 @@ class Departamento extends Model
 {
     //
     protected $table= 'departamento';
-    protected $fillable=['nombre'];
+    protected $fillable= ['nombre'];
 	protected $primaryKey='codigo';
     public function coordinador_docente(){
     	return $this->hasOne(CoordinadorDocente::class);
