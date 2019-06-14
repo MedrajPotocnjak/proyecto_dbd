@@ -80,9 +80,15 @@ class SeccionController extends Controller
     {
         //
         $seccion = Seccion::find($id);
-        $seccion->nombre = $request->nombre;
-        $seccion->cupos = $request->cupos;
-        $seccion->tipos = $reques->tipo;
+        if ($request->nombre != NULL){
+            $seccion->nombre = $request->nombre;
+        }
+        if ($request->cupos != NULL){
+            $seccion->cupos = $request->cupos;
+        }
+        if ($request->tipos != NULL){
+            $seccion->tipos = $reques->tipo;
+        }
         $seccion->save();
         return response()->json($seccion);
     }

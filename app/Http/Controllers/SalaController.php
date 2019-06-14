@@ -81,10 +81,18 @@ class SalaController extends Controller
     {
         //
         $sala= Sala::find($id);
-        $sala->nombre= $request->nombre;
-        $sala->ubicacion= $request->ubicacion;
-        $sala->cantidad_puestos= $request->cantidad_puestos;
-        $sala->cantidad_computadores= $request->cantidad_computadores;
+        if ($request->nombre != NULL){
+            $sala->nombre= $request->nombre;
+        }
+        if ($request->ubicacion != NULL){
+            $sala->ubicacion= $request->ubicacion;
+        }
+        if ($request->cantidad_puestos != NULL){
+            $sala->cantidad_puestos= $request->cantidad_puestos;
+        }
+        if ($request->cantidad_computadores != NULL){
+            $sala->cantidad_computadores= $request->cantidad_computadores;
+        }
         $sala->save();
         return response()->json($sala);
     }

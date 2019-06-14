@@ -80,8 +80,12 @@ class SolicitudController extends Controller
     {
         //
         $solicitud= Solicitud::find($id);
-        $solicitud->contenido= $request->contenido;
-        $solicitud->ruta_formato= $request->ruta_formato;
+        if ($request->contenido != NULL){
+            $solicitud->contenido= $request->contenido;
+        }
+        if ($request->ruta_formato != NULL){
+            $solicitud->ruta_formato= $request->ruta_formato;
+        }
         $solicitud->save();
         return response()->json($solicitud);
     }
