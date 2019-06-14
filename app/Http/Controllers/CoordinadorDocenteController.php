@@ -40,11 +40,21 @@ class CoordinadorDocenteController extends Controller
     {
         //
         $coordinador = new CoordinadorDocente();
-        $coordinador->rut = $request->rut;
-        $coordinador->password = $request->password;
-        $coordinador->nombres = $request->nombres;
-        $coordinador->apellido_paterno = $request->apellido_paterno;
-        $coordinador->apellido_materno = $request->apellido_materno;
+        if($request->rut != NULL){
+            $coordinador->rut= $request->rut;
+        }
+        if($request->password != NULL){
+            $coordinador->password= $request->password;
+        }
+        if($request->nombres != NULL){
+            $coordinador->nombres= $request->nombres;
+        }
+        if($request->apellido_paterno != NULL){
+            $coordinador->apellido_paterno= $request->apellido_paterno;
+        }
+        if($request->apellido_materno != NULL){
+            $coordinador->apellido_materno= $request->apellido_materno;
+        }
         $coordinador->save();
         return response()->json($coordinador);
     }

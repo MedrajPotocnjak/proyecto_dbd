@@ -81,10 +81,18 @@ class CertificadoController extends Controller
     {
         //
         $certificado = Certificado::find($id);
-        $certificado->codigo_verificacion = $request->codigo_verificacion;
-        $certificado->contenido = $request->contenido;
-        $certificado->fecha = $request->fecha;
-        $certificado->ruta_formato = $request->ruta_formato;
+        if($request->codigo_verificacion != NULL){
+            $certificado->codigo_verificacion= $request->codigo_verificacion;
+        }
+        if($request->contenido != NULL){
+            $certificado->contenido= $request->contenido;
+        }
+        if($request->fecha != NULL){
+            $certificado->fecha= $request->fecha;
+        }
+        if($request->ruta_formato != NULL){
+            $certificado->ruta_formato= $request->ruta_formato;
+        }
         $certificado->save();
         return response()->json($certificado);
     }

@@ -82,10 +82,18 @@ class EstudioController extends Controller
     {
         //
         $estudio= Estudio::find($id);
-        $estudio->area= $request->area;
-        $estudio->titulo= $request->titulo;
-        $estudio->contenido= $request->contenido;
-        $estudio->ruta_estudio= $request->ruta_estudio;
+        if($request->area != NULL){
+            $estudio->area= $request->area;
+        }
+        if($request->titulo != NULL){
+            $estudio->titulo= $request->titulo;
+        }
+        if($request->contenido != NULL){
+            $estudio->contenido= $request->contenido;
+        }
+        if($request->ruta_estudio != NULL){
+            $estudio->ruta_estudio= $request->ruta_estudio;
+        }
         $estudio->save();
         return response()->json($estudio);
     }

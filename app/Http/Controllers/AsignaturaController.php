@@ -88,15 +88,33 @@ class AsignaturaController extends Controller
         //Guardar en el historial -> Id del que hace la modificacion, se crea
         //Retornar mensajes?
         $asignatura= Asignatura::find($id);
-        $asignatura->nombre= $request->nombre;
-        $asignatura->jornada= $request->jornada;
-        $asignatura->asistencia_minima= $request->asistencia_minima;
-        $asignatura->ponderacion= $request->ponderacion;
-        $asignatura->nivel= $request->nivel;
-        $asignatura->horas_teoria= $request->horas_teoria;
-        $asignatura->horas_laboratorio= $request->horas_laboratorio;
-        $asignatura->horas_ejercicios= $request->horas_ejercicios;
-        $asignatura->version_plan_estudios= $request->version_plan_estudios;
+        if($request->nombre != NULL){
+            $asignatura->nombre = $request->nombre;
+        }
+        if($request->jornada != NULL){
+            $asignatura->jornada = $request->jornada;
+        }
+        if($request->asistencia_minima != NULL){
+            $asignatura->asistencia_minima = $request->asistencia_minima;
+        }
+        if($request->ponderacion != NULL){
+            $asignatura->ponderacion = $request->ponderacion;
+        }
+        if($request->nivel != NULL){
+            $asignatura->nivel = $request->nivel;
+        }
+        if($request->horas_teoria != NULL){
+            $asignatura->horas_teoria = $request->horas_teoria;
+        }
+        if($request->horas_ejercicios != NULL){
+            $asignatura->horas_ejercicios = $request->horas_ejercicios;
+        }
+        if($request->horas_laboratorio != NULL){
+            $asignatura->horas_laboratorio = $request->horas_laboratorio;
+        }
+        if($request->version_plan_estudios != NULL){
+            $asignatura->version_plan_estudios = $request->version_plan_estudios;
+        }
         $asignatura->save();
         return response()->json($asignatura);
     }

@@ -77,6 +77,12 @@ class CarreraAsignaturaController extends Controller
     {
         //
         $carrera_asignaturas = Carrera_Asignatura::find($id);
+        if($request->codigo_carrera != NULL){
+            $carrera_asignaturas->codigo_carrera= $request->codigo_carrera;
+        }
+        if($request->codigo_asignatura != NULL){
+            $carrera_asignaturas->codigo_asignatura= $request->codigo_asignatura;
+        }
         $carrera_asignaturas->save();
         return response()->json($carrera_asignaturas);
     }
