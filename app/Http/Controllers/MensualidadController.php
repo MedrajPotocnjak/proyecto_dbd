@@ -40,8 +40,12 @@ class MensualidadController extends Controller
     {
         //
         $mensualidad = new Mensualidad();
-        $mensualidad->numero_mensualidad = $request->numero_mensualidad;
-        $mensualidad->costo = $request->costo;
+        if ($request->numero_mensualidad != NULL){
+            $mensualidad->numero_mensualidad = $request->numero_mensualidad;
+        }
+        if ($request->costo != NULL){
+            $mensualidad->costo = $request->costo;
+        }
         $mensualidad->save();
         return response()->json($mensualidad);
     }
