@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Administrador;
 use Illuminate\Http\Request;
 
-class administrador extends Controller
+class AdministradorController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -42,7 +42,7 @@ class administrador extends Controller
         $administrador = new Administrador();
         $administrador->rut = $request->rut;
         $administrador->password = $request->password;
-        $administrador->nombres = $request->nombres;
+        $administrador->nombre = $request->nombre;
         $administrador->apellido_paterno = $request->apellido_paterno;
         $administrador->apellido_materno = $request->apellido_materno;
         $administrador->save();
@@ -84,7 +84,7 @@ class administrador extends Controller
         $administrador = Administrador::find($id);
         $administrador->rut = $request->rut;
         $administrador->password = $request->password;
-        $administrador->nombres = $request->nombres;
+        $administrador->nombre = $request->nombre;
         $administrador->apellido_paterno = $request->apellido_paterno;
         $administrador->apellido_materno = $request->apellido_materno;
         $administrador->save();

@@ -40,6 +40,7 @@ class CarreraController extends Controller
     {
         //
         $carrera= new Carrera();
+        $carrera->codigo_departamento= $request->codigo_departamento;
         $carrera->nombre= $request->nombre;
         $carrera->asignaturas_plan= $request->asignaturas_plan;
         $carrera->cantidad_alumnos= $request->cantidad_alumnos;
