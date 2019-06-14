@@ -82,11 +82,21 @@ class AdministradorController extends Controller
     {
         //
         $administrador = Administrador::find($id);
-        $administrador->rut = $request->rut;
-        $administrador->password = $request->password;
-        $administrador->nombre = $request->nombre;
-        $administrador->apellido_paterno = $request->apellido_paterno;
-        $administrador->apellido_materno = $request->apellido_materno;
+        if ($request->rut != NULL){
+            $administrador->rut = $request->rut;
+        }
+        if($request->password != NULL){
+            $administrador->password = $request->password;
+        }
+        if($request->nombre != NULL){
+            $administrador->nombre = $request->nombre;
+        }
+        if($request->apellido_paterno != NULL){
+            $administrador->apellido_paterno = $request->apellido_paterno;
+        }
+        if($request->apellido_materno != NULL){
+            $administrador->apellido_materno = $request->apellido_materno;
+        }
         $administrador->save();
         return response()->json($administrador);
     }
