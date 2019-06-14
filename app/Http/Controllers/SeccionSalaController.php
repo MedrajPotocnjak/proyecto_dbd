@@ -78,7 +78,9 @@ class SeccionSalaController extends Controller
     {
         //
         $seccionSala = Seccion_Sala::find($id);
-        $seccionSala->bloque = $request->bloque;
+        if ($request->bloque != NULL){
+            $seccionSala->bloque = $request->bloque;
+        }
         $seccionSala->save();
         return response()->json($seccionSala);
     }

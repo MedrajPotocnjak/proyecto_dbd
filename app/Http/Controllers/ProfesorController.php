@@ -91,20 +91,48 @@ class ProfesorController extends Controller
     {
         //
         $profesor= Profesor::find($id);
-        $profesor->rut= $request->rut;
-        $profesor->nombres= $request->nombres;
-        $profesor->apellido_paterno= $request->apellido_paterno;
-        $profesor->apellido_materno= $request->apellido_materno;
-        $profesor->password= $request->password;
-        $profesor->area= $request->area;
-        $profesor->fecha_nacimiento= $request->fecha_nacimiento;
-        $profesor->nacionalidad= $request->nacionalidad;
-        $profesor->sexo= $request->sexo;
-        $profesor->telefono= $request->telefono;
-        $profesor->region= $request->region;
-        $profesor->provincia= $request->provincia;
-        $profesor->comuna= $request->comuna;
-        $profesor->correo= $request->correo;
+        if ($request->rut != NULL){
+            $profesor->rut= $request->rut;
+        }
+        if ($request->nombres != NULL){
+            $profesor->nombres= $request->nombres;
+        }
+        if ($request->apellido_paterno != NULL){
+            $profesor->apellido_paterno= $request->apellido_paterno;
+        }
+        if ($request->apellido_materno != NULL){
+            $profesor->apellido_materno= $request->apellido_materno;
+        }
+        if ($request->password != NULL){
+            $profesor->password= $request->password;
+        }
+        if ($request->area != NULL){
+            $profesor->area= $request->area;
+        }
+        if ($request->fecha_nacimiento != NULL){
+            $profesor->fecha_nacimiento= $request->fecha_nacimiento;
+        }
+        if ($request->nacionalidad != NULL){
+            $profesor->nacionalidad= $request->nacionalidad;
+        }
+        if ($request->sexo != NULL){
+            $profesor->sexo= $request->sexo;
+        }
+        if ($request->telefono != NULL){
+            $profesor->telefono= $request->telefono;
+        }
+        if ($request->region != NULL){
+            $profesor->region= $request->region;
+        }
+        if ($request->provincia != NULL){
+            $profesor->provincia= $request->provincia;
+        }
+        if ($request->comuna != NULL){
+            $profesor->comuna= $request->comuna;
+        }
+        if ($request->correo != NULL){
+            $profesor->correo= $request->correo;
+        }
         $profesor->save();
         return response()->json($profesor);
     }

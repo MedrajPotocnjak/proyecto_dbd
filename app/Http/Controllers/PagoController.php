@@ -82,9 +82,15 @@ class PagoController extends Controller
         //
         $pago= Pago::find($id);
         //$pago->rut_alumno= $request->rut_alumno;
-        $pago->tipo_pago= $request->tipo_pago;
-        $pago->forma_pago= $request->forma_pago;
-        $pago->fecha_pago= $request->fecha_pago;
+        if ($request->tipo_pago != NULL){
+            $pago->tipo_pago= $request->tipo_pago;
+        }
+        if ($request->forma_pago != NULL){
+            $pago->forma_pago= $request->forma_pago;
+        }
+        if ($request->fecha_pago != NULL){
+            $pago->fecha_pago= $request->fecha_pago;
+        }
         $pago->save();
         return response()->json($pago);
     }

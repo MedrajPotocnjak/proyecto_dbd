@@ -80,9 +80,15 @@ class MensajeController extends Controller
     {
         //
         $mensaje = Mensaje::find($id);
-        $mensaje->asunto = $request->asunto;
-        $mensaje->contenido = $request->contenido;
-        $mensaje->fecha = $request->fecha;
+        if ($request->asunto != NULL){
+            $mensaje->asunto = $request->asunto;
+        }
+        if ($request->contenido != NULL){
+            $mensaje->contenido = $request->contenido;
+        }
+        if ($request->fecha != NULL){
+            $mensaje->fecha = $request->fecha;
+        }
         $mensaje->save();
         return response()->json($mensaje);
     }

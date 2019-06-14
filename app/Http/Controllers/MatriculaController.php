@@ -79,8 +79,12 @@ class MatriculaController extends Controller
     {
         //
         $matricula = Matricula::find($id);
-        $matricula->estado_matricula = $request->estado_matricula;
-        $matricula->costo = $request->costo;
+        if ($request->estado_matricula != NULL){
+            $matricula->estado_matricula = $request->estado_matricula;
+        }
+        if ($request->costo != NULL){
+            $matricula->costo = $request->costo;
+        }
         $matricula->save();
         return response()->json($matricula);
     }
