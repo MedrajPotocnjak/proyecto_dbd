@@ -19,9 +19,8 @@ class CreateSeccionTrigger extends Migration
             RETURNS trigger AS
             $$
                 BEGIN
-                SELECT 
                 FROM Seccion AS s , Asignatura AS a
-                CREATE Seccion
+                /*CREATE Seccion*/
                 SET s.nombre = "A-1"
                 SET s.cupos = 30
                 SET s.tipo = "t"
