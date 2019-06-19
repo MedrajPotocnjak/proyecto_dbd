@@ -40,6 +40,8 @@ class CertificadoAlumnoController extends Controller
     {
         //
         $certificadoAlumno = new Certificado_Alumno();
+        $certificadoAlumno->folio_certificado = $request->folio_certificado;
+        $certificadoAlumno->rut_alumno = $request->rut_alumno;
         $certificadoAlumno->save();
         return response()->json($certificadoAlumno);
     }
@@ -77,6 +79,12 @@ class CertificadoAlumnoController extends Controller
     {
         //
         $certificadoAlumno = Certificado_Alumno::find($id);
+        if ($request->folio_certificado != NULL){
+            $certificadoAlumno->folio_certificado = $request->folio_certificado;
+        }
+        if ($request->rut_alumno != NULL){
+            $certificadoAlumno->rut_alumno = $request->rut_alumno;
+        }
         $certificadoAlumno->save();
         return response()->json($certificadoAlumno);
     }
