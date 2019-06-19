@@ -40,7 +40,7 @@ class PagoController extends Controller
     {
         //
         $pago= new Pago();
-        //$pago->rut_alumno= $request->rut_alumno;
+        $pago->rut_alumno= $request->rut_alumno;
         $pago->tipo_pago= $request->tipo_pago;
         $pago->forma_pago= $request->forma_pago;
         $pago->fecha_pago= $request->fecha_pago;
@@ -81,7 +81,9 @@ class PagoController extends Controller
     {
         //
         $pago= Pago::find($id);
-        //$pago->rut_alumno= $request->rut_alumno;
+        if($request->rut_alumno != NULL){
+            $pago->rut_alumno= $request->rut_alumno;
+        }    
         if ($request->tipo_pago != NULL){
             $pago->tipo_pago= $request->tipo_pago;
         }
