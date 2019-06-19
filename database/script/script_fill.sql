@@ -1,0 +1,2 @@
+insert into alumno(rut,nombre,apellido_paterno,apellido_materno,nivel,ingreso,password,asignaturas_aprobadas,nas,ppa,nar,fecha_nacimiento,nacionalidad,estado_civil,sexo,telefono,region,provincia,comuna,correo)
+values(194653946,'Mateo','Rologo','Hoy',2,'2/2018','caca123',6,5.0,5.0,5.0,'1997-04-03','chileno','soltero','h','5691234560','loh rioh','provincia1','comuna1','porfadameun7@gmail.com');
