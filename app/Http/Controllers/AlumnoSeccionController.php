@@ -85,15 +85,33 @@ class AlumnoSeccionController extends Controller
     {
         //
         $alumnoSeccion = Seccion_Alumno::find($id);
-        $alumnoSeccion->aprobado = $request->aprobado;
-        $alumnoSeccion->promedio = $request->promedio;
-        $alumnoSeccion->nota_p1 = $request->nota_p1;
-        $alumnoSeccion->nota_p2 = $request->nota_p2;
-        $alumnoSeccion->nota_p3 = $request->nota_p3;
-        $alumnoSeccion->nota_c1 = $request->nota_c1;
-        $alumnoSeccion->nota_c2 = $request->nota_c2;
-        $alumnoSeccion->nota_c3 = $request->nota_c3;
-        $alumnoSeccion->estado_cursado = $request->estado_cursado;
+        if ($request->aprobado != NULL){
+            $alumnoSeccion->aprobado = $request->aprobado;
+        }
+        if ($request->promedio != NULL){
+            $alumnoSeccion->promedio = $request->promedio;
+        }
+        if ($request->nota_p1 != NULL){
+            $alumnoSeccion->nota_p1 = $request->nota_p1;
+        }
+        if ($request->nota_p2 != NULL){
+            $alumnoSeccion->nota_p2 = $request->nota_p2;
+        }
+        if ($request->nota_p3 != NULL){
+            $alumnoSeccion->nota_p3 = $request->nota_p3;
+        }
+        if ($request->nota_c1 != NULL){
+            $alumnoSeccion->nota_c1 = $request->nota_c1;
+        }
+        if ($request->nota_c2 != NULL){
+            $alumnoSeccion->nota_c2 = $request->nota_c2;
+        }
+        if ($request->nota_c3 != NULL){
+            $alumnoSeccion->nota_c3 = $request->nota_c3;
+        }
+        if ($request->estado_cursado != NULL){
+            $alumnoSeccion->estado_cursado = $request->estado_cursado;
+        }
         $alumnoSeccion->save();
         return response()->json($alumnoSeccion);
     }
