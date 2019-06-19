@@ -44,6 +44,7 @@ class EstudioController extends Controller
         $estudio->titulo= $request->titulo;
         $estudio->contenido= $request->contenido;
         $estudio->ruta_estudio= $request->ruta_estudio;
+        $estudio->codigo_departamento = $request->codigo_departamento;
         $estudio->save();
         return response()->json($estudio);
 
@@ -93,6 +94,9 @@ class EstudioController extends Controller
         }
         if($request->ruta_estudio != NULL){
             $estudio->ruta_estudio= $request->ruta_estudio;
+        }
+        if($request->codigo_departamento != NULL){
+            $estudio->codigo_departamento = $request->codigo_departamento;
         }
         $estudio->save();
         return response()->json($estudio);
