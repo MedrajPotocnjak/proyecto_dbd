@@ -40,6 +40,8 @@ class SeccionSalaController extends Controller
     {
         //
         $seccionSala = new Seccion_Sala();
+        $seccionSala->codigo_seccion = $request->codigo_seccion;
+        $seccionSala->codigo_sala = $request->codigo_sala;
         $seccionSala->bloque = $request->bloque;
         $seccionSala->save();
         return response()->json($seccionSala);
@@ -78,6 +80,12 @@ class SeccionSalaController extends Controller
     {
         //
         $seccionSala = Seccion_Sala::find($id);
+        if ($request->codigo_seccion != NULL){
+            $seccionSala->codigo_seccion = $request->codigo_seccion;
+        }
+        if ($request->codigo_sala != NULL){
+            $seccionSala->codigo_sala = $request->codigo_sala;
+        }
         if ($request->bloque != NULL){
             $seccionSala->bloque = $request->bloque;
         }

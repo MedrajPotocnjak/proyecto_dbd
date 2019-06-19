@@ -41,6 +41,8 @@ class MensajeAlumnoController extends Controller
     {
         //
         $mensajes_alumnos = new Mensaje_Alumno();
+        $mensajes_alumnos->codigo_mensaje = $request->codigo_mensaje;
+        $mensajes_alumnos->rut_alumno = $request->rut_alumno; 
         $mensajes_alumnos->save();
         return response()->json($mensajes_alumnos);
     }
@@ -78,6 +80,12 @@ class MensajeAlumnoController extends Controller
     {
         //
         $mensajes_alumnos = Mensaje_Alumno::find($id);
+        if($request->codigo_mensaje != NULL){
+            $mensajes_alumnos->codigo_mensaje= $request->codigo_mensaje;
+        }
+        if($request->rut_alumno != NULL){
+            $mensajes_alumnos->rut_alumno = $request->rut_alumno;
+        }
         $mensajes_alumnos->save();
         return response()->json($mensajes_alumnos);
     }

@@ -40,6 +40,8 @@ class CarreraAsignaturaController extends Controller
     {
         //
         $carrera_asignaturas = new Carrera_Asignatura();
+        $carrera_asignaturas->codigo_carrera= $request->codigo_carrera;
+        $carrera_asignaturas->codigo_asignatura= $request->codigo_asignatura;
         $carrera_asignaturas->save();
         return response()->json($carrera_asignaturas);
     }
