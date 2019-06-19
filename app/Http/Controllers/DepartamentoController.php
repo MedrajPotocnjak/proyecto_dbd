@@ -41,6 +41,7 @@ class DepartamentoController extends Controller
         //
         $departamento= new Departamento();
         $departamento->nombre= $request->get('nombre');
+        $departamento->rut_coordinador = $request->rut_coordinador;
         $departamento->save();
         return response()->json($departamento); 
     }
@@ -80,6 +81,9 @@ class DepartamentoController extends Controller
         $departamento= Departamento::find($id);
         if($request->nombre != NULL){
             $departamento->nombre= $request->nombre;
+        }
+        if($request->rut_coordinador != NULL){
+            $departamento->rut_coordinador = $request->rut_coordinador;
         }
         $departamento->save();
         return response()->json($departamento);
