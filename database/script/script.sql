@@ -1,4 +1,3 @@
-
 create table administrador (
 	id serial,
 	rut integer UNIQUE,
@@ -38,6 +37,22 @@ create table alumno (
 	primary key(id)
 );
 
+create table asignatura (
+	codigo serial,
+	nombre varchar(60),
+	jornada varchar(10),
+	asistencia_minima integer,
+	ponderacion varchar(5),
+	nivel integer,
+	horas_teoria integer,
+	horas_laboratorio integer,
+	horas_ejercicios integer,
+	version_plan_estudios varchar(6),
+	created_at timestamp default current_timestamp,
+	updated_at timestamp default current_timestamp,
+	primary key(codigo)
+);
+
 create table profesor(
 	id serial,
 	rut integer UNIQUE,
@@ -59,20 +74,31 @@ create table profesor(
 	primary key(id)
 );
 
-create table asignatura (
+create table sala(
 	codigo serial,
-	nombre varchar(60),
-	jornada varchar(10),
-	asistencia_minima integer,
-	ponderacion varchar(5),
-	nivel integer,
-	horas_teoria integer,
-	horas_laboratorio integer,
-	horas_ejercicios integer,
-	version_plan_estudios varchar(6),
+	nombre varchar(15),
+	ubicacion varchar(25),
+	cantidad_puestos smallint,
+	cantidad_computadores smallint,
 	created_at timestamp default current_timestamp,
 	updated_at timestamp default current_timestamp,
 	primary key(codigo)
+);
+
+create table seccion(
+	codigo serial,
+	rut_profesor integer,
+	codigo_asignatura integer,
+	nombre varchar(60),
+	cupos integer,
+	tipo varchar(1),
+	created_at timestamp default current_timestamp,
+	updated_at timestamp default current_timestamp,
+	foreign key(rut_profesor)
+	references profesor(rut),
+	foreign key(codigo_asignatura)
+	references asignatura(codigo),
+	primary key (codigo)
 );
 
 create table coordinador_docente (
@@ -91,10 +117,10 @@ create table departamento (
 	codigo serial,
 	nombre varchar(60),
 	rut_coordinador integer,
-	foreign key(rut_coordinador)
-	references coordinador_docente(rut),
 	created_at timestamp default current_timestamp,
 	updated_at timestamp default current_timestamp,
+	foreign key(rut_coordinador)
+	references coordinador_docente(rut),
 	primary key(codigo)
 );
 
@@ -105,24 +131,11 @@ create table carrera (
 	cantidad_alumnos smallint,
 	arancel integer,
 	codigo_departamento integer,
+	created_at timestamp default current_timestamp,
+	updated_at timestamp default current_timestamp,
 	foreign key(codigo_departamento)
 	references departamento(codigo),
-	created_at timestamp default current_timestamp,
-	updated_at timestamp default current_timestamp,
 	primary key(codigo)
-);
-
-create table carrera_asignaturas (
-	id serial,
-	codigo_carrera integer,
-	codigo_asignatura integer,
-	foreign key(codigo_carrera)
-	references carrera(codigo),
-	foreign key(codigo_asignatura)
-	references asignatura(codigo),
-	created_at timestamp default current_timestamp,
-	updated_at timestamp default current_timestamp,
-	primary key(id)
 );
 
 create table certificado (
@@ -130,36 +143,32 @@ create table certificado (
 	codigo_verificacion varchar(32),
 	contenido text,
 	fecha date,
-	ruta varchar(45),
+	ruta_formato varchar(45),
 	created_at timestamp default current_timestamp,
 	updated_at timestamp default current_timestamp,
 	primary key(folio)
 );
 
-create table certificado_alumno (
-	id serial,
-	folio_certificado integer,
-	rut_alumno integer,
-	foreign key(rut_alumno)
-	references alumno(rut),
-	foreign key(folio_certificado)
-	references certificado(folio),
+create table solicitud(
+	codigo serial,
+	contenido text,
+	ruta_formato varchar(50),
 	created_at timestamp default current_timestamp,
 	updated_at timestamp default current_timestamp,
-	primary key(id)
+	primary key(codigo)
 );
 
 create table estudio (
 	codigo serial,
 	codigo_departamento integer,
-	foreign key(codigo_departamento)
-	references departamento(codigo),
 	area varchar(32),
 	titulo varchar(32),
 	contenido text,
 	ruta_estudio varchar(45),
 	created_at timestamp default current_timestamp,
 	updated_at timestamp default current_timestamp,
+	foreign key(codigo_departamento)
+	references departamento(codigo),
 	primary key(codigo)
 );
 
@@ -168,13 +177,12 @@ create table pago(
 	rut_alumno integer,
 	tipo_pago varchar(1),
 	forma_pago integer,
-	foreign key(rut_alumno)
-	references alumno(rut),
 	created_at timestamp default current_timestamp,
 	updated_at timestamp default current_timestamp,
+	foreign key(rut_alumno)
+	references alumno(rut),
 	primary key (codigo)
 );
-
 
 create table matricula (
 	codigo serial,
@@ -188,26 +196,48 @@ create table matricula (
 	primary key(codigo)
 );
 
-create table seccion(
-	codigo serial,
+create table mensaje(
+	id serial,
+	asunto varchar(128),
+	contenido text,
 	rut_profesor integer,
-	codigo_asignatura integer,
-	nombre varchar(60),
-	cupos integer,
-	tipo varchar(1)
 	created_at timestamp default current_timestamp,
 	updated_at timestamp default current_timestamp,
 	foreign key(rut_profesor)
 	references profesor(rut),
+	primary key(id)
+);
+
+create table carrera_asignaturas (
+	id serial,
+	codigo_carrera integer,
+	codigo_asignatura integer,
+	created_at timestamp default current_timestamp,
+	updated_at timestamp default current_timestamp,
+	foreign key(codigo_carrera)
+	references carrera(codigo),
 	foreign key(codigo_asignatura)
 	references asignatura(codigo),
-	primary key (codigo)
+	primary key(id)
+);
+
+create table certificado_alumno (
+	id serial,
+	folio_certificado integer,
+	rut_alumno integer,
+	created_at timestamp default current_timestamp,
+	updated_at timestamp default current_timestamp,
+	foreign key(rut_alumno)
+	references alumno(rut),
+	foreign key(folio_certificado)
+	references certificado(folio),
+	primary key(id)
 );
 
 create table seccion_alumno(
 	codigo serial,
 	rut_alumno integer,
-	codigo_seccion varchar(20),
+	codigo_seccion integer,
 	aprobado integer,
 	promedio float,
 	nota_p1 float,
@@ -226,21 +256,11 @@ create table seccion_alumno(
 	primary key(codigo)
 );
 
-create table sala(
-	codigo serial,
-	nombre varchar(15),
-	ubicacion varchar(25),
-	cantidad_puestos smallint,
-	cantidad_computadores smallint,
-	created_at timestamp default current_timestamp,
-	updated_at timestamp default current_timestamp,
-	primary key(codigo)
-);
-
 create table seccion_sala(
 	id serial,
 	codigo_seccion integer,
 	codigo_sala integer,
+	bloque varchar(2),
 	created_at timestamp default current_timestamp,
 	updated_at timestamp default current_timestamp,
 	foreign key(codigo_seccion)
@@ -248,36 +268,6 @@ create table seccion_sala(
 	foreign key(codigo_sala)
 	references sala(codigo),
 	primary key(id)
-);
-
-create table mensualidad(
-	codigo serial,
-	codigo_pago integer,
-	numero_mensualidad integer,
-	costo integer,
-	created_at timestamp default current_timestamp,
-	updated_at timestamp default current_timestamp,
-	foreign key(codigo_pago)
-	references pago(codigo),
-	primary key(codigo)
-);
-
-create table mensaje(
-	id serial,
-	asunto varchar(128),
-	contenido text,
-	created_at timestamp default current_timestamp,
-	updated_at timestamp default current_timestamp,
-	primary key(id)
-);
-
-create table solicitud(
-	codigo serial,
-	contenido text,
-	ruta_formato varchar(50),
-	created_at timestamp default current_timestamp,
-	updated_at timestamp default current_timestamp,
-	primary key(codigo)
 );
 
 create table solicitud_alumno(
@@ -296,7 +286,7 @@ create table solicitud_alumno(
 create table mensaje_alumno(
 	codigo serial,
 	codigo_mensaje integer,
-	rut_alumno integer
+	rut_alumno integer,
 	created_at timestamp default current_timestamp,
 	updated_at timestamp default current_timestamp,
 	foreign key(codigo_mensaje)
@@ -306,6 +296,14 @@ create table mensaje_alumno(
 	primary key(codigo)
 );
 
-
-
-
+create table mensualidad(
+	codigo serial,
+	codigo_pago integer,
+	numero_mensualidad integer,
+	costo integer,
+	created_at timestamp default current_timestamp,
+	updated_at timestamp default current_timestamp,
+	foreign key(codigo_pago)
+	references pago(codigo),
+	primary key(codigo)
+);
