@@ -13,14 +13,14 @@ class CreateSeccionTrigger extends Migration
      */
     public function up()
     {
-        DB::statement
+        /*DB::statement
         ('
             CREATE OR REPLACE FUNCTION crear_seccion()
             RETURNS trigger AS
             $$
                 BEGIN
                 FROM Seccion AS s , Asignatura AS a
-                /*CREATE Seccion*/
+                CREATE Seccion
                 SET s.nombre = "A-1"
                 SET s.cupos = 30
                 SET s.tipo = "t"
@@ -36,7 +36,7 @@ class CreateSeccionTrigger extends Migration
             CREATE TRIGGER Seccion
             AFTER INSERT ON Asignatura
             EXECUTE PROCEDURE crear_seccion();
-        ');  
+        ');*/  
     }
 
     /**
