@@ -39,6 +39,8 @@ class AlumnoSeccionController extends Controller
     {
         //
         $alumnoSeccion = new Seccion_Alumno();
+        $alumnoSeccion->codigo_seccion = $request->codigo_seccion;
+        $alumnoSeccion->rut = $request->rut;
         $alumnoSeccion->aprobado = $request->aprobado;
         $alumnoSeccion->promedio = $request->promedio;
         $alumnoSeccion->nota_p1 = $request->nota_p1;
@@ -85,6 +87,12 @@ class AlumnoSeccionController extends Controller
     {
         //
         $alumnoSeccion = Seccion_Alumno::find($id);
+        if ($request->codigo_seccion != NULL){
+            $alumnoSeccion->codigo_seccion = $request->codigo_seccion;
+        }
+        if ($request->rut != NULL){
+            $alumnoSeccion->rut = $request->rut;
+        }
         if ($request->aprobado != NULL){
             $alumnoSeccion->aprobado = $request->aprobado;
         }
