@@ -40,6 +40,8 @@ class SolicitudAlumnoController extends Controller
     {
         //
         $solicitudAlumno = new Solicitud_Alumno();
+        $solicitudAlumno->rut_alumno = $request->rut_alumno;
+        $solicitudAlumno->codigo_solicitud = $request->codigo_solicitud;
         $solicitudAlumno->save();
         return response()->json($solicitudAlumno);
     }
@@ -77,6 +79,12 @@ class SolicitudAlumnoController extends Controller
     {
         //
         $solicitudAlumno = Solicitud_Alumno::find($id);
+        if ($request->rut_alumno != NULL){
+            $solicitudAlumno->rut_alumno = $request->rut_alumno;
+        }
+        if ($request->codigo_solicitud != NULL){
+            $solicitudAlumno->codigo_solicitud = $request->codigo_solicitud;
+        }
         $solicitudAlumno->save();
         return response()->json($solicitudAlumno);
     }
