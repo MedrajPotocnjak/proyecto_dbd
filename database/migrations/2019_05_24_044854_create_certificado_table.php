@@ -18,7 +18,7 @@ class CreateCertificadoTable extends Migration
             $table->string('codigo_verificacion',32);
             $table->text('contenido');
             $table->dateTime('fecha');
-            $table->string('ruta_formato',4);
+            $table->string('ruta_formato',50);
             $table->timestamps();
         });
     }

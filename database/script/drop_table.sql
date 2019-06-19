@@ -4,7 +4,7 @@ drop table solicitud_alumno;
 drop table seccion_sala;
 drop table seccion_alumno; 
 drop table certificado_alumno;
-drop table carrera_asignatura;
+drop table carrera_asignaturas;
 drop table mensaje;
 drop table matricula;
 drop table pago;
