@@ -13,10 +13,31 @@ class CreateSeccionTrigger extends Migration
      */
     public function up()
     {
-        Schema::create('seccion_trigger', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->timestamps();
-        });
+        DB::statement
+        ('
+            CREATE OR REPLACE FUNCTION crear_seccion()
+            RETURNS trigger AS
+            $$
+                BEGIN
+                SELECT 
+                FROM Seccion AS s , Asignatura AS a
+                CREATE Seccion
+                SET s.nombre = "A-1"
+                SET s.cupos = 30
+                SET s.tipo = "t"
+                SET s.rut_profesor = 187695783
+                SET s.codigo_asignatura = NEW.id
+                RETURN NEW;
+                END;
+            $$
+            LANGUAGE plpgsql;
+        ');
+        DB::unprepared
+        ('
+            CREATE TRIGGER Seccion
+            AFTER INSERT ON Asignatura
+            EXECUTE PROCEDURE crear_seccion();
+        ');  
     }
 
     /**
