@@ -82,6 +82,9 @@ class CarreraController extends Controller
     {
         //
         $carrera= Carrera::find($id);
+        if ($request->codigo_departamento != NULL){
+            $carrera->codigo_departamento= $request->codigo_departamento;
+        }
         if($request->nombre != NULL){
             $carrera->nombre= $request->nombre;
         }
