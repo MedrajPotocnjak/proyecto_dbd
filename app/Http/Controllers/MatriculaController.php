@@ -40,6 +40,7 @@ class MatriculaController extends Controller
     {
         //
         $matricula = new Matricula();
+        $matricula->codigo_pago = $request->codigo_pago;
         $matricula->estado_matricula = $request->estado_matricula;
         $matricula->costo = $request->costo;
         $matricula->save();
