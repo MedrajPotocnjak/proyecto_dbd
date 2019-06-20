@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Asignatura;
+use App\Seccion;
+use App\Seccion_Sala;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 
 class AsignaturaController extends Controller
 {
@@ -61,9 +65,18 @@ class AsignaturaController extends Controller
      */
     public function show(Asignatura $asignatura)
     {
-        //Buscar por id .w.
+        //Buscar por id .w.+
     }
 
+	public function getHorarios($id) {
+		$collection= new Collection;
+		$secciones=Seccion::all()->where('codigo_asignatura','=',$id);
+		foreach ($secciones as $seccion) {
+			$collection=collect(Seccion_Sala::all()->where('codigo_seccion','=',$seccion->codigo));
+		}
+		return $collection;
+	}
+	
     /**
      * Show the form for editing the specified resource.
      *
