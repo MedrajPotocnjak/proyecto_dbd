@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Seccion;
+use App\Seccion_Sala;
 use Illuminate\Http\Request;
 
 class SeccionController extends Controller
@@ -58,6 +59,21 @@ class SeccionController extends Controller
         //
     }
 
+	public function getHorarios($id) {
+		
+		return Seccion_Sala::all()->where('codigo_seccion','=',$id);
+
+	}
+	
+	public function addHorario($id,Request $request) {
+		$seccion_sala= new Seccion_Sala;
+		$seccion_sala->codigo_seccion=$id;
+		$seccion_sala->codigo_sala=$request->codigo_sala;
+		$seccion_sala->bloque=$request->bloque;
+		$seccion_sala->save();
+        return response()->json($seccion_sala);
+	}
+	
     /**
      * Show the form for editing the specified resource.
      *
