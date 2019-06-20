@@ -26,6 +26,9 @@ Route::delete('/Administrador/{id}','AdministradorController@destroy');
 Route::get('/Alumno','AlumnoController@index');
 Route::post('/Alumno','AlumnoController@store');
 //Route::get();SHOW
+Route::get('/Alumno/statusMatricula/{id}','AlumnoController@statusMatricula');
+Route::get('/Alumno/getPagos/{id}','AlumnoController@getPagos');
+Route::post('/Alumno/addPago/{id}','AlumnoController@addPago');
 Route::put('/Alumno/{id}','AlumnoController@update');
 Route::delete('/Alumno/{id}','AlumnoController@destroy');
 
