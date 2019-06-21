@@ -13,30 +13,28 @@ class CreateSeccionTrigger extends Migration
      */
     public function up()
     {
-        /*DB::statement
+        DB::statement
         ('
-            CREATE OR REPLACE FUNCTION crear_seccion()
-            RETURNS trigger AS
-            $$
-                BEGIN
-                FROM Seccion AS s , Asignatura AS a
-                CREATE Seccion
-                SET s.nombre = "A-1"
-                SET s.cupos = 30
-                SET s.tipo = "t"
-                SET s.rut_profesor = 187695783
-                SET s.codigo_asignatura = NEW.id
-                RETURN NEW;
-                END;
-            $$
-            LANGUAGE plpgsql;
+            CREATE OR REPLACE FUNCTION quitar_cupo() RETURNS trigger AS $quitar_cupo$
+			BEGIN
+			
+			UPDATE seccion
+			SET cupos = cupos - 1
+			WHERE seccion.codigo = (SELECT alusec.codigo_seccion
+									FROM seccion_alumno as alusec
+									WHERE alusec.codigo = (SELECT max(codigo)
+														   FROM seccion_alumno)
+									);
+			RETURN NULL;
+			END
+            $quitar_cupo$ LANGUAGE plpgsql;
         ');
         DB::unprepared
         ('
-            CREATE TRIGGER Seccion
-            AFTER INSERT ON Asignatura
-            EXECUTE PROCEDURE crear_seccion();
-        ');*/  
+            CREATE TRIGGER seccion_alumno
+            AFTER INSERT ON seccion_alumno
+            EXECUTE PROCEDURE quitar_cupo();
+        ');  
     }
 
     /**
