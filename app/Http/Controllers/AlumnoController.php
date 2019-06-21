@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Alumno;
+use App\Mensaje;
+use App\Mensaje_Alumno;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 
 class AlumnoController extends Controller
 {
@@ -64,6 +67,19 @@ class AlumnoController extends Controller
         return response()->json($alumno);
     }
 
+    /*public function createMensaje(){
+
+    }
+*/
+    public function getMensaje($ida){
+        $collection= new Collection;
+        $alumno=Alumno::find($ida);
+        $rut=$alumno->rut;
+        $mensaje_alumnos=Mensaje_Alumno::all()->where('rut_alumno','=',$rut);
+        $id_mensajes = $mensaje_alumnos->pluck('codigo_mensaje');
+        $collection=collect(Mensaje::find($id_mensajes));
+        return $collection->all();
+    }
     /**
      * Display the specified resource.
      *
