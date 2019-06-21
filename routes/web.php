@@ -26,6 +26,7 @@ Route::delete('/Administrador/{id}','AdministradorController@destroy');
 Route::get('/Alumno','AlumnoController@index');
 Route::post('/Alumno','AlumnoController@store');
 //Route::get();SHOW
+Route::get('/Alumno/getMensaje/{id}','AlumnoController@getMensaje');
 Route::put('/Alumno/{id}','AlumnoController@update');
 Route::delete('/Alumno/{id}','AlumnoController@destroy');
 
@@ -97,6 +98,9 @@ Route::delete('/Mensualidad/{id}','MensualidadController@destroy');
 Route::get('/Pago','PagoController@index');
 Route::post('/Pago','PagoController@store');
 //Route::get();SHOW
+Route::get('/Pago/statusMatricula/{id}','PagoController@statusMatricula');
+Route::get('/Pago/getPagos/{id}','PagoController@getPagos');
+Route::post('/Pago/addPago/{id}','PagoController@addPago');
 Route::put('/Pago/{id}','PagoController@update');
 Route::delete('/Pago/{id}','PagoController@destroy');
 
