@@ -27,6 +27,7 @@ Route::get('/Alumno','AlumnoController@index');
 Route::post('/Alumno','AlumnoController@store');
 //Route::get();SHOW
 Route::get('/Alumno/getMensaje/{id}','AlumnoController@getMensaje');
+Route::post('/Alumno/createMensaje/{id}','AlumnoController@createMensaje');
 Route::put('/Alumno/{id}','AlumnoController@update');
 Route::delete('/Alumno/{id}','AlumnoController@destroy');
 
