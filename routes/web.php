@@ -120,6 +120,8 @@ Route::delete('/Sala/{id}','SalaController@destroy');
 
 //Rutas Seccion
 Route::get('/Seccion','SeccionController@index');
+Route::get('/Seccion/getHorarios/{id}','SeccionController@getHorarios');
+Route::post('/Seccion/addHorario/{id}','SeccionController@addHorario');
 Route::post('/Seccion','SeccionController@store');
 //Route::get();SHOW
 Route::put('/Seccion/{id}','SeccionController@update');

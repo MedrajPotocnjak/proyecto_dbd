@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Seccion;
+use App\Seccion_Sala;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 
 class SeccionController extends Controller
 {
@@ -58,6 +60,21 @@ class SeccionController extends Controller
         //
     }
 
+	public function getHorarios($id) {
+		$seccion_salas=Seccion_Sala::all()->where('codigo_seccion','=',$id);
+		return $seccion_salas->pluck('bloque');
+
+	}
+	
+	public function addHorario($id,Request $request) {
+		$seccion_sala= new Seccion_Sala;
+		$seccion_sala->codigo_seccion=$id;
+		$seccion_sala->codigo_sala=$request->codigo_sala;
+		$seccion_sala->bloque=$request->bloque;
+		$seccion_sala->save();
+        return "Bloque agregado ".$request->bloque." para seccion ".$id;
+	}
+	
     /**
      * Show the form for editing the specified resource.
      *

@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Carrera;
+use App\Carrera_Asignatura;
+use App\Asignatura;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 
 class CarreraController extends Controller
 {
@@ -57,9 +60,19 @@ class CarreraController extends Controller
      */
     public function show(Carrera $carrera)
     {
-        //
+        
     }
-
+	
+	public function showMalla($id) {
+		$collection= new Collection;
+		$carrera_asignaturas=Carrera_Asignatura::all()->where('codigo_carrera','=',$id);
+		//return $carrera_asignaturas;
+		foreach ($carrera_asignaturas as $carrera_asignatura) {
+			$collection=collect(Asignatura::find($carrera_asignatura->codigo_asignatura));
+		}
+		return $collection->all();
+	}
+	
     /**
      * Show the form for editing the specified resource.
      *
