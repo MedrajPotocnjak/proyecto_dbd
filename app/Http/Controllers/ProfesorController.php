@@ -155,8 +155,37 @@ class ProfesorController extends Controller
     }
 
     public function verMensajes($id){
-        $coleccion= collect(Mensaje::all()->where('rut_profesor','=',$id));
-        $mensajes= $coleccion->sortBy('fecha');
+        $coleccion = new Collection;
+        $coleccion = collect(Mensaje::all()->where('rut_profesor','=',$id));
+        $mensajes = $coleccion->sortBy('fecha');
         return response()->json($mensajes->values('fecha','asunto','contenido')->all());
+    }
+
+    public function crearMensaje($id, Request $request){
+        $mensaje = new Mensaje;
+
+        $profesor = Profesor::find($id);
+        $rut = $profesor->rut;
+
+        $mensaje->rut_profesor = $rut;
+        $mensaje->asunto= $request->asunto;
+        $mensaje->contenido= $request->contenido;
+        $mensaje->fecha = $request->fecha;
+
+        $seccion = Seccion::find($rut);
+        $codigo_s = $seccion->codigo_seccion;
+
+        $seccion_alumno = Seccion_Alumno::find($codigo_s);
+        $rut_a = $seccion_alumno->rut;
+
+        $mensaje->save();
+
+        $mensaje_alumno = new Mensaje_Alumno;
+
+        $mensaje_alumno->rut_alumno = $rut_a;
+        $mensaje_alumno->codigo_mensaje = $mensaje->id;
+
+        $mensaje_alumno->save();
+        return response()->json($mensaje);
     }
 }
