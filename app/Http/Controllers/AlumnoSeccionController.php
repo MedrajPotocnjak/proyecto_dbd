@@ -15,7 +15,7 @@ class AlumnoSeccionController extends Controller
     public function index()
     {
         //
-        $alumnoSeccion = Seccion_Alumno()::all();
+        $alumnoSeccion = Seccion_Alumno::all();
         return response()->json($alumnoSeccion);
     }
 

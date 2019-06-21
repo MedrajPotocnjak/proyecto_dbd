@@ -26,9 +26,13 @@ Route::delete('/Administrador/{id}','AdministradorController@destroy');
 Route::get('/Alumno','AlumnoController@index');
 Route::post('/Alumno','AlumnoController@store');
 //Route::get();SHOW
+Route::get('/Alumno/getSecciones/{id}','AlumnoController@getSecciones');
+Route::get('/Alumno/getPosibleAsignatura/{id}','AlumnoController@getPosibleAsignatura');
+Route::get('/Alumno/getPosibleAsignatura2/{id}','AlumnoController@getPosibleAsignatura2');
 Route::get('/Alumno/getMensaje/{id}','AlumnoController@getMensaje');
 Route::get('/Alumno/getSolicitud/{id}','AlumnoController@getSolicitud');
 Route::get('/Alumno/getCertificados/{id}','AlumnoController@getCertificados');
+Route::post('/Alumno/inscribirAsignatura/{id}','AlumnoController@inscribirAsignatura');
 Route::post('/Alumno/createMensaje/{id}','AlumnoController@createMensaje');
 Route::post('/Alumno/createCertificado/{id}','AlumnoController@createCertificado');
 Route::post('/Alumno/createSolicitud/{id}','AlumnoController@createSolicitud');
