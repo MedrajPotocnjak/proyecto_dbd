@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Profesor;
+use App\Mensaje;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
+
 
 class ProfesorController extends Controller
 {
@@ -149,5 +152,11 @@ class ProfesorController extends Controller
         $profesor = Profesor::find($id);
         $profesor->delete();
         return 'Borrado';
+    }
+
+    public function verMensajes($id){
+        $coleccion= collect(Mensaje::all()->where('rut_profesor','=',$id));
+        $mensajes= $coleccion->sortBy('fecha');
+        return response()->json($mensajes->values('fecha','asunto','contenido')->all());
     }
 }
