@@ -65,12 +65,19 @@ class CarreraController extends Controller
 	
 	public function showMalla($id) {
 		$collection= new Collection;
-		$carrera_asignaturas=Carrera_Asignatura::all()->where('codigo_carrera','=',$id);
-		//return $carrera_asignaturas;
-		foreach ($carrera_asignaturas as $carrera_asignatura) {
-			$collection=collect(Asignatura::find($carrera_asignatura->codigo_asignatura));
-		}
-		return $collection->all();
+		$id_asignatura=Carrera_Asignatura::all()->where('codigo_carrera','=',$id)->pluck('codigo_asignatura');
+		$collection=collect(Asignatura::find($id_asignatura));
+		return $collection;
+	}
+	
+	public function addMalla($id, Request $request) {
+		$carrera_asignatura= new Carrera_Asignatura;
+		$carrera_asignatura->codigo_carrera=$id;
+		$carrera_asignatura->codigo_asignatura=$request->codigo_asignatura;
+		$carrera_asignatura->save();
+		$asignatura=Asignatura::find($request->codigo_asignatura);
+		$carrera=Carrera::find($id);
+        return "Asignatura ".$asignatura->nombre." agregado a la malla de ".$carrera->nombre;
 	}
 	
     /**
