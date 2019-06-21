@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Alumno;
+use App\Certificado;
+use App\Certificado_Alumno;
+use App\Solicitud_Alumno;
+use App\Solicitud;
 use App\Mensaje;
 use App\Profesor;
 use App\Mensaje_Alumno;
@@ -70,7 +74,6 @@ class AlumnoController extends Controller
 
     public function createMensaje(Request $request, $id){
         $mensaje = new Mensaje;
-       
         $alumno=Alumno::find($id);
         $rut=$alumno->rut;
         $mensaje->asunto= $request->asunto;
@@ -90,15 +93,69 @@ class AlumnoController extends Controller
     
     }
 
-    public function getMensaje($ida){
+    public function getMensaje($id){
         $collection= new Collection;
-        $alumno=Alumno::find($ida);
+        $alumno=Alumno::find($id);
         $rut=$alumno->rut;
         $mensaje_alumnos=Mensaje_Alumno::all()->where('rut_alumno','=',$rut);
         $id_mensajes = $mensaje_alumnos->pluck('codigo_mensaje');
         $collection=collect(Mensaje::find($id_mensajes));
         return $collection->all();
     }
+
+    
+    public function getCertificados($id){
+        $collection= new Collection;
+        $alumno=Alumno::find($id);
+        $rut=$alumno->rut;
+        $certificado_alumnos= Certificado_Alumno::all()->where('rut_alumno','=',$rut);
+        $folio_certificados = $certificado_alumnos->pluck('folio_certificado');
+        $collection=collect(Certificado::find($folio_certificados));
+        return $collection->all();
+    }
+    
+    public function createCertificado(Request $request, $id){
+        $certificado = new Certificado;
+        $alumno=Alumno::find($id);
+        $rut=$alumno->rut;
+        $certificado->codigo_verificacion=$request->codigo_verificacion;
+        $certificado->contenido=$request->contenido;
+        $certificado->fecha =$request->fecha;
+        $certificado->ruta_formato =$request->ruta_formato;
+        $certificado->save();
+        $certificado_alumno = new Certificado_Alumno;
+        $certificado_alumno->folio_certificado =$certificado->folio;
+        $certificado_alumno->rut_alumno= $rut;
+        $certificado_alumno->save();
+        return response()->json($certificado);
+
+    }
+    
+    public function createSolicitud(Request $request, $id){
+        $solicitud = new Solicitud;
+        $alumno=Alumno::find($id);
+        $rut=$alumno->rut;
+        $solicitud->contenido= $request->contenido;
+        $solicitud->ruta_formato= $request->ruta_formato;
+        $solicitud->save();
+        $solicitud_alumno = new Solicitud_Alumno;
+        $solicitud_alumno->rut_alumno=$rut;
+        $solicitud_alumno->codigo_solicitud = $solicitud->codigo;
+        $solicitud_alumno->save();
+        return response()->json($solicitud);
+ 
+    }
+
+    public function getSolicitud($id){
+        $collection= new Collection;
+        $alumno=Alumno::find($id);
+        $rut=$alumno->rut;
+        $certificado_alumnos= Solicitud_Alumno::all()->where('rut_alumno','=',$rut);
+        $codigo_solicitudes = $certificado_alumnos->pluck('codigo_solicitud');
+        $collection=collect(Solicitud::find($codigo_solicitudes));
+        return $collection->all();
+    }
+
     /**
      * Display the specified resource.
      *
