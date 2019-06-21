@@ -155,7 +155,7 @@ class ProfesorController extends Controller
     }
 
     public function verMensajes($id){
-        $coleccion= collect(Mensajes::all()->where('rut_profesor','=',$id));
+        $coleccion= collect(Mensaje::all()->where('rut_profesor','=',$id));
         $mensajes= $coleccion->sortBy('fecha');
         return response()->json($mensajes->values('fecha','asunto','contenido')->all());
     }
