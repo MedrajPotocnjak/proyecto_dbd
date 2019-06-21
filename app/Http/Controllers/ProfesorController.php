@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Profesor;
 use App\Mensaje;
+use App\Seccion;
+use App\Seccion_Alumno;
+use App\Mensaje_Alumno;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
@@ -155,8 +158,38 @@ class ProfesorController extends Controller
     }
 
     public function verMensajes($id){
-        $coleccion= collect(Mensaje::all()->where('rut_profesor','=',$id));
-        $mensajes= $coleccion->sortBy('fecha');
-        return response()->json($mensajes->values('fecha','asunto','contenido')->all());
+        $coleccion = new Collection;
+        $coleccion = collect(Mensaje::all()->where('rut_profesor','=',$id));
+        $mensajes = $coleccion->sortBy('fecha');
+        return response()->json($mensajes->pluck('fecha','asunto','contenido')->all());
+    }
+
+    public function crearMensaje(Request $request, $id){
+        $mensaje = new Mensaje;
+
+        $profesor = Profesor::find($id);
+
+        $coleccion = new Collection;
+        $coleccion = collect(Profesor::all()->where('rut_profesor', '=', $id));
+
+        $mensaje->rut_profesor = $profesor->rut;
+        $mensaje->asunto= $request->asunto;
+        $mensaje->contenido= $request->contenido;
+        $mensaje->fecha = $request->fecha;
+
+        $seccion = Seccion::find($rut);
+
+        $seccion_alumno = Seccion_Alumno::find($seccion->codigo_seccion);
+        $rut_a = $seccion_alumno->rut; 
+
+        $mensaje->save();
+
+        $mensaje_alumno = new Mensaje_Alumno;
+
+        $mensaje_alumno->rut_alumno = $rut_a;
+        $mensaje_alumno->codigo_mensaje = $mensaje->id;
+
+        $mensaje_alumno->save();
+        return response()->json($mensaje);
     }
 }

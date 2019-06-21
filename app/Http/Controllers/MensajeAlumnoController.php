@@ -15,9 +15,7 @@ class MensajeAlumnoController extends Controller
     public function index()
     {
         //
-        $mensajes_alumnos = Mensaje_Alumno::all();    /*    $factory->define(Mensaje_Alumno::class, function (Faker $faker));
-        $mensajes_alumnos = Mensaje_Alumno::all();
-    */
+        $mensajes_alumnos = Mensaje_Alumno::all();    /*    $factory->define(Mensaje_Alumno::class, function (Faker $faker)); */
         return response()->json($mensajes_alumnos);
     }
 

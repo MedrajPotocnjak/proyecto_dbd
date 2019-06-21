@@ -12,7 +12,7 @@ $factory->define(Asignatura::class, function (Faker $faker) {
         'jornada' => $faker->randomElement($array = array ('diurno','vespertino')),
         'asistencia_minima' => $faker->numberBetween($min = 50, $max = 100),
         'ponderacion' => $faker-> randomElement($array = array ('20/80','100/0','50/50','75/25')),
-        'nivel' => $faker->numberBetween($min = 1, $max = 60),
+        'nivel' => $faker->numberBetween($min = 1, $max = 12),
         'horas_teoria' => $faker->numberBetween($min = 0, $max = 6),
         'horas_laboratorio' => $faker->numberBetween($min = 0, $max = 6),
         'horas_ejercicios' => $faker->numberBetween($min = 0, $max = 6),

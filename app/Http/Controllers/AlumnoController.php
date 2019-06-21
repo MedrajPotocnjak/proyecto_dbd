@@ -5,10 +5,13 @@ namespace App\Http\Controllers;
 use App\Alumno;
 use App\Certificado;
 use App\Certificado_Alumno;
+use App\Seccion_Alumno;
+use App\Seccion;
 use App\Solicitud_Alumno;
 use App\Solicitud;
 use App\Mensaje;
 use App\Profesor;
+use App\Asignatura;
 use App\Mensaje_Alumno;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
@@ -154,6 +157,63 @@ class AlumnoController extends Controller
         $codigo_solicitudes = $certificado_alumnos->pluck('codigo_solicitud');
         $collection=collect(Solicitud::find($codigo_solicitudes));
         return $collection->all();
+    }
+
+    public function getPosibleAsignatura($id){
+       // $collection= new Collection;
+        $alumno=Alumno::find($id);
+        $nivel=$alumno->nivel;
+        $asignaturas= Asignatura::all()->where('nivel','=',$nivel);
+        return $asignaturas->all();
+    }
+
+    public function getPosibleAsignatura2($id){
+        // $collection= new Collection;
+        $alumno=Alumno::find($id);
+        $nivel=$alumno->nivel + 1;
+        $asignaturas= Asignatura::all()->where('nivel','=',$nivel);
+        return $asignaturas->all();
+    }
+
+    public function getSecciones($id){
+        $alumno=Alumno::find($id);
+        $nivel=$alumno->nivel;
+        $asignaturas= Asignatura::all()->where('nivel','=',$nivel);
+        $codigo_secciones = $asignaturas->pluck('codigo');
+        $collection= new Collection;
+        $collection=collect(Seccion::find($codigo_secciones));
+
+        return $collection->all();
+    }
+
+
+   public function inscribirAsignatura(Request $request,$id){
+        $alumno=Alumno::find($id);
+        $nivelA=$alumno->nivel;
+        $rut = $alumno->rut;
+        $codigo_asignatura = $request->asignatura;
+        $codigo_seccion = $request->seccion;
+        $nota = "1.0";
+        $asignatura= Asignatura::find($codigo_asignatura);
+        if($asignatura->nivel >= $nivelA){
+            $seccion = Seccion::find($codigo_seccion);
+            $seccion_alumno=new Seccion_Alumno;
+            $seccion_alumno->rut_alumno= $rut;
+            $seccion_alumno->codigo_seccion= $seccion->codigo;
+            $seccion_alumno->aprobado = 0;
+            $seccion_alumno->nota_p1= $nota;
+            $seccion_alumno->nota_p2= $nota;
+            $seccion_alumno->nota_p3= $nota;
+            $seccion_alumno->nota_c1= $nota;
+            $seccion_alumno->nota_c2= $nota;
+            $seccion_alumno->nota_c3= $nota;
+            $seccion_alumno->promedio= $nota;
+            $seccion_alumno->estado_cursado = "s";
+            $seccion_alumno->save();
+            return "Asignatura inscrita correctamente";
+        }
+        return "No se pudo inscribir la asignatura";
+
     }
 
     /**
