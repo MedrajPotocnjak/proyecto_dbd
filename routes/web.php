@@ -51,6 +51,8 @@ Route::delete('/Asignatura/{id}','AsignaturaController@destroy');
 Route::get('/Carrera','CarreraController@index');
 Route::post('/Carrera','CarreraController@store');
 //Route::get();SHOW
+Route::get('/Carrera/showMalla/{id}','CarreraController@showMalla');
+Route::put('/Carrera/addMalla/{id}','CarreraController@addMalla');
 Route::put('/Carrera/{id}','CarreraController@update');
 Route::delete('/Carrera/{id}','CarreraController@destroy');
 
