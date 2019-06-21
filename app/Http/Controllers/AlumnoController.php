@@ -68,63 +68,6 @@ class AlumnoController extends Controller
         return response()->json($alumno);
     }
 
-
-    public function getPagos($id) {
-        $alumno=Alumno::find($id);
-        $rut=$alumno->rut;
-		return Pago::all()->where('rut_alumno','=',$rut);
-	}
-
-    public function addPago($id,Request $request){
-        $pago = new Pago();
-        $alumno=Alumno::find($id);
-        $rut=$alumno->rut;
-        $pago->rut_alumno = $rut;
-        $pago->tipo_pago= $request->tipo_pago;
-        $pago->forma_pago= $request->forma_pago;
-        $pago->save();
-        if($request->tipo_pago == 'm'){
-            $matricula = new Matricula();
-            $matricula->codigo_pago = $pago->codigo;
-            $matricula->estado_matricula = 'pagado';
-            $matricula->costo = $request->costo;
-            $matricula->save();
-            
-        }
-        if($request->tipo_pago == 'a'){
-           $mensualidad = new Mensualidad();
-           $mensualidad->codigo_pago = $pago->codigo;
-           $mensualidad->numero_mensualidad = $request->numero_mensualidad;
-           $mensualidad->costo = $request->costo;
-           $mensualidad->save();
-        }
-        return response()->json($pago);
-    }
-
-    public function statusMatricula($id){
-
-        $collection= new Collection;
-        $alumno=Alumno::find($id);
-        $rut=$alumno->rut;
-        $pagos=Pago::all()->where('rut_alumno','=',$rut);
-        $encontrado = 0;
-		foreach ($pagos as $pago) {
-            if($pago->tipo_pago == 'm'){
-                $matriculas = Matricula::all()->where('codigo_pago','=',$pago->codigo);
-                $encontrado =1;
-            }
-        }
-        if ($encontrado != 0 ){
-            $matricula =$matriculas->last(); 
-            if($matricula->estado_matricula = "pagado"){
-                return 'Matricula activa';
-            }
-            
-        }
-        return 'Matricula no activa';
-        //$matricula = Matricula::find($pago->codigo);
-
-    }
     /**
      * Display the specified resource.
      *
