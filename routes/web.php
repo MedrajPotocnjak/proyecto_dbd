@@ -118,6 +118,7 @@ Route::get('/Profesor','ProfesorController@index');
 Route::get('/Profesor/verMensajes/{id}','ProfesorController@verMensajes');
 Route::post('/Profesor','ProfesorController@store');
 //Route::get();SHOW
+Route::post('/Profesor/crearMensaje/{id}','ProfesorController@crearMensaje');
 Route::put('/Profesor/{id}','ProfesorController@update');
 Route::delete('/Profesor/{id}','ProfesorController@destroy');
 
