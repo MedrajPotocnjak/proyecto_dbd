@@ -158,7 +158,7 @@ class ProfesorController extends Controller
         $coleccion = new Collection;
         $coleccion = collect(Mensaje::all()->where('rut_profesor','=',$id));
         $mensajes = $coleccion->sortBy('fecha');
-        return response()->json($mensajes->values('fecha','asunto','contenido')->all());
+        return response()->json($mensajes->pluck('fecha','asunto','contenido')->all());
     }
 
     public function crearMensaje($id, Request $request){
