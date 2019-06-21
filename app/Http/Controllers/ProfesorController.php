@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Profesor;
 use App\Mensaje;
+use App\Seccion;
+use App\Seccion_Alumno;
+use App\Mensaje_Alumno;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
@@ -161,22 +164,23 @@ class ProfesorController extends Controller
         return response()->json($mensajes->pluck('fecha','asunto','contenido')->all());
     }
 
-    public function crearMensaje($id, Request $request){
+    public function crearMensaje(Request $request, $id){
         $mensaje = new Mensaje;
 
         $profesor = Profesor::find($id);
-        $rut = $profesor->rut;
 
-        $mensaje->rut_profesor = $rut;
+        $coleccion = new Collection;
+        $coleccion = collect(Profesor::all()->where('rut_profesor', '=', $id));
+
+        $mensaje->rut_profesor = $profesor->rut;
         $mensaje->asunto= $request->asunto;
         $mensaje->contenido= $request->contenido;
         $mensaje->fecha = $request->fecha;
 
         $seccion = Seccion::find($rut);
-        $codigo_s = $seccion->codigo_seccion;
 
-        $seccion_alumno = Seccion_Alumno::find($codigo_s);
-        $rut_a = $seccion_alumno->rut;
+        $seccion_alumno = Seccion_Alumno::find($seccion->codigo_seccion);
+        $rut_a = $seccion_alumno->rut; 
 
         $mensaje->save();
 
