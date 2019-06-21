@@ -8,7 +8,7 @@ use Faker\Generator as Faker;
 $factory->define(Asignatura::class, function (Faker $faker) {
     return [
         //
-        'nombre' => $faker->randomElement($array = array ('20/80','100/0','50/50','75/25')),
+        'nombre' => $faker->randomElement($array = array ('Introduccion a ','Fundamentos de ','Diseño de ','')).$faker->randomElement($array = array ('Derecho', 'Carne','Fauna Marina','Cosas','Ingenieria en Derecho')).$faker->randomElement($array = array ('', ' I',' II',' III')),
         'jornada' => $faker->randomElement($array = array ('diurno','vespertino')),
         'asistencia_minima' => $faker->numberBetween($min = 50, $max = 100),
         'ponderacion' => $faker-> randomElement($array = array ('20/80','100/0','50/50','75/25')),

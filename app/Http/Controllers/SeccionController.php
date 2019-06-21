@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Seccion;
 use App\Seccion_Sala;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 
 class SeccionController extends Controller
 {
@@ -60,8 +61,8 @@ class SeccionController extends Controller
     }
 
 	public function getHorarios($id) {
-		
-		return Seccion_Sala::all()->where('codigo_seccion','=',$id);
+		$seccion_salas=Seccion_Sala::all()->where('codigo_seccion','=',$id);
+		return $seccion_salas->pluck('bloque');
 
 	}
 	
@@ -71,7 +72,7 @@ class SeccionController extends Controller
 		$seccion_sala->codigo_sala=$request->codigo_sala;
 		$seccion_sala->bloque=$request->bloque;
 		$seccion_sala->save();
-        return response()->json($seccion_sala);
+        return "Bloque agregado ".$request->bloque." para seccion ".$id;
 	}
 	
     /**
