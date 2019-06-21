@@ -169,9 +169,6 @@ class ProfesorController extends Controller
 
         $profesor = Profesor::find($id);
 
-        $coleccion = new Collection;
-        $coleccion = collect(Profesor::all()->where('rut_profesor', '=', $id));
-
         $mensaje->rut_profesor = $profesor->rut;
         $mensaje->asunto= $request->asunto;
         $mensaje->contenido= $request->contenido;
