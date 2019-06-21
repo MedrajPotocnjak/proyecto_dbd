@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Alumno;
 use App\Mensaje;
+use App\Profesor;
 use App\Mensaje_Alumno;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
@@ -67,10 +68,28 @@ class AlumnoController extends Controller
         return response()->json($alumno);
     }
 
-    /*public function createMensaje(){
+    public function createMensaje(Request $request, $id){
+        $mensaje = new Mensaje;
+       
+        $alumno=Alumno::find($id);
+        $rut=$alumno->rut;
+        $mensaje->asunto= $request->asunto;
+        $mensaje->contenido= $request->contenido;
+        $mensaje->fecha = $request->fecha;
+        $idp = $request->id_profesor;
+        $profesor=Profesor::find($idp);
+        $rut_profesor =  $profesor->rut;
+        $mensaje->rut_profesor= $rut_profesor;
+        $mensaje->save();
+        $mensaje_alumno = new Mensaje_Alumno;
+        $mensaje_alumno->codigo_mensaje = $mensaje->id;
+        $mensaje_alumno->rut_alumno = $rut;
+        $mensaje_alumno->save();
 
+        return response()->json($mensaje);
+    
     }
-*/
+
     public function getMensaje($ida){
         $collection= new Collection;
         $alumno=Alumno::find($ida);
