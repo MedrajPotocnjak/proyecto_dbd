@@ -7,6 +7,9 @@ use App\Mensaje;
 use App\Seccion;
 use App\Seccion_Alumno;
 use App\Mensaje_Alumno;
+use App\Carrera_Asignatura;
+use App\Carrera;
+use App\Estudio;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
