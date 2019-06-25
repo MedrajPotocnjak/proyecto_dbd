@@ -173,11 +173,7 @@ class ProfesorController extends Controller
         $mensaje->asunto= $request->asunto;
         $mensaje->contenido= $request->contenido;
         $mensaje->fecha = $request->fecha;
-
-        $seccion = Seccion::find($rut);
-
-        $seccion_alumno = Seccion_Alumno::find($seccion->codigo_seccion);
-        $rut_a = $seccion_alumno->rut; 
+        $rut_a = $request->rut_alumno;    
 
         $mensaje->save();
 
