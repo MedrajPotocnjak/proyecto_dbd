@@ -43,6 +43,7 @@ Route::delete('/Alumno/{id}','AlumnoController@destroy');
 //Rutas Asignatura
 Route::get('/Asignatura','AsignaturaController@index');
 Route::post('/Asignatura','AsignaturaController@store');
+Route::post('/Asignatura/addSeccion/{id}','AsignaturaController@addSeccion');
 //Route::get();SHOW
 Route::get('/Asignatura/getHorarios/{id}','AsignaturaController@getHorarios');
 Route::put('/Asignatura/{id}','AsignaturaController@update');

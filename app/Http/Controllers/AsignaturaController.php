@@ -78,9 +78,15 @@ class AsignaturaController extends Controller
 		}
 		return $collection;
 	}
-	public function addHorario($idSeccion,$idSala) {
-		
-		
+	public function addSeccion($id,Request $request) {
+        $seccion = New Seccion;
+        $seccion->rut_profesor = $request->rut_profesor;
+        $seccion->codigo_asignatura = $id;
+        $seccion->nombre = $request->nombre;
+        $seccion->cupos = $request->cupos;
+        $seccion->tipo = $request->tipo;
+        $seccion->save();
+        return $seccion;
 	}
     /**
      * Show the form for editing the specified resource.
