@@ -326,4 +326,20 @@ class AlumnoController extends Controller
         $alumno->delete();
         return 'Borrado';
     }
+
+    public function verHorario($id){
+        $secciones_alumnos=collect(Seccion_Alumno::all()->where('rut_alumno','=',$id));
+        $secciones= new Collection;
+        foreach ($secciones_alumnos as $seccion_alumno){
+            $seccion= Seccion::find($seccion_alumno->codigo_seccion);
+            $secciones->put($seccion);
+        }
+        $secciones->all();
+        $collection=new Collection;
+        foreach ($secciones as $seccion) {
+            $collection=collect(Seccion_Sala::all()->where('codigo_seccion','=',$seccion->codigo));
+        }
+        return $collection;
+
+    }
 }

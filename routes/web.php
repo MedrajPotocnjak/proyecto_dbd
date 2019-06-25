@@ -32,6 +32,7 @@ Route::get('/Alumno/getPosibleAsignatura2/{id}','AlumnoController@getPosibleAsig
 Route::get('/Alumno/getMensaje/{id}','AlumnoController@getMensaje');
 Route::get('/Alumno/getSolicitud/{id}','AlumnoController@getSolicitud');
 Route::get('/Alumno/getCertificados/{id}','AlumnoController@getCertificados');
+Route::get('/Alumno/verHorario/{id}','AlumnoController@verHorario');
 Route::post('/Alumno/inscribirAsignatura/{id}','AlumnoController@inscribirAsignatura');
 Route::post('/Alumno/createMensaje/{id}','AlumnoController@createMensaje');
 Route::post('/Alumno/createCertificado/{id}','AlumnoController@createCertificado');
@@ -42,6 +43,7 @@ Route::delete('/Alumno/{id}','AlumnoController@destroy');
 //Rutas Asignatura
 Route::get('/Asignatura','AsignaturaController@index');
 Route::post('/Asignatura','AsignaturaController@store');
+Route::post('/Asignatura/addSeccion/{id}','AsignaturaController@addSeccion');
 //Route::get();SHOW
 Route::get('/Asignatura/getHorarios/{id}','AsignaturaController@getHorarios');
 Route::put('/Asignatura/{id}','AsignaturaController@update');
@@ -51,6 +53,8 @@ Route::delete('/Asignatura/{id}','AsignaturaController@destroy');
 Route::get('/Carrera','CarreraController@index');
 Route::post('/Carrera','CarreraController@store');
 //Route::get();SHOW
+Route::get('/Carrera/showMalla/{id}','CarreraController@showMalla');
+Route::put('/Carrera/addMalla/{id}','CarreraController@addMalla');
 Route::put('/Carrera/{id}','CarreraController@update');
 Route::delete('/Carrera/{id}','CarreraController@destroy');
 
@@ -118,6 +122,7 @@ Route::get('/Profesor','ProfesorController@index');
 Route::get('/Profesor/verMensajes/{id}','ProfesorController@verMensajes');
 Route::post('/Profesor','ProfesorController@store');
 //Route::get();SHOW
+Route::get('/Profesor/verEstudios/{id}','ProfesorController@verEstudios');
 Route::put('/Profesor/{id}','ProfesorController@update');
 Route::post('/Profesor/crearMensaje/{id}','ProfesorController@crearMensaje');
 Route::delete('/Profesor/{id}','ProfesorController@destroy');
