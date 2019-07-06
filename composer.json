@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.1.3",
+        "dacastro4/laravel-gmail": "^2.0",
         "fideloper/proxy": "^4.0",
         "laravel/framework": "5.8.*",
         "laravel/tinker": "^1.0"
@@ -45,6 +46,7 @@
             "Tests\\": "tests/"
         }
     },
+	"dacastro4/laravel-gmail": "^2.0",
     "minimum-stability": "dev",
     "prefer-stable": true,
     "scripts": {

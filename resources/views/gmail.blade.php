@@ -64,33 +64,11 @@
         </style>
     </head>
     <body>
-        <div class="flex-center position-ref full-height">
-			<h1>{{ LaravelGmail::user() }}</h1>
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @if(LaravelGmail::check())
-                       <a href="{{ url('oauth/gmail/logout') }}">logout</a>
-                    @else
-                        <a href="{{ url('oauth/gmail') }}">Ingresar con Gmail</a>
-                    @endif
-                </div>
-            @endif
-
-            <div class="content">
-                <div class="title m-b-md">
-                    Proyecto DBD: LOA
-                </div>
-
-                <div class="links">
-                    <a href="https://laravel.com/docs">Ayuda</a>
-                    <a href="https://laracasts.com">quiero</a>
-                    <a href="https://laravel-news.com">sacarme</a>
-                    <a href="https://blog.laravel.com">un</a>
-                    <a href="https://nova.laravel.com">7</a>
-                    <a href="https://forge.laravel.com">Pliss</a>
-                    <a href="https://github.com/laravel/laravel">The Game</a>
-                </div>
-            </div>
-        </div>
-    </body>
+		<h1>{{ LaravelGmail::user() }}</h1>
+		@if(LaravelGmail::check())
+			<a href="{{ url('oauth/gmail/logout') }}">logout</a>
+		@else
+			<a href="{{ url('oauth/gmail') }}">login</a>
+		@endif
+	</body>
 </html>
