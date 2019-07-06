@@ -47,6 +47,7 @@ Route::delete('/Alumno/{id}','AlumnoController@destroy');
 //Rutas Asignatura
 Route::get('/Asignatura','AsignaturaController@index');
 Route::post('/Asignatura','AsignaturaController@store');
+Route::post('/Asignatura/addSeccion/{id}','AsignaturaController@addSeccion');
 //Route::get();SHOW
 Route::get('/Asignatura/getHorarios/{id}','AsignaturaController@getHorarios');
 Route::put('/Asignatura/{id}','AsignaturaController@update');
@@ -125,6 +126,7 @@ Route::get('/Profesor','ProfesorController@index');
 Route::get('/Profesor/verMensajes/{id}','ProfesorController@verMensajes');
 Route::post('/Profesor','ProfesorController@store');
 //Route::get();SHOW
+Route::get('/Profesor/verEstudios/{id}','ProfesorController@verEstudios');
 Route::put('/Profesor/{id}','ProfesorController@update');
 Route::post('/Profesor/crearMensaje/{id}','ProfesorController@crearMensaje');
 Route::delete('/Profesor/{id}','ProfesorController@destroy');

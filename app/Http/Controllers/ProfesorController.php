@@ -7,6 +7,9 @@ use App\Mensaje;
 use App\Seccion;
 use App\Seccion_Alumno;
 use App\Mensaje_Alumno;
+use App\Carrera_Asignatura;
+use App\Carrera;
+use App\Estudio;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
@@ -157,6 +160,36 @@ class ProfesorController extends Controller
         return 'Borrado';
     }
 
+    public function verEstudios($id){
+        $collection= new Collection;
+        $profesor = Profesor::find($id);
+        $rut = $profesor->rut;
+        $areaP=$profesor->area;
+        $secciones= Seccion::all()->where('rut_profesor','=',$rut);
+        //return $secciones;
+        $codigoAsignaturas= $secciones->pluck('codigo_asignatura');
+        //return $codigoAsignaturas;
+        $carrerasAsig = collect(Carrera_Asignatura::find($codigoAsignaturas));
+        //return $carrerasAsig;
+        $codigoCarreras= $carrerasAsig->pluck('codigo_carrera');
+        $carreras = collect(Carrera::find($codigoCarreras));
+        //return $carreras;
+        $departamentos= $carreras->pluck('codigo_departamento');
+        //return $departamentos;
+        foreach($departamentos as $depto){
+            $estudiosDepartamentos= Estudio::all()->where('codigo_departamento','=',$depto);
+        }
+       // return $estudiosDepartamentos;
+        
+       $collection = collect([]);
+        foreach ($estudiosDepartamentos as $estudios){
+            if($estudios->area == $areaP){
+                $final= $collection-> push($estudios->titulo);
+            }
+        }
+        return $final->all();
+    }
+    
     public function verMensajes($id){
         $coleccion = new Collection;
         $coleccion = collect(Mensaje::all()->where('rut_profesor','=',$id));
@@ -173,11 +206,7 @@ class ProfesorController extends Controller
         $mensaje->asunto= $request->asunto;
         $mensaje->contenido= $request->contenido;
         $mensaje->fecha = $request->fecha;
-
-        $seccion = Seccion::find($rut);
-
-        $seccion_alumno = Seccion_Alumno::find($seccion->codigo_seccion);
-        $rut_a = $seccion_alumno->rut; 
+        $rut_a = $request->rut_alumno;    
 
         $mensaje->save();
 

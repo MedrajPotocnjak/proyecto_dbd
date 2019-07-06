@@ -1,24 +1,20 @@
-/* Trigger para el calculo del promedio cuando las notas han sido ingresadas */
-CREATE OR REPLACE FUNCTION calcular_promedio()
-RETURNS trigger AS
-$calcular_promedio$
-DECLARE
-prom_control float;
-prom_notas float;
+CREATE OR REPLACE FUNCTION agregar_cupo() RETURNS trigger AS $agregar_cupo$
+			DECLARE
+			codigo_viejo INT;
+			BEGIN
+			IF TG_OP = 'DELETE' THEN
+				codigo_viejo = OLD.codigo_seccion;
+			UPDATE seccion
+			SET cupos = cupos + 1
+			WHERE seccion.codigo = codigo_viejo;
+			RETURN NULL;
+			END IF;
+			END
+            $agregar_cupo$ LANGUAGE plpgsql;
+			
+DROP TRIGGER IF EXISTS agregarcupo ON seccion_alumno;			
 
-BEGIN
-	SELECT AVG(
-  	UPDATE seccion_alumno
-    SET promedio = (nota_p1 + nota_p2 + nota_p3 + (nota_c1 + nota_c2 + nota_c3) ) / 4
-    RETURN NULL;
-END;
-$calcular_promedio$
-LANGUAGE plpgsql;
-
-DROP TRIGGER IF EXISTS promedio ON seccion_alumno;
-
-CREATE TRIGGER promedio
-AFTER UPDATE ON seccion_alumno
-EXECUTE PROCEDURE calcular_promedio();
-
-/*    */
+CREATE TRIGGER agregarcupo
+BEFORE DELETE ON seccion_alumno
+FOR EACH ROW
+EXECUTE PROCEDURE agregar_cupo();
