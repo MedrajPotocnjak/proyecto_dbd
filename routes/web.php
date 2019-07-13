@@ -15,10 +15,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/gmail', function () {
-    return view('gmail');
-});
-
 //Rutas Administrador
 Route::get('/Administrador','AdministradorController@index');
 Route::post('/Administrador','AdministradorController@store');
@@ -200,6 +196,10 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/redirect', 'Auth\LoginController@redirectToProvider');
+Route::get('/callback', 'Auth\LoginController@handleProviderCallback');
+
+/*
 Route::get('/oauth/gmail', function (){
     return LaravelGmail::redirect();
 });
@@ -213,3 +213,4 @@ Route::get('/oauth/gmail/logout', function (){
     LaravelGmail::logout(); //It returns exception if fails
     return redirect()->to('/');
 });
+*/

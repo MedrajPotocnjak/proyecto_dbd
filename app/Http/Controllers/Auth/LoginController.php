@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
-
+use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Socialite;
 
 class LoginController extends Controller
 {
@@ -35,5 +36,29 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+	
+	public function redirectToProvider()
+    {
+        return Socialite::driver('google')->redirect();
+    }
+	
+	public function handleProviderCallback()
+    {
+		try {
+            $user = Socialite::driver('google')->stateless()->user();
+        } catch (\Exception $e) {
+            return redirect('/login');
+        }
+        // check if they're an existing user
+        $existingUser = User::where('email', $user->email)->first();
+		if($existingUser){
+            // log them in
+            auth()->login($existingUser, true);
+			return redirect('/home');
+		}
+		else {
+			return redirect('/');
+		}
     }
 }
