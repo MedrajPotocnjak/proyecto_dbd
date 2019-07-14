@@ -16,7 +16,8 @@ class CreateAdministradorTable extends Migration
         Schema::create('administrador', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('rut')->unique();
-			$table->string("password",14);
+			$table->string('password',255);
+			$table->string('remember_token',100)->nullable();
 			$table->string("nombre",30);
 			$table->string("apellido_paterno",15);
 			$table->string("apellido_materno",15);

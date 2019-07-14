@@ -21,7 +21,8 @@ class CreateAlumnoTable extends Migration
             $table->string('apellido_materno', 15);
             $table->integer('nivel');
             $table->string('ingreso',6); /* 1/2019 */ 
-            $table->string('password',14);
+            $table->string('password',255);
+			$table->string('remember_token',100)->nullable();
             $table->integer('asignaturas_aprobadas');
             $table->float('nas');
             $table->float('ppa');
