@@ -10,14 +10,10 @@ window.Vue = require('vue');
 
 import Vue from 'vue'
 import Vuetify from 'vuetify'
-import VueRouter from 'vue-router'
 import 'vuetify/dist/vuetify.min.css' // Ensure you are using css-loader
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
 
 Vue.use(Vuetify)
-Vue.use(VueRouter)
-
-
 
 /**
  * The following block of code may be used to automatically register your
@@ -30,23 +26,9 @@ Vue.use(VueRouter)
 // const files = require.context('./', true, /\.vue$/i);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
-const Example=Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-const Features=Vue.component('alumno-sidebar-component', require('./components/AlumnoSidebar.vue').default);
-const Horario=Vue.component('alumno-horario-component', require('./components/AlumnoHorario.vue').default);
+Vue.component('alumno-sidebar-component', require('./components/AlumnoSidebar.vue').default);
 
-const routes = [
 
-  { path: '/', component: Example },
-
-  { path: '/horario', component: Horario }
-
-]
-
-  
-
-const router = new VueRouter({
-  routes 
-})
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -55,5 +37,5 @@ const router = new VueRouter({
  */
 
 const app = new Vue({
-    router
-}).$mount('#app');
+    el: '#app',
+});

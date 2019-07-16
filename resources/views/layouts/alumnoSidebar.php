@@ -1,7 +1,5 @@
-@extends('layouts.app')
-
 @section('content')
-	<div id="app">
+	<div id="alumno">
 	  <alumno-sidebar-component></alumno-sidebar-component>
 	</div>
 @endsection
