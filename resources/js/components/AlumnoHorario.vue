@@ -1,6 +1,6 @@
 <template>
     <v-app id="inspire">
-        <v-container grid-list-xl text-xs-center>
+        <v-container grid-list-xs text-xs-center md1>
             <v-layout row wrap>
                 <v-flex xs12>
                     <v-card dark color="primary">
@@ -24,7 +24,36 @@
                 </v-layout>
             </v-layout>
         </v-container>
+        <v-spacer></v-spacer>
+        <v-container grid-list-xs text-xs-center md1>
+            <v-expansion-panel dark>
+                <v-expansion-panel-content class="deep-purple">
+                    <div slot="header">Ingenieria en Caca</div>
+                    <v-card light>
+                        <v-card-text>Notas:<br/>Pep 1: 7.0</v-card-text>
+                    </v-card>
+                </v-expansion-panel-content>
+            </v-expansion-panel>
 
+            <v-expansion-panel dark>
+                <v-expansion-panel-content class="teal">
+                    <div slot="header">Fundamentos de Orrego II</div>
+                    <v-card light>
+                        <v-card-text>Notas:<br/>Pep 1: 2.0</v-card-text>
+                    </v-card>
+                </v-expansion-panel-content>
+            </v-expansion-panel>
+            <v-flex xs12>
+                <v-card dark color="teal">
+                    <v-card-text class="px-0">Analisis de Telas</v-card-text>
+                </v-card>
+            </v-flex>
+            <v-flex xs12>
+                <v-card dark color="amber">
+                    <v-card-text class="px-0">Fundamentos de Cosas I</v-card-text>
+                </v-card>
+            </v-flex>
+        </v-container>
     </v-app>
 </template>
 

@@ -1890,6 +1890,35 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "AlumnoSidebar",
   data: function data() {
@@ -1972,11 +2001,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "AlumnoSidebar",
   data: function data() {
     return {
-      items: [{
+      titles: [{
         title: 'Información Personal',
         icon: 'description',
         route: '/'
@@ -1997,7 +2030,32 @@ __webpack_require__.r(__webpack_exports__);
         icon: 'payment',
         route: '/'
       }],
-      right: null
+      items: [{
+        title: 'Lunes'
+      }, {
+        title: 'Martes'
+      }, {
+        title: 'Miercoles'
+      }, {
+        title: 'Jueves'
+      }, {
+        title: 'Viernes'
+      }, {
+        title: 'Sábado'
+      }],
+      bloques: [{
+        title: '8:00-9:30'
+      }, {
+        title: '9:30-11:10'
+      }, {
+        title: '11:20-12:50'
+      }, {
+        title: '13:50-15:20'
+      }, {
+        title: '15:30-17:00'
+      }, {
+        title: '17:00-6:40'
+      }]
     };
   }
 });
@@ -2013,6 +2071,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
 //
 //
 //
@@ -38140,7 +38199,7 @@ var render = function() {
     [
       _c(
         "v-container",
-        { attrs: { "grid-list-xl": "", "text-xs-center": "" } },
+        { attrs: { "grid-list-xs": "", "text-xs-center": "", md1: "" } },
         [
           _c(
             "v-layout",
@@ -38220,6 +38279,113 @@ var render = function() {
           )
         ],
         1
+      ),
+      _vm._v(" "),
+      _c("v-spacer"),
+      _vm._v(" "),
+      _c(
+        "v-container",
+        { attrs: { "grid-list-xs": "", "text-xs-center": "", md1: "" } },
+        [
+          _c(
+            "v-expansion-panel",
+            { attrs: { dark: "" } },
+            [
+              _c(
+                "v-expansion-panel-content",
+                { staticClass: "deep-purple" },
+                [
+                  _c("div", { attrs: { slot: "header" }, slot: "header" }, [
+                    _vm._v("Ingenieria en Caca")
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "v-card",
+                    { attrs: { light: "" } },
+                    [
+                      _c("v-card-text", [
+                        _vm._v("Notas:"),
+                        _c("br"),
+                        _vm._v("Pep 1: 7.0")
+                      ])
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-expansion-panel",
+            { attrs: { dark: "" } },
+            [
+              _c(
+                "v-expansion-panel-content",
+                { staticClass: "teal" },
+                [
+                  _c("div", { attrs: { slot: "header" }, slot: "header" }, [
+                    _vm._v("Fundamentos de Orrego II")
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "v-card",
+                    { attrs: { light: "" } },
+                    [
+                      _c("v-card-text", [
+                        _vm._v("Notas:"),
+                        _c("br"),
+                        _vm._v("Pep 1: 2.0")
+                      ])
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-flex",
+            { attrs: { xs12: "" } },
+            [
+              _c(
+                "v-card",
+                { attrs: { dark: "", color: "teal" } },
+                [
+                  _c("v-card-text", { staticClass: "px-0" }, [
+                    _vm._v("Analisis de Telas")
+                  ])
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-flex",
+            { attrs: { xs12: "" } },
+            [
+              _c(
+                "v-card",
+                { attrs: { dark: "", color: "amber" } },
+                [
+                  _c("v-card-text", { staticClass: "px-0" }, [
+                    _vm._v("Fundamentos de Cosas I")
+                  ])
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
       )
     ],
     1
@@ -38232,10 +38398,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/AlumnoSidebar.vue?vue&type=template&id=0489615d&scoped=true&":
-/*!****************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/AlumnoSidebar.vue?vue&type=template&id=0489615d&scoped=true& ***!
-  \****************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/AlumnoSidebar.vue?vue&type=template&id=0489615d&":
+/*!****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/AlumnoSidebar.vue?vue&type=template&id=0489615d& ***!
+  \****************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -38252,40 +38418,80 @@ var render = function() {
     { attrs: { id: "inspire" } },
     [
       _c(
-        "v-layout",
-        { attrs: { wrap: "" } },
+        "v-container",
+        { attrs: { fluid: "" } },
         [
           _c(
-            "v-navigation-drawer",
-            { attrs: { permanent: "" } },
+            "v-layout",
             [
               _c(
-                "v-toolbar",
-                { staticClass: "primary", attrs: { flat: "", dark: "" } },
+                "v-navigation-drawer",
+                { attrs: { permanent: "" } },
                 [
                   _c(
-                    "v-list",
-                    { staticClass: "primary", attrs: { dark: "" } },
+                    "v-toolbar",
+                    { staticClass: "primary", attrs: { flat: "", dark: "" } },
                     [
                       _c(
-                        "v-list-tile",
+                        "v-list",
+                        { staticClass: "primary", attrs: { dark: "" } },
                         [
                           _c(
-                            "v-list-tile-title",
-                            {
-                              staticClass: "title",
-                              attrs: { "justify-center": "" }
-                            },
+                            "v-list-tile",
                             [
-                              _vm._v(
-                                "\n                            LOA: Alumno\n                        "
+                              _c(
+                                "v-list-tile-title",
+                                {
+                                  staticClass: "title",
+                                  attrs: { "justify-center": "" }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                LOA: Alumno\n                            "
+                                  )
+                                ]
                               )
-                            ]
+                            ],
+                            1
                           )
                         ],
                         1
                       )
                     ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-list",
+                    { staticClass: "pt-0", attrs: { dense: "" } },
+                    _vm._l(_vm.titles, function(item) {
+                      return _c(
+                        "v-list-tile",
+                        {
+                          key: item.title,
+                          attrs: { to: item.route },
+                          on: { click: function($event) {} }
+                        },
+                        [
+                          _c(
+                            "v-list-tile-action",
+                            [_c("v-icon", [_vm._v(_vm._s(item.icon))])],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-list-tile-content",
+                            [
+                              _c("v-list-tile-title", [
+                                _vm._v(_vm._s(item.title))
+                              ])
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    }),
                     1
                   )
                 ],
@@ -38293,42 +38499,19 @@ var render = function() {
               ),
               _vm._v(" "),
               _c(
-                "v-list",
-                { staticClass: "pt-0", attrs: { dense: "" } },
-                _vm._l(_vm.items, function(item) {
-                  return _c(
-                    "v-list-tile",
-                    {
-                      key: item.title,
-                      attrs: { to: item.route },
-                      on: { click: function($event) {} }
-                    },
-                    [
-                      _c(
-                        "v-list-tile-action",
-                        [_c("v-icon", [_vm._v(_vm._s(item.icon))])],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "v-list-tile-content",
-                        [_c("v-list-tile-title", [_vm._v(_vm._s(item.title))])],
-                        1
-                      )
-                    ],
+                "v-container",
+                { attrs: { fluid: "" } },
+                [
+                  _c(
+                    "v-fade-transition",
+                    { attrs: { mode: "out-in" } },
+                    [_c("router-view")],
                     1
                   )
-                }),
+                ],
                 1
               )
             ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "v-fade-transition",
-            { attrs: { mode: "out-in" } },
-            [_c("router-view")],
             1
           )
         ],
@@ -79577,7 +79760,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _AlumnoSidebar_vue_vue_type_template_id_0489615d_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AlumnoSidebar.vue?vue&type=template&id=0489615d&scoped=true& */ "./resources/js/components/AlumnoSidebar.vue?vue&type=template&id=0489615d&scoped=true&");
+/* harmony import */ var _AlumnoSidebar_vue_vue_type_template_id_0489615d___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AlumnoSidebar.vue?vue&type=template&id=0489615d& */ "./resources/js/components/AlumnoSidebar.vue?vue&type=template&id=0489615d&");
 /* harmony import */ var _AlumnoSidebar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AlumnoSidebar.vue?vue&type=script&lang=js& */ "./resources/js/components/AlumnoSidebar.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
@@ -79589,11 +79772,11 @@ __webpack_require__.r(__webpack_exports__);
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
   _AlumnoSidebar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _AlumnoSidebar_vue_vue_type_template_id_0489615d_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _AlumnoSidebar_vue_vue_type_template_id_0489615d_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _AlumnoSidebar_vue_vue_type_template_id_0489615d___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _AlumnoSidebar_vue_vue_type_template_id_0489615d___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
-  "0489615d",
+  null,
   null
   
 )
@@ -79619,19 +79802,19 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/components/AlumnoSidebar.vue?vue&type=template&id=0489615d&scoped=true&":
-/*!**********************************************************************************************!*\
-  !*** ./resources/js/components/AlumnoSidebar.vue?vue&type=template&id=0489615d&scoped=true& ***!
-  \**********************************************************************************************/
+/***/ "./resources/js/components/AlumnoSidebar.vue?vue&type=template&id=0489615d&":
+/*!**********************************************************************************!*\
+  !*** ./resources/js/components/AlumnoSidebar.vue?vue&type=template&id=0489615d& ***!
+  \**********************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AlumnoSidebar_vue_vue_type_template_id_0489615d_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./AlumnoSidebar.vue?vue&type=template&id=0489615d&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/AlumnoSidebar.vue?vue&type=template&id=0489615d&scoped=true&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AlumnoSidebar_vue_vue_type_template_id_0489615d_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AlumnoSidebar_vue_vue_type_template_id_0489615d___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./AlumnoSidebar.vue?vue&type=template&id=0489615d& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/AlumnoSidebar.vue?vue&type=template&id=0489615d&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AlumnoSidebar_vue_vue_type_template_id_0489615d___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AlumnoSidebar_vue_vue_type_template_id_0489615d_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AlumnoSidebar_vue_vue_type_template_id_0489615d___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
