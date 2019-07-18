@@ -3,12 +3,13 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Alumno extends Model
+class Alumno extends Authenticatable
 {
-    //
     protected $table= 'alumno';
     protected $filliable= ['rut','nombre','apellido_paterno','apellido_materno','nivel','ingreso','password','asignaturas_aprobadas','nas','ppa','nar','fecha_nacimiento','nacionalidad','estado_civil','sexo','telefono','region','provincia','comuna','correo'];
+
     public function pagos(){
     	return $this->hasMany(Pago::class);
     }

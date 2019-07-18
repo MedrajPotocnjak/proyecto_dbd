@@ -203,6 +203,19 @@ Route::get('/dashboard', function () {
 Route::get('/redirect', 'Auth\LoginController@redirectToProvider');
 Route::get('/callback', 'Auth\LoginController@handleProviderCallback');
 
+Route::group(['prefix' => 'alumno','middleware' => 'assign.guard:alumno,/login'],function(){
+	
+	Route::get('home',function ()
+	{
+		return view('alumnohome');
+	});
+});
+
+Route::get('/logout', function() {
+    Auth::logout();
+    return redirect('/');
+});
+
 /*
 Route::get('/oauth/gmail', function (){
     return LaravelGmail::redirect();

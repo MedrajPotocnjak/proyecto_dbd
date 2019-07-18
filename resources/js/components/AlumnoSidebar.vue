@@ -7,7 +7,7 @@
                         <v-list class="primary" dark>
                             <v-list-tile >
                                 <v-list-tile-title justify-center class="title">
-                                    LOA: Alumno
+                                    <div>{{username}}</div>
                                 </v-list-tile-title>
                             </v-list-tile>
                         </v-list>
@@ -43,6 +43,7 @@
         name: "AlumnoSidebar",
         data () {
             return {
+                username: null,
                 titles: [
                     { title: 'Información Personal', icon: 'description' , route: '/'},
                     { title: 'Datos Curriculares', icon: 'assignment_ind' , route: '/'},
@@ -67,6 +68,15 @@
                     { title: '17:00-6:40'}
                 ],
             }
-        }
+        },
+        methods: {
+            getUserName:function() {
+              axios.get('http://192.168.10.10/Alumno')
+                  .then(response=> {this.username=response.data.nombre;});
+            },
+        },
+        beforeMount(){
+            this.getUserName();
+        },
     }
 </script>

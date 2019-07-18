@@ -13,14 +13,14 @@
                                 </v-toolbar>
                                 <v-card-text>
                                     <v-form>
-                                        <v-text-field prepend-icon="person" name="login" label="Rut" type="text"></v-text-field>
+                                        <v-text-field prepend-icon="person" name="login" label="Rut (0 en vez de K)" type="text" mask="##.###.###-#" v-model="rut"></v-text-field>
                                         <v-text-field prepend-icon="lock" name="password" label="Password" id="password" type="password"></v-text-field>
                                     </v-form>
                                 </v-card-text>
                                 <v-card-actions>
                                     <v-spacer></v-spacer>
-                                    <v-btn dark v-bind:color="loginValue">Login</v-btn>
-                                    <v-btn color="error">Login Gmail</v-btn>
+                                    <v-btn dark v-bind:color="loginValue" v-on:click="setLoginType()">Login</v-btn>
+                                    <v-btn color="error" v-on:click="loginGmail()">Login Gmail</v-btn>
                                     <v-spacer></v-spacer>
                                     <v-radio-group row justify-end v-model="loginValue">
                                         <v-radio value="primary" color="primary" label="Alumno"></v-radio>
@@ -35,7 +35,7 @@
             </v-content>
         </v-parallax>
         <v-footer class="pa-3">
-
+            {{rut}}
             <v-spacer></v-spacer>
             <div>Proyecto DBD&copy; {{ new Date().getFullYear() }}</div>
         </v-footer>
@@ -57,10 +57,30 @@
     export default {
         data () {
             return {
-                loginValue: 'primary'
+                loginValue: 'primary',
+                loginType: 'alumno',
+                rut: '',
+                pass: ''
             }
         },
+        methods: {
+            setLoginType:function() {
+                if (this.loginValue=='primary') {
+                    this.loginType='alumno';
+                }
+                else if (this.loginValue=='success') {
+                    this.loginType='profesor';
+                }
+                else {
+                    this.loginType='coordinador';
+                }
+            },
+            loginGmail: function() {
+                this.setLoginType();
+                window.location.href = "http://192.168.10.10/redirect"
+            },
 
+        }
     }
 </script>
 

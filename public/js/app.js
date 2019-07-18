@@ -2009,6 +2009,7 @@ __webpack_require__.r(__webpack_exports__);
   name: "AlumnoSidebar",
   data: function data() {
     return {
+      username: null,
       titles: [{
         title: 'Información Personal',
         icon: 'description',
@@ -2057,6 +2058,18 @@ __webpack_require__.r(__webpack_exports__);
         title: '17:00-6:40'
       }]
     };
+  },
+  methods: {
+    getUserName: function getUserName() {
+      var _this = this;
+
+      axios.get('http://192.168.10.10/Alumno').then(function (response) {
+        _this.username = response.data.nombre;
+      });
+    }
+  },
+  beforeMount: function beforeMount() {
+    this.getUserName();
   }
 });
 
@@ -2129,8 +2142,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      loginValue: 'primary'
+      loginValue: 'primary',
+      loginType: 'alumno',
+      rut: '',
+      pass: ''
     };
+  },
+  methods: {
+    setLoginType: function setLoginType() {
+      if (this.loginValue == 'primary') {
+        this.loginType = 'alumno';
+      } else if (this.loginValue == 'success') {
+        this.loginType = 'profesor';
+      } else {
+        this.loginType = 'coordinador';
+      }
+    },
+    loginGmail: function loginGmail() {
+      this.setLoginType();
+      window.location.href = "http://192.168.10.10/redirect";
+    }
   }
 });
 
@@ -38445,11 +38476,7 @@ var render = function() {
                                   staticClass: "title",
                                   attrs: { "justify-center": "" }
                                 },
-                                [
-                                  _vm._v(
-                                    "\n                                LOA: Alumno\n                            "
-                                  )
-                                ]
+                                [_c("div", [_vm._v(_vm._s(_vm.username))])]
                               )
                             ],
                             1
@@ -38595,8 +38622,16 @@ var render = function() {
                                           attrs: {
                                             "prepend-icon": "person",
                                             name: "login",
-                                            label: "Rut",
-                                            type: "text"
+                                            label: "Rut (0 en vez de K)",
+                                            type: "text",
+                                            mask: "##.###.###-#"
+                                          },
+                                          model: {
+                                            value: _vm.rut,
+                                            callback: function($$v) {
+                                              _vm.rut = $$v
+                                            },
+                                            expression: "rut"
                                           }
                                         }),
                                         _vm._v(" "),
@@ -38627,14 +38662,28 @@ var render = function() {
                                         attrs: {
                                           dark: "",
                                           color: _vm.loginValue
+                                        },
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.setLoginType()
+                                          }
                                         }
                                       },
                                       [_vm._v("Login")]
                                     ),
                                     _vm._v(" "),
-                                    _c("v-btn", { attrs: { color: "error" } }, [
-                                      _vm._v("Login Gmail")
-                                    ]),
+                                    _c(
+                                      "v-btn",
+                                      {
+                                        attrs: { color: "error" },
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.loginGmail()
+                                          }
+                                        }
+                                      },
+                                      [_vm._v("Login Gmail")]
+                                    ),
                                     _vm._v(" "),
                                     _c("v-spacer"),
                                     _vm._v(" "),
@@ -38703,6 +38752,7 @@ var render = function() {
           "v-footer",
           { staticClass: "pa-3" },
           [
+            _vm._v("\n        " + _vm._s(_vm.rut) + "\n        "),
             _c("v-spacer"),
             _vm._v(" "),
             _c("div", [

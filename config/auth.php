@@ -43,12 +43,24 @@ return [
 
         'api' => [
             'driver' => 'token',
-            'provider' => 'users',
+            'provider' => 'alumnos',
             'hash' => false,
         ],
 		'alumno' => [
 			'driver' => 'session',
 			'provider' => 'alumnos'
+		],
+		'profesor' => [
+			'driver' => 'session',
+			'provider' => 'profesores'
+		],
+		'coordinador' => [
+			'driver' => 'session',
+			'provider' => 'coordinadores'
+		],
+		'administrador' => [
+			'driver' => 'session',
+			'provider' => 'administradores'
 		],
     ],
 
@@ -77,7 +89,19 @@ return [
 		'alumnos' => [
 			'driver' => 'eloquent',
 			'model' => App\Alumno::class,
-		]
+		],
+		'profesores' => [
+			'driver' => 'eloquent',
+			'model' => App\Profesor::class,
+		],
+		'coordinadores' => [
+			'driver' => 'eloquent',
+			'model' => App\CoordinadorDocente::class,
+		],
+		'administradores' => [
+			'driver' => 'eloquent',
+			'model' => App\Administrador::class,
+		],
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
