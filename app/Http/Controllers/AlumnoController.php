@@ -353,7 +353,7 @@ class AlumnoController extends Controller
         $secciones->all();
         $horario = array();
         $secciones_Salas=new Collection;
-        $rand = 0
+        $rand = 0;
         foreach ($secciones as $seccion) {
             if($rand == 0){
                 $color = "teal accent-3";
