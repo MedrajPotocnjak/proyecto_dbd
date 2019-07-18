@@ -342,4 +342,49 @@ class AlumnoController extends Controller
         return $collection;
 
     }
+
+    public function obtenerHorario($id){
+        $secciones_alumnos=collect(Seccion_Alumno::all()->where('rut_alumno','=',$id));
+        $secciones= new Collection;
+        foreach ($secciones_alumnos as $seccion_alumno){
+            $seccion= Seccion::find($seccion_alumno->codigo_seccion)->first();
+            $secciones->put($seccion);
+        }
+        $secciones->all();
+        $horario = array();
+        $secciones_Salas=new Collection;
+        $rand = 0
+        foreach ($secciones as $seccion) {
+            if($rand == 0){
+                $color = "teal accent-3";
+            }
+            elseif($rand == 1){
+                $color = "purple darken-1";
+            }
+            elseif($rand == 2){
+                $color = "red darken-4";
+            }
+            elseif($rand == 3){
+                $color = "lime darken-1";
+            }
+            elseif($rand == 4){
+                $color = "blue-grey darken-1";
+            }
+            else{
+                $color = "brown lighten-1";
+            }
+            $secciones_Salas=collect(Seccion_Sala::all()->where('codigo_seccion','=',$seccion->codigo));
+            foreach ($secciones_Salas as $seccion_Sala){
+                $aux = new Collection;
+                $sala=Sala::find($seccion_Sala->codigo_sala)->first();
+                $aux = collect(['sala' => $sala->nombre, 'bloque' => $seccion_Sala->bloque, 'ubicacion' => $sala->ubicacion, 'color' => $color]);
+                $horario = push($horario, $aux);
+             }
+
+             $rand = $rand + 1;
+        }
+        
+        return $horario;
+
+    }
 }
