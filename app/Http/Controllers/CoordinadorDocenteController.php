@@ -38,25 +38,63 @@ class CoordinadorDocenteController extends Controller
      */
     public function store(Request $request)
     {
-        //
         $coordinador = new CoordinadorDocente();
-        if($request->rut != NULL){
-            $coordinador->rut= $request->rut;
-        }
-        if($request->password != NULL){
-            $coordinador->password= $request->password;
-        }
-        if($request->nombres != NULL){
-            $coordinador->nombres= $request->nombres;
-        }
-        if($request->apellido_paterno != NULL){
-            $coordinador->apellido_paterno= $request->apellido_paterno;
-        }
-        if($request->apellido_materno != NULL){
-            $coordinador->apellido_materno= $request->apellido_materno;
-        }
+        $coordinador->save();
+        $coordinador->rut = $request->rut;
+        $coordinador->password = $request->password;
+        $coordinador->nombres = $request->nombres;
+        $coordinador->apellido_paterno = $request->apellido_paterno;
+        $coordinador->apellido_materno = $request->apellido_materno;
         $coordinador->save();
         return response()->json($coordinador);
+    }
+
+    public function crearSeccion(Request $request, $id){
+        $coordinador = CoordinadorDocente::find($id);
+        $codigo_asignatura = $request->asignatura;
+        $asignatura = Asignatura::find($codigo_asignatura);
+
+        $codigo_seccion = $request->seccion;
+
+        $seccion = new Seccion;
+        $seccion->nombre = $request->nombre;
+        $seccion->cupos = $request->cupo;
+        $seccion->tipos = $request->tipo;
+        $seccion->save();
+        return 'Seccion creada exitosamente';      
+    }
+
+    public function editarSeccion(Request $request, $id){
+        $coordinador = CoordinadorDocente::find($id); 
+        $codigo_asignatura = $request->asignatura;
+        $asignatura = Asignatura::find($codigo_asignatura);
+
+        $codigo_seccion = $request->seccion;
+        $seccion = Seccion::find($codigo_seccion);
+
+        if($request->nombre != NULL){
+            $seccion->nombre = $request->nombre;
+        }
+        if($request->cupo != NULL){
+            $seccion->cupos = $request->cupo;
+        }
+        if($request->tipo != NULL){
+            $seccion->tipos = $request->tipo;
+        }
+        $seccion->save();
+        return 'Seccion Editada exitosamente';
+    }
+
+    public function eliminarSeccion(Request $request, $id){
+        $coordinador = CoordinadorDocente::find($id);
+        $codigo_asignatura = $request->asignatura;
+        $asignatura = Asignatura::find($codigo_asignatura);
+
+        $codigo_seccion = $request->seccion;
+        $seccion = Seccion::find($codigo_seccion);
+
+        $seccion->delete();
+        return 'Seccion Borrada exitosamente';
     }
 
     /**
@@ -92,12 +130,21 @@ class CoordinadorDocenteController extends Controller
     {
         //
         $coordinador = CoordinadorDocente::find($id);
-        $coordinador->rut = $request->rut;
-        $coordinador->password = $request->password;
-        $coordinador->nombres = $request->nombres;
-        $coordinador->apellido_paterno = $request->apellido_paterno;
-        $coordinador->apellido_materno = $request->apellido_materno;
-        $coordinador->save();
+        if($request->rut != NULL){
+            $coordinador->rut= $request->rut;
+        }
+        if($request->password != NULL){
+            $coordinador->password= $request->password;
+        }
+        if($request->nombres != NULL){
+            $coordinador->nombres= $request->nombres;
+        }
+        if($request->apellido_paterno != NULL){
+            $coordinador->apellido_paterno= $request->apellido_paterno;
+        }
+        if($request->apellido_materno != NULL){
+            $coordinador->apellido_materno= $request->apellido_materno;
+        }
         return response()->json($coordinador);
     }
 
