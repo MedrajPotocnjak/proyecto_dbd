@@ -73,9 +73,10 @@ class ProfesorController extends Controller
      * @param  \App\Profesor  $profesor
      * @return \Illuminate\Http\Response
      */
-    public function show(Profesor $profesor)
+    public function show($id)
     {
-        //
+        $profe=Profesor::find($id);
+		return $profe;
     }
 
     /**

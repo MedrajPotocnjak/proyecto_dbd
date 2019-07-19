@@ -40,39 +40,37 @@
 
 <script>
     export default {
-        name: "AlumnoSidebar",
+        name: "ProfesorSidebar",
         data () {
             return {
                 username: null,
                 titles: [
-                    { title: 'Información Personal', icon: 'description' , route: '/'},
-                    { title: 'Datos Curriculares', icon: 'assignment_ind' , route: '/'},
-                    { title: 'Mi Horario', icon: 'calendar_today', route: '/horario'},
-                    { title: 'Mensajes', icon: 'forum' , route: '/'},
-                    { title: 'Pagos', icon: 'payment' , route: '/' }
-                ],
-                items: [
-                    { title: 'Lunes' },
-                    { title: 'Martes' },
-                    { title: 'Miercoles'},
-                    { title: 'Jueves'},
-                    { title: 'Viernes'},
-                    { title: 'Sábado'}
-                ],
-                bloques: [
-                    { title: '8:00-9:30' },
-                    { title: '9:30-11:10' },
-                    { title: '11:20-12:50'},
-                    { title: '13:50-15:20'},
-                    { title: '15:30-17:00'},
-                    { title: '17:00-6:40'}
+                    { title: 'Información Personal', icon: 'description' , route: '/infoP'},
+                    { title: 'Mis Secciones', icon: 'calendar_today', route: '/horario'},
+                    { title: 'Mensajes', icon: 'forum' , route: '/mensajesP'},
                 ],
             }
         },
         methods: {
             getUserName:function() {
-              axios.get('http://192.168.10.10/Alumno')
-                  .then(response=> {this.username=response.data.nombre;});
+                let url=window.location.href;
+                let splitted=url.split("/profesor/");
+                let userId=splitted[1];
+                splitted=userId.split("/");
+                userId=splitted[0];
+                this.userid=userId;
+                axios({
+                    method: 'get',
+                    url: 'http://192.168.10.10/Profesor/' + this.userid,
+                    headers: {
+
+                    },
+                    validateStatus: (status) => {
+                        return true; // I'm always returning true, you may want to do it depending on the status received
+                    }
+                }).then(response => {
+                    this.username = response.data.nombres
+                });
             },
         },
         beforeMount(){

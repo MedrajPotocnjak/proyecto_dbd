@@ -42,8 +42,10 @@ const crearAlumnoCoord=Vue.component('coordinador-crear-alumno-sidebar-component
 const crearProfCoord=Vue.component('coordinador-crear-prof-sidebar-component', require('./components/CrearProfesor.vue').default);
 const SeccionAsignaturaCoord=Vue.component('seccion-asign-coord-component', require('./components/SeccionAsignatura.vue').default);
 const InfoAlumn=Vue.component('info-alumn-component', require('./components/VerInfoAlumno.vue').default);
-
-
+const InfoProf=Vue.component('info-prof-component', require('./components/VerInfoProfesor.vue').default);
+const InfoCoord=Vue.component('info-cood-component',require('./components/VerInfoCord.vue').default);
+const VistCrearCorreoProfe=Vue.component('crear-correo-prof-component', require('./components/VistaCrearCorreo.vue').default);
+const VistCrearCorreoAlumno=Vue.component('crear-correo-alumno-component', require('./components/VistaCrearCorreoAlumno.vue').default);
 const routes = [
 
   { path: '/', component: Example },
@@ -58,8 +60,13 @@ const routes = [
   
   { path: '/seccionAsignatura', component: SeccionAsignaturaCoord},
   
-  { path: '/info', component: InfoAlumn}
+  { path: '/info', component: InfoAlumn},
+  
+  { path: '/infoP', component: InfoProf},
 
+  { path: '/mensajesA', component: VistCrearCorreoAlumno},
+  { path: '/mensajesP', component: VistCrearCorreoProfe},
+  { path: '/infoCD', component: InfoCoord}
 ]
 
 const router = new VueRouter({

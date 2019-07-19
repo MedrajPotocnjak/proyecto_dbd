@@ -79,7 +79,7 @@ Route::post('/CoordinadorDocente/crearSeccion/{id}', 'CoordinadorDocenteControll
 Route::put('/CoordinadorDocente/editarSeccion/{id}', 'CoordinadorDocenteController@editarSeccion');
 Route::delete('/CoordinadorDocente/eliminarSeccion/{id}', 'CoordinadorDocenteController@eliminarSeccion');
 Route::delete('/CoordinadorDocente/{id}','CoordinadorDocenteController@destroy');
-
+Route::get('/CoordinadorDocente/{id}','CoordinadorDocenteController@show');
 //Rutas Departamento
 Route::get('/Departamento','DepartamentoController@index');
 Route::post('/Departamento','DepartamentoController@store');
@@ -137,6 +137,7 @@ Route::get('/Profesor/verEstudios/{id}','ProfesorController@verEstudios');
 Route::put('/Profesor/{id}','ProfesorController@update');
 Route::post('/Profesor/crearMensaje/{id}','ProfesorController@crearMensaje');
 Route::delete('/Profesor/{id}','ProfesorController@destroy');
+Route::get('/Profesor/{id}','ProfesorController@show');
 
 //Rutas Sala
 Route::get('/Sala','SalaController@index');

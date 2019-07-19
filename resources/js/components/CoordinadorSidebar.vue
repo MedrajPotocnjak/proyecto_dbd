@@ -45,7 +45,7 @@
                 username: null,
                 userid: null,
                 titles: [
-                    { title: 'Información Personal', icon: 'description' , route: '/'},
+                    { title: 'Información Personal', icon: 'description' , route: '/infoCD'},
                     { title: 'Alumnos', icon: 'mood' , route: '/crearAlumno'},
                     { title: 'Profesor', icon: 'sentiment_very_dissatisfied', route: '/crearProfesor'},
                     { title: 'Asignaturas', icon: 'view_stream' , route: '/asignaturas'},

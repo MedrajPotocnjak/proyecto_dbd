@@ -103,9 +103,10 @@ class CoordinadorDocenteController extends Controller
      * @param  \App\CoordinadorDocente  $coordinador_docente
      * @return \Illuminate\Http\Response
      */
-    public function show(CoordinadorDocente $coordinador_docente)
+    public function show($id)
     {
-        //
+        $coord=CoordinadorDocente::find($id);
+		return $coord;
     }
 
     /**
