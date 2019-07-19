@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Auth;
 use App\User;
 use App\Alumno;
+use App\Profesor;
+use App\CoordinadorDocente;
+use App\Administrador;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Socialite;
@@ -64,14 +67,20 @@ class LoginController extends Controller
 		}
     }
 	*/
-	public function handleProviderCallback(Request $request)
+	public function handleProviderCallback()
     {
 		try {
             $user = Socialite::driver('google')->stateless()->user();
         } catch (\Exception $e) {
             return redirect('/');
         }
-		$tipo_usuario=$request->user_type;
+		$tipo_usuario=request()->input('user_type');
+		if ($tipo_usuario) {
+			info('Hay usuario');
+		}
+		else {
+			info('No hay usuario');
+		}
         // check if they're an existing user
 		$existingUser = Alumno::where('correo', $user->email)->first();
 		if($existingUser){
@@ -85,57 +94,52 @@ class LoginController extends Controller
 
     }
 	
-	public function loginMultiple(Request $request) {
-		$tipo_usuario=$request->user_type;
-		if ($tipo_usuario=='alumno') {
-			$alumno_existente=App\Alumno::where('rut',$request->rut)->first();
+	public function loginMulti($tipo_login,$rut,$pass) {
+		if ($tipo_login=='alumno') {
+			$alumno_existente=Alumno::where('rut',$rut)->first();
 			if ($alumno_existente) {
-				if ($request->password==$alumno_existente->password) {
+				if ($alumno_existente->password==$pass) {
 					auth()->guard('alumno')->login($alumno_existente,true);
-					return redirect('/home');
-				}
-				else {
-					return redirect('/login');
+					return redirect('alumno/home');
 				}
 			}
-			else {
-				return redirect('/login');
-			}
+			return redirect('/');
 		}
-		else if ($tipo_usuario=='profesor') {
-			$profesor_existente=App\Profesor::where('rut',$request->rut)->first();
+		else if ($tipo_login=='profesor') {
+			$profesor_existente=Profesor::where('rut',$rut)->first();
 			if ($profesor_existente) {
-				if ($request->password==$profesor_existente->password) {
+				if ($profesor_existente->password==$pass) {
 					auth()->guard('profesor')->login($profesor_existente,true);
-					return redirect('/home');
-				}
-				else {
-					return redirect('/login');
+					return redirect('profesor/home');
 				}
 			}
-			else {
-				return redirect('/login');
-			}
+			return redirect('/');
 		}
-		else if ($tipo_usuario=='coordinador') {
-			$coordinador_existente=App\CoordinadorDocente::where('rut',$request->rut)->first();
+		else if ($tipo_login=='coordinador') {
+			$coordinador_existente=CoordinadorDocente::where('rut',$rut)->first();
 			if ($coordinador_existente) {
-				if ($request->password==$coordinador_existente->password) {
+				if ($coordinador_existente->password==$pass) {
 					auth()->guard('coordinador')->login($coordinador_existente,true);
-					return redirect('/home');
-				}
-				else {
-					return redirect('/');
+					return redirect('coordinador/home');
 				}
 			}
-			else {
-				return redirect('/');
+			return redirect('/');
+		}
+		else if ($tipo_login=='admin') {
+			$admin_existente=Administrador::where('rut',$rut)->first();
+			if ($admin_existente) {
+				if ($admin_existente->password==$pass) {
+					auth()->guard('administrador')->login($admin_existente,true);
+					return redirect('administrador/home');
+				}
 			}
+			return redirect('/');
 		}
 		return redirect('/');
 	}
 	
+	
 	public function getLoggedUserName(){
-		return response()->json("ok");
+		return auth()->user;
 	}
 }

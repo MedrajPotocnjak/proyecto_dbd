@@ -14,12 +14,12 @@
                                 <v-card-text>
                                     <v-form>
                                         <v-text-field prepend-icon="person" name="login" label="Rut (0 en vez de K)" type="text" mask="##.###.###-#" v-model="rut"></v-text-field>
-                                        <v-text-field prepend-icon="lock" name="password" label="Password" id="password" type="password"></v-text-field>
+                                        <v-text-field prepend-icon="lock" name="password" label="Password" id="password" type="password" v-model="pass"></v-text-field>
                                     </v-form>
                                 </v-card-text>
                                 <v-card-actions>
                                     <v-spacer></v-spacer>
-                                    <v-btn dark v-bind:color="loginValue" v-on:click="setLoginType()">Login</v-btn>
+                                    <v-btn dark v-bind:color="loginValue" v-on:click="loginUser()">Login</v-btn>
                                     <v-btn color="error" v-on:click="loginGmail()">Login Gmail</v-btn>
                                     <v-spacer></v-spacer>
                                     <v-radio-group row justify-end v-model="loginValue">
@@ -33,6 +33,14 @@
                     </v-layout>
                 </v-container>
             </v-content>
+            <v-snackbar
+                v-model="snackbar"
+                :bottom=true
+                :timeout=4000
+                :vertical="mode === 'vertical'"
+            >
+                {{snackbarText}}
+            </v-snackbar>
         </v-parallax>
         <v-footer class="pa-3">
             {{rut}}
@@ -60,7 +68,9 @@
                 loginValue: 'primary',
                 loginType: 'alumno',
                 rut: '',
-                pass: ''
+                pass: '',
+                snackbar:false,
+                snackbarText:'Debe rellenar usuario y contraseña',
             }
         },
         methods: {
@@ -78,6 +88,16 @@
             loginGmail: function() {
                 this.setLoginType();
                 window.location.href = "http://192.168.10.10/redirect"
+            },
+            loginUser: function() {
+                this.setLoginType();
+                if (this.rut!='' || this.pass!='') {
+                    window.location.href = "http://192.168.10.10/loginMulti/" + this.loginType + "/" + this.rut + "/" + this.pass;
+                }
+                else {
+                    this.snackbarText='Falta Rut o Contraseña.'
+                    this.snackbar=true;
+                }
             },
 
         }

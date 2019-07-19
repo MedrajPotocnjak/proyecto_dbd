@@ -207,13 +207,41 @@ Route::get('/dashboard', function () {
 Route::get('/redirect', 'Auth\LoginController@redirectToProvider');
 Route::get('/callback', 'Auth\LoginController@handleProviderCallback');
 
-Route::group(['prefix' => 'alumno','middleware' => 'assign.guard:alumno,/login'],function(){
+Route::group(['prefix' => 'alumno','middleware' => 'assign.guard:alumno,/'],function(){
 	
 	Route::get('home',function ()
 	{
 		return view('alumnohome');
 	});
 });
+
+Route::group(['prefix' => 'profesor','middleware' => 'assign.guard:profesor,/'],function(){
+	
+	Route::get('home',function ()
+	{
+		return view('profesorhome');
+	});
+});
+
+Route::group(['prefix' => 'coordinador','middleware' => 'assign.guard:coordinador,/'],function(){
+	
+	Route::get('home',function ()
+	{
+		return view('coordinadorhome');
+	});
+});
+
+Route::group(['prefix' => 'administrador','middleware' => 'assign.guard:administrador,/'],function(){
+	
+	Route::get('home',function ()
+	{
+		return view('administradorhome');
+	});
+});
+
+
+Route::get('/loginMulti/{tipo_login}/{rut}/{pass}','Auth\LoginController@loginMulti');
+
 
 Route::get('/logout', function() {
     Auth::logout();

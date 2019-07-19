@@ -34,6 +34,10 @@ const Example=Vue.component('example-component', require('./components/ExampleCo
 const Features=Vue.component('alumno-sidebar-component', require('./components/AlumnoSidebar.vue').default);
 const Horario=Vue.component('alumno-horario-component', require('./components/AlumnoHorario.vue').default);
 
+const barraProfe=Vue.component('profesor-sidebar-component', require('./components/ProfesorSidebar.vue').default);
+const barraCoord=Vue.component('coordinador-sidebar-component', require('./components/CoordinadorSidebar.vue').default);
+const barraAdmin=Vue.component('administrador-sidebar-component', require('./components/AdministradorSidebar.vue').default);
+
 const routes = [
 
   { path: '/', component: Example },
