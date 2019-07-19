@@ -37,16 +37,26 @@ const Horario=Vue.component('alumno-horario-component', require('./components/Al
 const barraProfe=Vue.component('profesor-sidebar-component', require('./components/ProfesorSidebar.vue').default);
 const barraCoord=Vue.component('coordinador-sidebar-component', require('./components/CoordinadorSidebar.vue').default);
 const barraAdmin=Vue.component('administrador-sidebar-component', require('./components/AdministradorSidebar.vue').default);
+const asignaturasCoord=Vue.component('asignatura-coordinador-sidebar-component', require('./components/AsignaturasCoordinador.vue').default);
+const crearAlumnoCoord=Vue.component('coordinador-crear-alumno-sidebar-component', require('./components/CrearAlumno.vue').default);
+const crearProfCoord=Vue.component('coordinador-crear-prof-sidebar-component', require('./components/CrearProfesor.vue').default);
+const SeccionAsignaturaCoord=Vue.component('seccion-asign-coord-component', require('./components/SeccionAsignatura.vue').default);
 
 const routes = [
 
   { path: '/', component: Example },
 
-  { path: '/horario', component: Horario }
+  { path: '/horario', component: Horario },
+  
+  { path: '/asignaturas', component: asignaturasCoord },
+  
+  { path: '/crearAlumno', component: crearAlumnoCoord },
+  
+  { path: '/crearProfesor', component: crearProfCoord },
+  
+  { path: '/seccionAsignatura', component: SeccionAsignaturaCoord },
 
 ]
-
-  
 
 const router = new VueRouter({
   routes 

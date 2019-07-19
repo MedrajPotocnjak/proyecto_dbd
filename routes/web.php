@@ -73,6 +73,7 @@ Route::get('/CoordinadorDocente','CoordinadorDocenteController@index');
 Route::post('/CoordinadorDocente','CoordinadorDocenteController@store');
 //Route::get();SHOW
 Route::put('/CoordinadorDocente/{id}','CoordinadorDocenteController@update');
+Route::get('/CoordinadorDocente/getNombre/{id}','CoordinadorDocenteController@getName');
 Route::post('/CoordinadorDocente/crearSeccion/{id}', 'CoordinadorDocenteController@crearSeccion');
 Route::put('/CoordinadorDocente/editarSeccion/{id}', 'CoordinadorDocenteController@editarSeccion');
 Route::delete('/CoordinadorDocente/eliminarSeccion/{id}', 'CoordinadorDocenteController@eliminarSeccion');

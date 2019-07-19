@@ -130,7 +130,7 @@
 
                         <v-btn
                         :disabled="!valid"
-                        color="success"
+                        color="orange"
                         @click="submit"
                         >
                         Crear Profesor

@@ -7,7 +7,7 @@
                         <v-list class="orange" dark>
                             <v-list-tile >
                                 <v-list-tile-title justify-center class="title">
-                                    <div>{{username}}</div>
+                                    <div>Hola, {{username}}</div>
                                 </v-list-tile-title>
                             </v-list-tile>
                         </v-list>
@@ -15,7 +15,6 @@
                     <v-list dense class="pt-0" >
                         <v-list-tile color="orange"
                             v-for="item in titles" :key="item.title" :to="item.route"
-                            @click=""
                         >
                             <v-list-tile-action>
                                 <v-icon>{{ item.icon }}</v-icon>
@@ -40,39 +39,40 @@
 
 <script>
     export default {
-        name: "AlumnoSidebar",
+        name: "CoordinadorSidebar",
         data () {
             return {
                 username: null,
+                userid: null,
                 titles: [
                     { title: 'Información Personal', icon: 'description' , route: '/'},
-                    { title: 'Datos Curriculares', icon: 'assignment_ind' , route: '/'},
-                    { title: 'Mi Horario', icon: 'calendar_today', route: '/horario'},
-                    { title: 'Mensajes', icon: 'forum' , route: '/'},
-                    { title: 'Pagos', icon: 'payment' , route: '/' }
-                ],
-                items: [
-                    { title: 'Lunes' },
-                    { title: 'Martes' },
-                    { title: 'Miercoles'},
-                    { title: 'Jueves'},
-                    { title: 'Viernes'},
-                    { title: 'Sábado'}
-                ],
-                bloques: [
-                    { title: '8:00-9:30' },
-                    { title: '9:30-11:10' },
-                    { title: '11:20-12:50'},
-                    { title: '13:50-15:20'},
-                    { title: '15:30-17:00'},
-                    { title: '17:00-6:40'}
+                    { title: 'Alumnos', icon: 'mood' , route: '/crearAlumno'},
+                    { title: 'Profesor', icon: 'sentiment_very_dissatisfied', route: '/crearProfesor'},
+                    { title: 'Asignaturas', icon: 'view_stream' , route: '/asignaturas'},
+                    { title: 'Secciones', icon: 'view_module' , route: '/seccionAsignatura' }
                 ],
             }
         },
         methods: {
             getUserName:function() {
-              axios.get('http://192.168.10.10/Alumno')
-                  .then(response=> {this.username=response.data.nombre;});
+                let url=window.location.href;
+                let splitted=url.split("/coordinador/");
+                let userId=splitted[1];
+                splitted=userId.split("/");
+                userId=splitted[0];
+                this.userid=userId;
+                axios({
+                    method: 'get',
+                    url: 'http://192.168.10.10/CoordinadorDocente/getNombre/' + this.userid,
+                    headers: {
+
+                    },
+                    validateStatus: (status) => {
+                        return true; // I'm always returning true, you may want to do it depending on the status received
+                    }
+                }).then(response => {
+                    this.username = response.data
+                });
             },
         },
         beforeMount(){

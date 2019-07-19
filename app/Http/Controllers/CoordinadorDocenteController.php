@@ -161,4 +161,9 @@ class CoordinadorDocenteController extends Controller
         $coordinador->delete();
         return "Borrado";
     }
+	
+	public function getName($id) {
+		$find=CoordinadorDocente::find($id);
+		return $find->nombres;
+	}
 }
