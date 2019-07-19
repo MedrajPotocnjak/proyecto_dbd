@@ -236,9 +236,10 @@ class AlumnoController extends Controller
      * @param  \App\Alumno  $alumno
      * @return \Illuminate\Http\Response
      */
-    public function show(Alumno $alumno)
+    public function show($id)
     {
-        //
+        $alumno=Alumno::find($id);
+		return $alumno;
     }
 
     /**

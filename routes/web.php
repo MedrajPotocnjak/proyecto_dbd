@@ -40,6 +40,7 @@ Route::post('/Alumno/createMensaje/{id}','AlumnoController@createMensaje');
 Route::post('/Alumno/createCertificado/{id}','AlumnoController@createCertificado');
 Route::post('/Alumno/createSolicitud/{id}','AlumnoController@createSolicitud');
 Route::put('/Alumno/{id}','AlumnoController@update');
+Route::get('/Alumno/{id}','AlumnoController@show');
 Route::delete('/Alumno/{id}','AlumnoController@destroy');
 Route::get('/Alumno/getNombre/{id}','AlumnoController@getAlumnoName');
 

@@ -41,6 +41,8 @@ const asignaturasCoord=Vue.component('asignatura-coordinador-sidebar-component',
 const crearAlumnoCoord=Vue.component('coordinador-crear-alumno-sidebar-component', require('./components/CrearAlumno.vue').default);
 const crearProfCoord=Vue.component('coordinador-crear-prof-sidebar-component', require('./components/CrearProfesor.vue').default);
 const SeccionAsignaturaCoord=Vue.component('seccion-asign-coord-component', require('./components/SeccionAsignatura.vue').default);
+const InfoAlumn=Vue.component('info-alumn-component', require('./components/VerInfoAlumno.vue').default);
+
 
 const routes = [
 
@@ -54,7 +56,9 @@ const routes = [
   
   { path: '/crearProfesor', component: crearProfCoord },
   
-  { path: '/seccionAsignatura', component: SeccionAsignaturaCoord },
+  { path: '/seccionAsignatura', component: SeccionAsignaturaCoord},
+  
+  { path: '/info', component: InfoAlumn}
 
 ]
 

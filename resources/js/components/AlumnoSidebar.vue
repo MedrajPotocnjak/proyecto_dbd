@@ -46,27 +46,11 @@
                 username: null,
                 userid: null,
                 titles: [
-                    { title: 'Información Personal', icon: 'description' , route: '/'},
+                    { title: 'Información Personal', icon: 'description' , route: '/info'},
                     { title: 'Datos Curriculares', icon: 'assignment_ind' , route: '/'},
                     { title: 'Mi Horario', icon: 'calendar_today', route: '/horario'},
                     { title: 'Mensajes', icon: 'forum' , route: '/'},
                     { title: 'Pagos', icon: 'payment' , route: '/' }
-                ],
-                items: [
-                    { title: 'Lunes' },
-                    { title: 'Martes' },
-                    { title: 'Miercoles'},
-                    { title: 'Jueves'},
-                    { title: 'Viernes'},
-                    { title: 'Sábado'}
-                ],
-                bloques: [
-                    { title: '8:00-9:30' },
-                    { title: '9:30-11:10' },
-                    { title: '11:20-12:50'},
-                    { title: '13:50-15:20'},
-                    { title: '15:30-17:00'},
-                    { title: '17:00-6:40'}
                 ],
             }
         },
