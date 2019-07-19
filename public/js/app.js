@@ -2129,6 +2129,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       username: null,
+      userid: null,
       titles: [{
         title: 'Información Personal',
         icon: 'description',
@@ -2182,8 +2183,21 @@ __webpack_require__.r(__webpack_exports__);
     getUserName: function getUserName() {
       var _this = this;
 
-      axios.get('http://192.168.10.10/Alumno').then(function (response) {
-        _this.username = response.data.nombre;
+      var url = window.location.href;
+      var splitted = url.split("/alumno/");
+      var userId = splitted[1];
+      splitted = userId.split("/");
+      userId = splitted[0];
+      this.userid = userId;
+      axios({
+        method: 'get',
+        url: 'http://192.168.10.10/Alumno/getNombre/' + this.userid,
+        headers: {},
+        validateStatus: function validateStatus(status) {
+          return true; // I'm always returning true, you may want to do it depending on the status received
+        }
+      }).then(function (response) {
+        _this.username = response.data;
       });
     }
   },
@@ -38988,7 +39002,11 @@ var render = function() {
                                   staticClass: "title",
                                   attrs: { "justify-center": "" }
                                 },
-                                [_c("div", [_vm._v(_vm._s(_vm.username))])]
+                                [
+                                  _c("div", [
+                                    _vm._v("Hola, " + _vm._s(_vm.username))
+                                  ])
+                                ]
                               )
                             ],
                             1

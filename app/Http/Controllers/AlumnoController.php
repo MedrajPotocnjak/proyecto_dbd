@@ -187,6 +187,19 @@ class AlumnoController extends Controller
         return $collection->all();
     }
 
+	public function getSeccionesCursando($id){
+        $alumno=Alumno::find($id);
+		$rut=$alumno->rut;
+        $secciones_alumnos=collect(Seccion_Alumno::all()->where('rut_alumno','=',$rut)->where('estado_cursado','=','s'));
+		$codigo_secciones=$secciones_alumnos->pluck('codigo_seccion');
+		$secciones_cursando=collect(Seccion::find($codigo_secciones));
+		$salida = new Collection;
+		foreach ($secciones_cursando as $seccion) {
+			
+		}
+        return $secciones_cursando;
+    }
+	
 
    public function inscribirAsignatura(Request $request,$id){
         $alumno=Alumno::find($id);
@@ -329,11 +342,13 @@ class AlumnoController extends Controller
     }
 
     public function verHorario($id){
-        $secciones_alumnos=collect(Seccion_Alumno::all()->where('rut_alumno','=',$id));
+		$alumno=Alumno::find($id);
+		$rut=$alumno->rut;
+        $secciones_alumnos=collect(Seccion_Alumno::all()->where('rut_alumno','=',$rut));
         $secciones= new Collection;
         foreach ($secciones_alumnos as $seccion_alumno){
             $seccion= Seccion::find($seccion_alumno->codigo_seccion);
-            $secciones->put($seccion);
+            $secciones->push($seccion);
         }
         $secciones->all();
         $collection=new Collection;
@@ -345,11 +360,14 @@ class AlumnoController extends Controller
     }
     #para ver el horario de un alumno -> retorno contiene Bloques, Sala, Ubicacion y color 
     public function obtenerHorario($id){
-        $secciones_alumnos=collect(Seccion_Alumno::all()->where('rut_alumno','=',$id)->where('estado_cursando', '=', 's'));
+		
+		$alumno=Alumno::find($id);
+		$rut=$alumno->rut;
+        $secciones_alumnos=collect(Seccion_Alumno::all()->where('rut_alumno','=',$rut)->where('estado_cursando', '=', 's'));
         $secciones= new Collection;
         foreach ($secciones_alumnos as $seccion_alumno){
             $seccion= Seccion::find($seccion_alumno->codigo_seccion)->first();
-            $secciones->put($seccion);
+            $secciones->push($seccion);
         }
         $secciones->all();
         $horario = array();
@@ -405,7 +423,10 @@ class AlumnoController extends Controller
 
     public function obtenerDataSeccion($id){
         $alumno = Alumno::where('rut_alumno' == $id)->first();
-
     }
-
+	
+	public function getAlumnoName($id) {
+		$alumno=Alumno::find($id);
+		return $alumno->nombre;
+	}
 }

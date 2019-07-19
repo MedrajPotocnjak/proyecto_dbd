@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
 
 //Rutas Administrador
 Route::get('/Administrador','AdministradorController@index');
@@ -36,12 +34,14 @@ Route::get('/Alumno/obtenerHorario/{id}','AlumnoController@obtenerHorario');
 Route::get('/Alumno/obtenerSemestre/{id}','AlumnoController@obtenerSemestre');
 Route::get('/Alumno/obtenerDataSeccion/{id}','AlumnoController@obtenerDataSeccion');
 Route::get('/Alumno/verHorario/{id}','AlumnoController@verHorario');
+Route::get('/Alumno/getSeccionesCursando/{id}','AlumnoController@getSeccionesCursando');
 Route::post('/Alumno/inscribirAsignatura/{id}','AlumnoController@inscribirAsignatura');
 Route::post('/Alumno/createMensaje/{id}','AlumnoController@createMensaje');
 Route::post('/Alumno/createCertificado/{id}','AlumnoController@createCertificado');
 Route::post('/Alumno/createSolicitud/{id}','AlumnoController@createSolicitud');
 Route::put('/Alumno/{id}','AlumnoController@update');
 Route::delete('/Alumno/{id}','AlumnoController@destroy');
+Route::get('/Alumno/getNombre/{id}','AlumnoController@getAlumnoName');
 
 //Rutas Asignatura
 Route::get('/Asignatura','AsignaturaController@index');
@@ -212,41 +212,50 @@ Route::get('/dashboard', function () {
 Route::get('/redirect', 'Auth\LoginController@redirectToProvider');
 Route::get('/callback', 'Auth\LoginController@handleProviderCallback');
 
-Route::group(['prefix' => 'alumno','middleware' => 'assign.guard:alumno,/'],function(){
+Route::group(['middleware' => 'web'], function () {
 	
-	Route::get('home',function ()
-	{
-		return view('alumnohome');
-	});
-});
-
-Route::group(['prefix' => 'profesor','middleware' => 'assign.guard:profesor,/'],function(){
+	Route::auth();
 	
-	Route::get('home',function ()
-	{
-		return view('profesorhome');
+	Route::get('/', function () {
+    return view('welcome');
 	});
-});
-
-Route::group(['prefix' => 'coordinador','middleware' => 'assign.guard:coordinador,/'],function(){
 	
-	Route::get('home',function ()
-	{
-		return view('coordinadorhome');
+	Route::group(['prefix' => 'alumno','middleware' => 'assign.guard:alumno,/login'],function(){
+		
+		Route::get('{id}/home/',function ($id)
+		{
+			return view('alumnohome');
+		});
 	});
-});
 
-Route::group(['prefix' => 'administrador','middleware' => 'assign.guard:administrador,/'],function(){
-	
-	Route::get('home',function ()
-	{
-		return view('administradorhome');
+	Route::group(['prefix' => 'profesor','middleware' => 'assign.guard:profesor,/login'],function(){
+		
+		Route::get('{id}/home/',function ($id)
+		{
+			return view('profesorhome');
+		});
 	});
+
+	Route::group(['prefix' => 'coordinador','middleware' => 'assign.guard:coordinador,/login'],function(){
+		
+		Route::get('{id}/home/',function ($id)
+		{
+			return view('coordinadorhome');
+		});
+	});
+
+	Route::group(['prefix' => 'administrador','middleware' => 'assign.guard:administrador,/login'],function(){
+		
+		Route::get('{id}/home/',function ($id)
+		{
+			return view('administradorhome');
+		});
+	});
+
+
+	Route::get('/loginMulti/{tipo_login}/{rut}/{pass}','Auth\LoginController@loginMulti');
+	Route::get('/getLoggedUserName','Auth\LoginController@getLoggedUserName');
 });
-
-
-Route::get('/loginMulti/{tipo_login}/{rut}/{pass}','Auth\LoginController@loginMulti');
-Route::get('/getLoggedUserName','Auth\LoginController@getLoggedUserName');
 
 Route::get('/logout', function() {
     Auth::logout();
