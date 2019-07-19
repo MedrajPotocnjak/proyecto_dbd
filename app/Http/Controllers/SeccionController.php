@@ -129,16 +129,17 @@ class SeccionController extends Controller
     public function obtenerAlumnos($id){
         $seccion = Seccion::find($id);
         $secciones_alumnos = collect(Seccion_Alumno::all()->where('codigo','=',$id));
+        /*
         $alumnos = new Collection;
         foreach ($secciones_alumnos as $seccion_alumno){
-            $alumno = Alumno::All()->where('rut_alumno','=',$seccion_alumno->$rut);
+            $alumno = Alumno::All()->where('rut_alumno','=',$seccion_alumno->rut);
             $alumnos->push($alumno);
         }
         $alumnos->all();
         $collection = new Collection;
         foreach ($alumnos as $alumno) {
-            $collection = collect(Seccion_Alumno::all()->where('rut_alumno','=',$alumno->$rut));
-        }
-        return $collection;
+            $collection = collect(Seccion_Alumno::all()->where('rut_alumno','=',$alumno->rut));
+        }*/
+        return $secciones_alumnos;
     }
 }
