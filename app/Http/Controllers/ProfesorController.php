@@ -6,6 +6,8 @@ use App\Profesor;
 use App\Mensaje;
 use App\Seccion;
 use App\Seccion_Alumno;
+use App\Seccion_Sala;
+use App\Sala;
 use App\Mensaje_Alumno;
 use App\Carrera_Asignatura;
 use App\Carrera;
@@ -221,18 +223,51 @@ class ProfesorController extends Controller
     }
 
     public function verHorario($id){
-        $todas_secciones = collect(Seccion::all()->where('rut_profesor','=',$id));
-        $secciones = new Collection;
-        foreach ($todas_secciones as $seccions){
-            $seccion = Seccion::find($seccions->codigo_seccion);
-            $secciones->push($seccion);
-        }
-        $secciones->all();
-        $collection = new Collection;
-        foreach ($secciones as $seccion) {
-            $collection = collect(Seccion::all()->where('codigo_seccion','=',$seccion->codigo));
-        }
-        return $collection;
+		$profe=Profesor::find($id);
+		$rut=$profe->rut;
+        $todas_secciones = collect(Seccion::all()->where('rut_profesor','=',$rut));
+		
+        $salida= [];
+		$colors=["teal accent-3","purple darken-1","red darken-4","lime darken-1","blue-grey darken-1","brown lighten-1"];
+		$colorpos=0;
+		for ($i=0;$i<6;$i++) {
+			for ($k=0;$k<8;$k++) {
+				$salida[$i][$k]=collect(['color','sala'])->combine(['blue lighten-5','- -']);;
+			}
+		}
+		foreach ($todas_secciones as $seccion) {
+			$codigo=$seccion->codigo;
+			$seccion_salas=Seccion_Sala::all()->where('codigo_seccion','=',$codigo);
+			//return $seccion_salas;
+			foreach($seccion_salas as $sala) {
+				$bloque=$sala->bloque;
+				
+				if ($bloque[0]=='L') {
+					$x=0;
+				}
+				else if ($bloque[0]=='M') {
+					$x=1;
+				}
+				else if ($bloque[0]=='W') {
+					$x=2;
+				}
+				else if ($bloque[0]=='J') {
+					$x=3;
+				}
+				else if ($bloque[0]=='V') {
+					$x=4;
+				}
+				else if ($bloque[0]=='S') {
+					$x=5;
+				}
+				$y=((int)$bloque[1])-1;
+				$nombreSala=Sala::where('codigo','=',$sala->codigo_sala)->first();
+				$numeroSala=$nombreSala->nombre;
+				$salida[$x][$y]=collect(['color','sala'])->combine([$colors[$colorpos],$numeroSala]);
+			}
+			$colorpos=$colorpos+1;
+		}
+        return $salida;
     }
 
     public function obtenerHorario($id){

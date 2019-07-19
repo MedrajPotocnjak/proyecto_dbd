@@ -2068,8 +2068,34 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         title: '17:00-6:40'
       }],
-      right: null
+      right: null,
+      horario: null
     };
+  },
+  methods: {
+    getUserName: function getUserName() {
+      var _this = this;
+
+      var url = window.location.href;
+      var splitted = url.split("/alumno/");
+      var userId = splitted[1];
+      splitted = userId.split("/");
+      userId = splitted[0];
+      this.userid = userId;
+      axios({
+        method: 'get',
+        url: 'http://192.168.10.10/Alumno/verHorario/' + this.userid,
+        headers: {},
+        validateStatus: function validateStatus(status) {
+          return true; // I'm always returning true, you may want to do it depending on the status received
+        }
+      }).then(function (response) {
+        _this.horario = response.data;
+      });
+    }
+  },
+  beforeMount: function beforeMount() {
+    this.getUserName();
   }
 });
 
@@ -3099,6 +3125,137 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ProfesorHorario.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ProfesorHorario.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "ProfesorHorario",
+  data: function data() {
+    return {
+      items: [{
+        title: 'Lunes'
+      }, {
+        title: 'Martes'
+      }, {
+        title: 'Miercoles'
+      }, {
+        title: 'Jueves'
+      }, {
+        title: 'Viernes'
+      }, {
+        title: 'Sábado'
+      }],
+      bloques: [{
+        title: '8:00-9:30'
+      }, {
+        title: '9:30-11:10'
+      }, {
+        title: '11:20-12:50'
+      }, {
+        title: '13:50-15:20'
+      }, {
+        title: '15:30-17:00'
+      }, {
+        title: '17:00-18:40'
+      }],
+      right: null,
+      horario: null
+    };
+  },
+  methods: {
+    getUserName: function getUserName() {
+      var _this = this;
+
+      var url = window.location.href;
+      var splitted = url.split("/profesor/");
+      var userId = splitted[1];
+      splitted = userId.split("/");
+      userId = splitted[0];
+      this.userid = userId;
+      axios({
+        method: 'get',
+        url: 'http://192.168.10.10/Profesor/verHorario/' + this.userid,
+        headers: {},
+        validateStatus: function validateStatus(status) {
+          return true; // I'm always returning true, you may want to do it depending on the status received
+        }
+      }).then(function (response) {
+        _this.horario = response.data;
+      });
+    }
+  },
+  beforeMount: function beforeMount() {
+    this.getUserName();
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ProfesorSidebar.vue?vue&type=script&lang=js&":
 /*!**************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ProfesorSidebar.vue?vue&type=script&lang=js& ***!
@@ -3160,7 +3317,7 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         title: 'Mis Secciones',
         icon: 'calendar_today',
-        route: '/horario'
+        route: '/phorario'
       }, {
         title: 'Mensajes',
         icon: 'forum',
@@ -40640,10 +40797,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/AlumnoHorario.vue?vue&type=template&id=3087eae3&scoped=true&":
-/*!****************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/AlumnoHorario.vue?vue&type=template&id=3087eae3&scoped=true& ***!
-  \****************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/AlumnoHorario.vue?vue&type=template&id=3087eae3&":
+/*!****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/AlumnoHorario.vue?vue&type=template&id=3087eae3& ***!
+  \****************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -40711,21 +40868,21 @@ var render = function() {
           _c(
             "v-layout",
             { attrs: { row: "", wrap: "" } },
-            _vm._l(6, function(n) {
+            _vm._l(this.horario, function(dia) {
               return _c(
                 "v-layout",
-                { key: "6${i}", attrs: { column: "" } },
-                _vm._l(_vm.bloques, function(bloque) {
+                { key: _vm.id, attrs: { column: "" } },
+                _vm._l(dia, function(bloque) {
                   return _c(
                     "v-flex",
-                    { key: bloque.title, attrs: { xs1: "" } },
+                    { key: _vm.id, attrs: { xs1: "" } },
                     [
                       _c(
                         "v-card",
-                        { attrs: { color: "blue lighten-5" } },
+                        { attrs: { color: bloque.color } },
                         [
-                          _c("v-card-text", { staticClass: "px-0" }, [
-                            _vm._v(_vm._s(bloque.title))
+                          _c("v-card-text", { staticClass: "xs1" }, [
+                            _vm._v(_vm._s(bloque.sala))
                           ])
                         ],
                         1
@@ -42215,6 +42372,226 @@ var render = function() {
       1
     )
   ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ProfesorHorario.vue?vue&type=template&id=45c64efd&":
+/*!******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ProfesorHorario.vue?vue&type=template&id=45c64efd& ***!
+  \******************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "v-app",
+    { attrs: { id: "inspire" } },
+    [
+      _c(
+        "v-container",
+        { attrs: { "grid-list-xs": "", "text-xs-center": "", md1: "" } },
+        [
+          _c(
+            "v-layout",
+            { attrs: { row: "", wrap: "" } },
+            [
+              _c(
+                "v-flex",
+                { attrs: { xs12: "" } },
+                [
+                  _c(
+                    "v-card",
+                    { attrs: { dark: "", color: "primary" } },
+                    [
+                      _c("v-card-text", { staticClass: "px-0" }, [
+                        _vm._v("Horario de Clases")
+                      ])
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _vm._l(_vm.items, function(item) {
+                return _c(
+                  "v-flex",
+                  { key: item.title, attrs: { xs2: "" } },
+                  [
+                    _c(
+                      "v-card",
+                      { attrs: { dark: "", color: "primary" } },
+                      [
+                        _c("v-card-text", { staticClass: "px-0" }, [
+                          _vm._v(_vm._s(item.title))
+                        ])
+                      ],
+                      1
+                    )
+                  ],
+                  1
+                )
+              })
+            ],
+            2
+          ),
+          _vm._v(" "),
+          _c(
+            "v-layout",
+            { attrs: { row: "", wrap: "" } },
+            _vm._l(this.horario, function(dia) {
+              return _c(
+                "v-layout",
+                { key: _vm.id, attrs: { column: "" } },
+                _vm._l(dia, function(bloque) {
+                  return _c(
+                    "v-flex",
+                    { key: _vm.id, attrs: { xs1: "" } },
+                    [
+                      _c(
+                        "v-card",
+                        { attrs: { color: bloque.color } },
+                        [
+                          _c("v-card-text", { staticClass: "xs1" }, [
+                            _vm._v(_vm._s(bloque.sala))
+                          ])
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                }),
+                1
+              )
+            }),
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("v-spacer"),
+      _vm._v(" "),
+      _c(
+        "v-container",
+        { attrs: { "grid-list-xs": "", "text-xs-center": "", md1: "" } },
+        [
+          _c(
+            "v-expansion-panel",
+            { attrs: { dark: "" } },
+            [
+              _c(
+                "v-expansion-panel-content",
+                { staticClass: "deep-purple" },
+                [
+                  _c("div", { attrs: { slot: "header" }, slot: "header" }, [
+                    _vm._v("Ingenieria en Fisica")
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "v-card",
+                    { attrs: { light: "" } },
+                    [
+                      _c("v-card-text", [
+                        _vm._v("Notas:"),
+                        _c("br"),
+                        _vm._v("Pep 1: 7.0")
+                      ])
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-expansion-panel",
+            { attrs: { dark: "" } },
+            [
+              _c(
+                "v-expansion-panel-content",
+                { staticClass: "teal" },
+                [
+                  _c("div", { attrs: { slot: "header" }, slot: "header" }, [
+                    _vm._v("Diseño de Calculo II")
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "v-card",
+                    { attrs: { light: "" } },
+                    [
+                      _c("v-card-text", [
+                        _vm._v("Notas:"),
+                        _c("br"),
+                        _vm._v("Pep 1: 2.0")
+                      ])
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-flex",
+            { attrs: { xs12: "" } },
+            [
+              _c(
+                "v-card",
+                { attrs: { dark: "", color: "teal" } },
+                [
+                  _c("v-card-text", { staticClass: "px-0" }, [
+                    _vm._v("Analisis de Telas")
+                  ])
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-flex",
+            { attrs: { xs12: "" } },
+            [
+              _c(
+                "v-card",
+                { attrs: { dark: "", color: "amber" } },
+                [
+                  _c("v-card-text", { staticClass: "px-0" }, [
+                    _vm._v("Fundamentos de Cosas I")
+                  ])
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -84598,6 +84975,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
 var Example = vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('example-component', __webpack_require__(/*! ./components/ExampleComponent.vue */ "./resources/js/components/ExampleComponent.vue")["default"]);
 var Features = vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('alumno-sidebar-component', __webpack_require__(/*! ./components/AlumnoSidebar.vue */ "./resources/js/components/AlumnoSidebar.vue")["default"]);
 var Horario = vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('alumno-horario-component', __webpack_require__(/*! ./components/AlumnoHorario.vue */ "./resources/js/components/AlumnoHorario.vue")["default"]);
+var PHorario = vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('profesor-horario-component', __webpack_require__(/*! ./components/ProfesorHorario.vue */ "./resources/js/components/ProfesorHorario.vue")["default"]);
 var barraProfe = vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('profesor-sidebar-component', __webpack_require__(/*! ./components/ProfesorSidebar.vue */ "./resources/js/components/ProfesorSidebar.vue")["default"]);
 var barraCoord = vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('coordinador-sidebar-component', __webpack_require__(/*! ./components/CoordinadorSidebar.vue */ "./resources/js/components/CoordinadorSidebar.vue")["default"]);
 var barraAdmin = vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('administrador-sidebar-component', __webpack_require__(/*! ./components/AdministradorSidebar.vue */ "./resources/js/components/AdministradorSidebar.vue")["default"]);
@@ -84616,6 +84994,9 @@ var routes = [{
 }, {
   path: '/horario',
   component: Horario
+}, {
+  path: '/phorario',
+  component: PHorario
 }, {
   path: '/asignaturas',
   component: asignaturasCoord
@@ -84795,7 +85176,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _AlumnoHorario_vue_vue_type_template_id_3087eae3_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AlumnoHorario.vue?vue&type=template&id=3087eae3&scoped=true& */ "./resources/js/components/AlumnoHorario.vue?vue&type=template&id=3087eae3&scoped=true&");
+/* harmony import */ var _AlumnoHorario_vue_vue_type_template_id_3087eae3___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AlumnoHorario.vue?vue&type=template&id=3087eae3& */ "./resources/js/components/AlumnoHorario.vue?vue&type=template&id=3087eae3&");
 /* harmony import */ var _AlumnoHorario_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AlumnoHorario.vue?vue&type=script&lang=js& */ "./resources/js/components/AlumnoHorario.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
@@ -84807,11 +85188,11 @@ __webpack_require__.r(__webpack_exports__);
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
   _AlumnoHorario_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _AlumnoHorario_vue_vue_type_template_id_3087eae3_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _AlumnoHorario_vue_vue_type_template_id_3087eae3_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _AlumnoHorario_vue_vue_type_template_id_3087eae3___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _AlumnoHorario_vue_vue_type_template_id_3087eae3___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
-  "3087eae3",
+  null,
   null
   
 )
@@ -84837,19 +85218,19 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/components/AlumnoHorario.vue?vue&type=template&id=3087eae3&scoped=true&":
-/*!**********************************************************************************************!*\
-  !*** ./resources/js/components/AlumnoHorario.vue?vue&type=template&id=3087eae3&scoped=true& ***!
-  \**********************************************************************************************/
+/***/ "./resources/js/components/AlumnoHorario.vue?vue&type=template&id=3087eae3&":
+/*!**********************************************************************************!*\
+  !*** ./resources/js/components/AlumnoHorario.vue?vue&type=template&id=3087eae3& ***!
+  \**********************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AlumnoHorario_vue_vue_type_template_id_3087eae3_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./AlumnoHorario.vue?vue&type=template&id=3087eae3&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/AlumnoHorario.vue?vue&type=template&id=3087eae3&scoped=true&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AlumnoHorario_vue_vue_type_template_id_3087eae3_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AlumnoHorario_vue_vue_type_template_id_3087eae3___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./AlumnoHorario.vue?vue&type=template&id=3087eae3& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/AlumnoHorario.vue?vue&type=template&id=3087eae3&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AlumnoHorario_vue_vue_type_template_id_3087eae3___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AlumnoHorario_vue_vue_type_template_id_3087eae3_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AlumnoHorario_vue_vue_type_template_id_3087eae3___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
@@ -85282,6 +85663,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ExampleComponent_vue_vue_type_template_id_299e239e_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ExampleComponent_vue_vue_type_template_id_299e239e_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/ProfesorHorario.vue":
+/*!*****************************************************!*\
+  !*** ./resources/js/components/ProfesorHorario.vue ***!
+  \*****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ProfesorHorario_vue_vue_type_template_id_45c64efd___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ProfesorHorario.vue?vue&type=template&id=45c64efd& */ "./resources/js/components/ProfesorHorario.vue?vue&type=template&id=45c64efd&");
+/* harmony import */ var _ProfesorHorario_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ProfesorHorario.vue?vue&type=script&lang=js& */ "./resources/js/components/ProfesorHorario.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _ProfesorHorario_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _ProfesorHorario_vue_vue_type_template_id_45c64efd___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _ProfesorHorario_vue_vue_type_template_id_45c64efd___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/ProfesorHorario.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/ProfesorHorario.vue?vue&type=script&lang=js&":
+/*!******************************************************************************!*\
+  !*** ./resources/js/components/ProfesorHorario.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ProfesorHorario_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./ProfesorHorario.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ProfesorHorario.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ProfesorHorario_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/ProfesorHorario.vue?vue&type=template&id=45c64efd&":
+/*!************************************************************************************!*\
+  !*** ./resources/js/components/ProfesorHorario.vue?vue&type=template&id=45c64efd& ***!
+  \************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ProfesorHorario_vue_vue_type_template_id_45c64efd___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./ProfesorHorario.vue?vue&type=template&id=45c64efd& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ProfesorHorario.vue?vue&type=template&id=45c64efd&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ProfesorHorario_vue_vue_type_template_id_45c64efd___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ProfesorHorario_vue_vue_type_template_id_45c64efd___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

@@ -17,9 +17,9 @@
             <v-layout row wrap>
                 <v-layout column v-for="dia in this.horario":key="id">
                     <v-flex v-for="bloque in dia" :key="id" xs1>
-                        <v-card v-bind:color="bloque.color">
-                            <v-card-text class="xs1">{{bloque.sala}}</v-card-text>
-                        </v-card>
+                            <v-card v-bind:color="bloque.color">
+                                <v-card-text class="xs1">{{bloque.sala}}</v-card-text>
+                            </v-card>
                     </v-flex>
                 </v-layout>
             </v-layout>
@@ -28,7 +28,7 @@
         <v-container grid-list-xs text-xs-center md1>
             <v-expansion-panel dark>
                 <v-expansion-panel-content class="deep-purple">
-                    <div slot="header">Ingenieria en Caca</div>
+                    <div slot="header">Ingenieria en Fisica</div>
                     <v-card light>
                         <v-card-text>Notas:<br/>Pep 1: 7.0</v-card-text>
                     </v-card>
@@ -37,7 +37,7 @@
 
             <v-expansion-panel dark>
                 <v-expansion-panel-content class="teal">
-                    <div slot="header">Fundamentos de Orrego II</div>
+                    <div slot="header">Diseño de Calculo II</div>
                     <v-card light>
                         <v-card-text>Notas:<br/>Pep 1: 2.0</v-card-text>
                     </v-card>
@@ -60,7 +60,7 @@
 <script>
 
     export default {
-        name: "AlumnoSidebar",
+        name: "ProfesorHorario",
         data () {
             return {
                 items: [
@@ -77,23 +77,23 @@
                     { title: '11:20-12:50'},
                     { title: '13:50-15:20'},
                     { title: '15:30-17:00'},
-                    { title: '17:00-6:40'}
+                    { title: '17:00-18:40'}
                 ],
                 right: null,
-                horario: null
+                horario: null,
             }
         },
         methods: {
             getUserName:function() {
                 let url=window.location.href;
-                let splitted=url.split("/alumno/");
+                let splitted=url.split("/profesor/");
                 let userId=splitted[1];
                 splitted=userId.split("/");
                 userId=splitted[0];
                 this.userid=userId;
                 axios({
                     method: 'get',
-                    url: 'http://192.168.10.10/Alumno/verHorario/' + this.userid,
+                    url: 'http://192.168.10.10/Profesor/verHorario/' + this.userid,
                     headers: {
 
                     },
@@ -110,3 +110,4 @@
         },
     }
 </script>
+

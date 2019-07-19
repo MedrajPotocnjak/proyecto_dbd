@@ -14,6 +14,6 @@ $factory->define(Seccion_Sala::class, function (Faker $faker) {
         //
 		'codigo_seccion'=>$faker->randomElement($CodSec),
 		'codigo_sala'=>$faker->randomElement($CodSala),
-		'bloque'=>$faker->randomElement($array = array ('L','M','W','J','V')).$faker->numerify('#'),
+		'bloque'=>$faker->randomElement($array = array ('L','M','W','J','V')).$faker->randomElement($array= array(1,2,3,4,5,6)),
     ];
 });
