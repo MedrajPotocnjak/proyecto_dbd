@@ -243,7 +243,7 @@ Route::group(['prefix' => 'administrador','middleware' => 'assign.guard:administ
 
 
 Route::get('/loginMulti/{tipo_login}/{rut}/{pass}','Auth\LoginController@loginMulti');
-
+Route::get('/getLoggedUserName','Auth\LoginController@getLoggedUserName');
 
 Route::get('/logout', function() {
     Auth::logout();

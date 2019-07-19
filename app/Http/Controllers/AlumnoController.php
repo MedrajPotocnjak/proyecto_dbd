@@ -392,7 +392,7 @@ class AlumnoController extends Controller
     public function obtenerSemestre($id){
         $alumno = Alumno::where('rut_alumno' == $id)->first();
         $hoy = Carbon::today();
-        if ($hoy->month =<7){
+        if ($hoy->month <=7){
             $semestre = 1;
         }
         else{
