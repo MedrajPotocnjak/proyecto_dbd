@@ -126,6 +126,9 @@ Route::delete('/Pago/{id}','PagoController@destroy');
 //Rutas Profesor
 Route::get('/Profesor','ProfesorController@index');
 Route::get('/Profesor/verMensajes/{id}','ProfesorController@verMensajes');
+Route::get('/Profesor/verEstudios/{id}','ProfesorController@verEstudios');
+Route::get('/Profesor/verHorario/{id}','ProfesorController@verHorario');
+Route::get('/Profesor/obtenerHorario/{id}','ProfesorController@obtenerHorario');
 Route::post('/Profesor','ProfesorController@store');
 //Route::get();SHOW
 Route::get('/Profesor/verEstudios/{id}','ProfesorController@verEstudios');

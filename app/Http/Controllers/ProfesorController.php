@@ -219,6 +219,21 @@ class ProfesorController extends Controller
         return response()->json($mensaje);
     }
 
+    public function verHorario($id){
+        $todas_secciones = collect(Seccion::all()->where('rut_profesor','=',$id));
+        $secciones = new Collection;
+        foreach ($todas_secciones as $seccions){
+            $seccion = Seccion::find($seccions->codigo_seccion);
+            $secciones->put($seccion);
+        }
+        $secciones->all();
+        $collection = new Collection;
+        foreach ($secciones as $seccion) {
+            $collection = collect(Seccion::all()->where('codigo_seccion','=',$seccion->codigo));
+        }
+        return $collection;
+    }
+
     public function obtenerHorario($id){
         $todas_secciones = collect(Seccion::all()->where('rut_profesor','=',$id));
         $secciones = new Collection;
