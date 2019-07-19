@@ -13,6 +13,7 @@ use App\Mensaje;
 use App\Profesor;
 use App\Asignatura;
 use App\Mensaje_Alumno;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
@@ -342,9 +343,9 @@ class AlumnoController extends Controller
         return $collection;
 
     }
-
+    #para ver el horario de un alumno -> retorno contiene Bloques, Sala, Ubicacion y color 
     public function obtenerHorario($id){
-        $secciones_alumnos=collect(Seccion_Alumno::all()->where('rut_alumno','=',$id));
+        $secciones_alumnos=collect(Seccion_Alumno::all()->where('rut_alumno','=',$id)->where('estado_cursando', '=', 's'));
         $secciones= new Collection;
         foreach ($secciones_alumnos as $seccion_alumno){
             $seccion= Seccion::find($seccion_alumno->codigo_seccion)->first();
@@ -387,4 +388,24 @@ class AlumnoController extends Controller
         return $horario;
 
     }
+
+    public function obtenerSemestre($id){
+        $alumno = Alumno::where('rut_alumno' == $id)->first();
+        $hoy = Carbon::today();
+        if ($hoy->month =<7){
+            $semestre = 1;
+        }
+        else{
+            $semestre = 2;
+        }
+        $anio = $hoy->year;
+        #*************************Hay que devolver tanto semestre como anio*************************
+        return $semestre;
+    }
+
+    public function obtenerDataSeccion($id){
+        $alumno = Alumno::where('rut_alumno' == $id)->first();
+
+    }
+
 }

@@ -33,6 +33,8 @@ Route::get('/Alumno/getMensaje/{id}','AlumnoController@getMensaje');
 Route::get('/Alumno/getSolicitud/{id}','AlumnoController@getSolicitud');
 Route::get('/Alumno/getCertificados/{id}','AlumnoController@getCertificados');
 Route::get('/Alumno/obtenerHorario/{id}','AlumnoController@obtenerHorario');
+Route::get('/Alumno/obtenerSemestre/{id}','AlumnoController@obtenerSemestre');
+Route::get('/Alumno/obtenerDataSeccion/{id}','AlumnoController@obtenerDataSeccion');
 Route::get('/Alumno/verHorario/{id}','AlumnoController@verHorario');
 Route::post('/Alumno/inscribirAsignatura/{id}','AlumnoController@inscribirAsignatura');
 Route::post('/Alumno/createMensaje/{id}','AlumnoController@createMensaje');
