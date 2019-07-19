@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Socialite;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth as MahAuth;
 
 class LoginController extends Controller
 {
@@ -74,19 +75,13 @@ class LoginController extends Controller
         } catch (\Exception $e) {
             return redirect('/');
         }
-		$tipo_usuario=request()->input('user_type');
-		if ($tipo_usuario) {
-			info('Hay usuario');
-		}
-		else {
-			info('No hay usuario');
-		}
         // check if they're an existing user
 		$existingUser = Alumno::where('correo', $user->email)->first();
+		$id=$existingUser->id;
 		if($existingUser){
 			// log them in
 			auth()->guard('alumno')->login($existingUser,true);
-			return redirect('alumno/home');
+			return redirect('alumno/'.$id.'/home');
 		}
 		else {
 			return redirect('/');
@@ -98,9 +93,11 @@ class LoginController extends Controller
 		if ($tipo_login=='alumno') {
 			$alumno_existente=Alumno::where('rut',$rut)->first();
 			if ($alumno_existente) {
+				
 				if ($alumno_existente->password==$pass) {
+					$id=$alumno_existente->id;
 					auth()->guard('alumno')->login($alumno_existente,true);
-					return redirect('alumno/home');
+					return redirect('alumno/'.$id.'/home');
 				}
 			}
 			return redirect('/');
@@ -109,8 +106,9 @@ class LoginController extends Controller
 			$profesor_existente=Profesor::where('rut',$rut)->first();
 			if ($profesor_existente) {
 				if ($profesor_existente->password==$pass) {
+					$id=$profesor_existente->id;
 					auth()->guard('profesor')->login($profesor_existente,true);
-					return redirect('profesor/home');
+					return redirect('profesor/'.$id.'/home');
 				}
 			}
 			return redirect('/');
@@ -119,8 +117,9 @@ class LoginController extends Controller
 			$coordinador_existente=CoordinadorDocente::where('rut',$rut)->first();
 			if ($coordinador_existente) {
 				if ($coordinador_existente->password==$pass) {
+					$id=$coordinador_existente->id;
 					auth()->guard('coordinador')->login($coordinador_existente,true);
-					return redirect('coordinador/home');
+					return redirect('coordinador/'.$id.'/home');
 				}
 			}
 			return redirect('/');
@@ -129,8 +128,9 @@ class LoginController extends Controller
 			$admin_existente=Administrador::where('rut',$rut)->first();
 			if ($admin_existente) {
 				if ($admin_existente->password==$pass) {
+					$id=$admin_existente->id;
 					auth()->guard('administrador')->login($admin_existente,true);
-					return redirect('administrador/home');
+					return redirect('administrador/'.$id.'/home');
 				}
 			}
 			return redirect('/');
@@ -140,6 +140,9 @@ class LoginController extends Controller
 	
 	
 	public function getLoggedUserName(){
-		return auth()->user;
+		if (MahAuth::check()) {
+			return "yass";
+		}
+		return "Noon";
 	}
 }
