@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Seccion;
+use App\Alumno;
 use App\Seccion_Sala;
+use App\Seccion_Alumno;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
@@ -122,5 +124,21 @@ class SeccionController extends Controller
         $seccion = Seccion::find($id);
         $seccion->delete();
         return 'Borrado';
+    }
+
+    public function obtenerAlumnos($id){
+        $seccion = Seccion::find($id);
+        $secciones_alumnos = collect(Seccion_Alumno::all()->where('codigo','=',$id));
+        $alumnos = new Collection;
+        foreach ($secciones_alumnos as $seccion_alumno){
+            $alumno = Alumno::All()->where('rut_alumno','=',$seccion_alumno->$rut);
+            $alumnos->push($alumno);
+        }
+        $alumnos->all();
+        $collection = new Collection;
+        foreach ($alumnos as $alumno) {
+            $collection = collect(Seccion_Alumno::all()->where('rut_alumno','=',$alumno->$rut));
+        }
+        return $collection;
     }
 }

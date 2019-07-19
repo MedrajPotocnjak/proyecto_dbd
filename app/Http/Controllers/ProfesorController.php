@@ -224,7 +224,7 @@ class ProfesorController extends Controller
         $secciones = new Collection;
         foreach ($todas_secciones as $seccions){
             $seccion = Seccion::find($seccions->codigo_seccion);
-            $secciones->put($seccion);
+            $secciones->push($seccion);
         }
         $secciones->all();
         $collection = new Collection;
@@ -239,7 +239,7 @@ class ProfesorController extends Controller
         $secciones = new Collection;
         foreach ($todas_secciones as $seccions){
             $seccion= Seccion::find($seccions->codigo_seccion)->first();
-            $secciones->put($seccion);
+            $secciones->push($seccion);
         }
         $secciones->all();
         $horario = array();
