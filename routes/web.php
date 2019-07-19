@@ -149,6 +149,7 @@ Route::delete('/Sala/{id}','SalaController@destroy');
 //Rutas Seccion
 Route::get('/Seccion','SeccionController@index');
 Route::get('/Seccion/getHorarios/{id}','SeccionController@getHorarios');
+Route::get('/Seccion/obtenerAlumnos/{id}','SeccionController@obtenerAlumnos');
 Route::post('/Seccion/addHorario/{id}','SeccionController@addHorario');
 Route::post('/Seccion','SeccionController@store');
 //Route::get();SHOW
