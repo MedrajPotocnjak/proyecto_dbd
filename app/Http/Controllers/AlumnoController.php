@@ -53,13 +53,14 @@ class AlumnoController extends Controller
     public function store(Request $request)
     {
         //
+		$sem_actual=$this->obtenerSemestre();
         $alumno= new Alumno();
         $alumno->rut= $request->rut;
         $alumno->nombre= $request->nombre;
         $alumno->apellido_paterno= $request->apellido_paterno;
         $alumno->apellido_materno= $request->apellido_materno;
         $alumno->nivel= $request->nivel;
-        $alumno->ingreso= $request->ingreso;
+        $alumno->ingreso=$sem_actual->semestre.'/'.$sem_actual->year;
         $alumno->password= $request->password;
         $alumno->asignaturas_aprobadas= $request->asignaturas_aprobadas;
         $alumno->nas= $request->nas;
@@ -149,7 +150,6 @@ class AlumnoController extends Controller
         $solicitud_alumno->codigo_solicitud = $solicitud->codigo;
         $solicitud_alumno->save();
         return response()->json($solicitud);
- 
     }
 
     public function getSolicitud($id){
@@ -201,7 +201,68 @@ class AlumnoController extends Controller
 		}
         return $secciones_cursando;
     }
+	public function verCalificacionesOld($id){
+        $alumno=Alumno::find($id);
+		$rut=$alumno->rut;
+        $secciones_alumnos=collect(Seccion_Alumno::all()->where('rut_alumno','=',$rut)->where('estado_cursado','=','n'));
+		$colors=["teal accent-3","purple darken-1","red darken-4","lime darken-1","blue-grey darken-1","brown lighten-1","deep-purple","cyan","light-blue","light-green accent-3"];
+		$colorpos=0;
+		$color='red';
+		$salida = new Collection;
+		foreach ($secciones_alumnos as $seccion_alumno) {
+			$seccion=Seccion::find($seccion_alumno->codigo_seccion)->first();
+			$asignatura=Asignatura::find($seccion->codigo_asignatura);
+			$profesor=Profesor::all()->where('rut','=',$seccion->rut_profesor)->first();
+			$nombre_profesor=$profesor->nombres.' '.$profesor->apellido_paterno.' '.$profesor->apellido_materno;
+			if ($seccion_alumno->aprobado==0) {
+				$aprobado='no';
+				$color='red';
+			}
+			else {
+				$aprobado='sí';
+				$color='green';
+			}
+			
+			$salida->push(['nombre' => $asignatura->nombre, 'profesor' => $nombre_profesor, 'color' =>$color
+																															   , 'P1' =>$seccion_alumno->nota_p1
+																															   , 'P2' =>$seccion_alumno->nota_p2
+																															   , 'P3' =>$seccion_alumno->nota_p3
+																															   , 'C1' =>$seccion_alumno->nota_c1
+																															   , 'C2' =>$seccion_alumno->nota_c2
+																															   , 'C3' =>$seccion_alumno->nota_c3
+																															   , 'promedio' => $seccion_alumno->promedio
+																															   , 'aprobado' => $aprobado
+																															   ]);
+			$colorpos=$colorpos+1;
+		}
+        return $salida;
+    }
 	
+	public function verCalificaciones($id){
+        $alumno=Alumno::find($id);
+		$rut=$alumno->rut;
+        $secciones_alumnos= collect(Seccion_Alumno::all()->where('rut_alumno','=',$rut)->where('estado_cursado','=','s'));
+		$colors=["teal accent-3","purple darken-1","red darken-4","lime darken-1","blue-grey darken-1","brown lighten-1","deep-purple","cyan","light-blue","light-green accent-3"];
+		$colorpos=0;
+		$salida = new Collection;
+		foreach ($secciones_alumnos as $seccion_alumno) {
+			$seccion=Seccion::find($seccion_alumno->codigo_seccion);
+			$profesor=Profesor::all()->where('rut','=',$seccion->rut_profesor)->first();
+			$asignatura=Asignatura::find($seccion->codigo_asignatura);
+			$nombre_profesor=$profesor->nombres.' '.$profesor->apellido_paterno.' '.$profesor->apellido_materno;
+			$salida->push(['nombre' => $asignatura->nombre, 'profesor' => $nombre_profesor, 'aprobado' =>$seccion_alumno->aprobado, 'color' =>$colors[$colorpos]
+																															   , 'P1' =>$seccion_alumno->nota_p1
+																															   , 'P2' =>$seccion_alumno->nota_p2
+																															   , 'P3' =>$seccion_alumno->nota_p3
+																															   , 'C1' =>$seccion_alumno->nota_c1
+																															   , 'C2' =>$seccion_alumno->nota_c2
+																															   , 'C3' =>$seccion_alumno->nota_c3
+																															   , 'promedio' => $seccion_alumno->promedio
+																															   ]);
+			$colorpos=$colorpos+1;
+		}
+        return $salida;
+    }
 
    public function inscribirAsignatura(Request $request,$id){
         $alumno=Alumno::find($id);
@@ -347,11 +408,11 @@ class AlumnoController extends Controller
     public function verHorario($id){
 		$profe=Alumno::find($id);
 		$rut=$profe->rut;
-        $todas_seccionesAlumno = collect(Seccion_Alumno::all()->where('rut_alumno','=',$rut))->pluck('codigo_seccion');
+        $todas_seccionesAlumno = collect(Seccion_Alumno::all()->where('rut_alumno','=',$rut)->where('estado_cursado','=','s'))->pluck('codigo_seccion');
 		
 		$todas_secciones=Seccion::all()->find($todas_seccionesAlumno);
         $salida= [];
-		$colors=["teal accent-3","purple darken-1","red darken-4","lime darken-1","blue-grey darken-1","brown lighten-1"];
+		$colors=["teal accent-3","purple darken-1","red darken-4","lime darken-1","blue-grey darken-1","brown lighten-1","deep-purple","cyan","light-blue","light-green accent-3"];
 		$colorpos=0;
 		for ($i=0;$i<6;$i++) {
 			for ($k=0;$k<8;$k++) {
@@ -441,8 +502,15 @@ class AlumnoController extends Controller
 
     }
 
-    public function obtenerSemestre($id){
-        $alumno = Alumno::where('rut_alumno' == $id)->first();
+	public function obtenerDatosCurriculares($id) {
+		$alumno=Alumno::find($id);
+		$rut=$alumno->rut;
+		$salida = new Collection;
+		$salida = push(['nivel' => $alumno 
+		]);
+	}
+	
+    public function obtenerSemestre(){
         $hoy = Carbon::today();
         if ($hoy->month <=7){
             $semestre = 1;
@@ -452,7 +520,7 @@ class AlumnoController extends Controller
         }
         $anio = $hoy->year;
         #*************************Hay que devolver tanto semestre como anio*************************
-        return $semestre;
+        return collect(['semestre','year'])->combine([$semestre,$anio]);
     }
 
     public function obtenerDataSeccion($id){

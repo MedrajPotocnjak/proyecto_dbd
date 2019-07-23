@@ -2037,7 +2037,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "AlumnoSidebar",
   data: function data() {
@@ -2069,11 +2068,13 @@ __webpack_require__.r(__webpack_exports__);
         title: '17:00-6:40'
       }],
       right: null,
-      horario: null
+      horario: null,
+      secciones: null,
+      loading: true
     };
   },
   methods: {
-    getUserName: function getUserName() {
+    getData: function getData() {
       var _this = this;
 
       var url = window.location.href;
@@ -2092,10 +2093,96 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (response) {
         _this.horario = response.data;
       });
+      axios({
+        method: 'get',
+        url: 'http://192.168.10.10/verCalificaciones/' + this.userid,
+        headers: {},
+        validateStatus: function validateStatus(status) {
+          return true; // I'm always returning true, you may want to do it depending on the status received
+        }
+      }).then(function (response) {
+        _this.secciones = response.data;
+      });
+      this.loading = false;
     }
   },
   beforeMount: function beforeMount() {
-    this.getUserName();
+    this.getData();
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/AlumnoNotasViejas.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/AlumnoNotasViejas.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "AlumnoSidebar",
+  data: function data() {
+    return {
+      right: null,
+      secciones: null,
+      loading: true
+    };
+  },
+  methods: {
+    getData: function getData() {
+      var _this = this;
+
+      var url = window.location.href;
+      var splitted = url.split("/alumno/");
+      var userId = splitted[1];
+      splitted = userId.split("/");
+      userId = splitted[0];
+      this.userid = userId;
+      axios({
+        method: 'get',
+        url: 'http://192.168.10.10/verCalificacionesOld/' + this.userid,
+        headers: {},
+        validateStatus: function validateStatus(status) {
+          return true; // I'm always returning true, you may want to do it depending on the status received
+        }
+      }).then(function (response) {
+        _this.secciones = response.data;
+      });
+      this.loading = false;
+    }
+  },
+  beforeMount: function beforeMount() {
+    this.getData();
   }
 });
 
@@ -2161,9 +2248,9 @@ __webpack_require__.r(__webpack_exports__);
         icon: 'description',
         route: '/info'
       }, {
-        title: 'Datos Curriculares',
+        title: 'Notas Anteriores',
         icon: 'assignment_ind',
-        route: '/'
+        route: '/notasOld'
       }, {
         title: 'Mi Horario',
         icon: 'calendar_today',
@@ -40902,108 +40989,230 @@ var render = function() {
       _vm._v(" "),
       _c("v-spacer"),
       _vm._v(" "),
+      _vm.loading
+        ? _c(
+            "div",
+            { attrs: { "justify-center": "" } },
+            [
+              _c("v-progress-circular", {
+                attrs: { width: 3, color: "primary", indeterminate: "" }
+              })
+            ],
+            1
+          )
+        : _c(
+            "v-container",
+            { attrs: { "grid-list-xs": "", "text-xs-center": "", md1: "" } },
+            _vm._l(_vm.secciones, function(seccion) {
+              return _c(
+                "v-flex",
+                { key: _vm.item },
+                [
+                  _c(
+                    "v-expansion-panel",
+                    { attrs: { dark: "" } },
+                    [
+                      _c(
+                        "v-expansion-panel-content",
+                        { class: seccion.color },
+                        [
+                          _c(
+                            "div",
+                            { attrs: { slot: "header" }, slot: "header" },
+                            [
+                              _vm._v(
+                                _vm._s(
+                                  seccion.nombre + " | " + seccion.profesor
+                                )
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-card",
+                            { attrs: { light: "" } },
+                            [
+                              _c("v-card-title", [_c("h1", [_vm._v("Notas")])]),
+                              _vm._v(" "),
+                              _c("v-card-text", [
+                                _vm._v(
+                                  "\n                            PEP 1: " +
+                                    _vm._s(seccion.P1) +
+                                    " "
+                                ),
+                                _c("br"),
+                                _vm._v(
+                                  "\n                            PEP 2: " +
+                                    _vm._s(seccion.P2) +
+                                    " "
+                                ),
+                                _c("br"),
+                                _vm._v(
+                                  "\n                            PEP 3: " +
+                                    _vm._s(seccion.P3) +
+                                    " "
+                                ),
+                                _c("br"),
+                                _vm._v(
+                                  "\n                            Control 1: " +
+                                    _vm._s(seccion.C1) +
+                                    " "
+                                ),
+                                _c("br"),
+                                _vm._v(
+                                  "\n                            Control 2: " +
+                                    _vm._s(seccion.C2) +
+                                    " "
+                                ),
+                                _c("br"),
+                                _vm._v(
+                                  "\n                            Control 3: " +
+                                    _vm._s(seccion.C3) +
+                                    " "
+                                ),
+                                _c("br"),
+                                _vm._v(
+                                  "\n                            Promedio: " +
+                                    _vm._s(seccion.promedio) +
+                                    " "
+                                ),
+                                _c("br")
+                              ])
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            }),
+            1
+          )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/AlumnoNotasViejas.vue?vue&type=template&id=2a53eb70&":
+/*!********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/AlumnoNotasViejas.vue?vue&type=template&id=2a53eb70& ***!
+  \********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "v-app",
+    { attrs: { id: "inspire" } },
+    [
       _c(
         "v-container",
         { attrs: { "grid-list-xs": "", "text-xs-center": "", md1: "" } },
-        [
-          _c(
-            "v-expansion-panel",
-            { attrs: { dark: "" } },
+        _vm._l(_vm.secciones, function(seccion) {
+          return _c(
+            "v-flex",
+            { key: _vm.item },
             [
               _c(
-                "v-expansion-panel-content",
-                { staticClass: "deep-purple" },
+                "v-expansion-panel",
+                { attrs: { dark: "" } },
                 [
-                  _c("div", { attrs: { slot: "header" }, slot: "header" }, [
-                    _vm._v("Ingenieria en Caca")
-                  ]),
-                  _vm._v(" "),
                   _c(
-                    "v-card",
-                    { attrs: { light: "" } },
+                    "v-expansion-panel-content",
+                    { class: seccion.color },
                     [
-                      _c("v-card-text", [
-                        _vm._v("Notas:"),
-                        _c("br"),
-                        _vm._v("Pep 1: 7.0")
-                      ])
+                      _c("div", { attrs: { slot: "header" }, slot: "header" }, [
+                        _vm._v(
+                          _vm._s(seccion.nombre + " | " + seccion.profesor)
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "v-card",
+                        { attrs: { light: "" } },
+                        [
+                          _c("v-card-title", [_vm._v("Notas")]),
+                          _vm._v(" "),
+                          _c("v-card-text", [
+                            _vm._v(
+                              "\n                            PEP 1: " +
+                                _vm._s(seccion.P1) +
+                                " "
+                            ),
+                            _c("br"),
+                            _vm._v(
+                              "\n                            PEP 2: " +
+                                _vm._s(seccion.P2) +
+                                " "
+                            ),
+                            _c("br"),
+                            _vm._v(
+                              "\n                            PEP 3: " +
+                                _vm._s(seccion.P3) +
+                                " "
+                            ),
+                            _c("br"),
+                            _vm._v(
+                              "\n                            Control 1: " +
+                                _vm._s(seccion.C1) +
+                                " "
+                            ),
+                            _c("br"),
+                            _vm._v(
+                              "\n                            Control 2: " +
+                                _vm._s(seccion.C2) +
+                                " "
+                            ),
+                            _c("br"),
+                            _vm._v(
+                              "\n                            Control 3: " +
+                                _vm._s(seccion.C3) +
+                                " "
+                            ),
+                            _c("br"),
+                            _vm._v(
+                              "\n                            Promedio: " +
+                                _vm._s(seccion.promedio) +
+                                " "
+                            ),
+                            _c("br"),
+                            _vm._v(
+                              "\n                            Aprobado: " +
+                                _vm._s(seccion.aprobado) +
+                                "\n                        "
+                            )
+                          ])
+                        ],
+                        1
+                      )
                     ],
                     1
                   )
-                ],
-                1
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "v-expansion-panel",
-            { attrs: { dark: "" } },
-            [
-              _c(
-                "v-expansion-panel-content",
-                { staticClass: "teal" },
-                [
-                  _c("div", { attrs: { slot: "header" }, slot: "header" }, [
-                    _vm._v("Fundamentos de Orrego II")
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "v-card",
-                    { attrs: { light: "" } },
-                    [
-                      _c("v-card-text", [
-                        _vm._v("Notas:"),
-                        _c("br"),
-                        _vm._v("Pep 1: 2.0")
-                      ])
-                    ],
-                    1
-                  )
-                ],
-                1
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "v-flex",
-            { attrs: { xs12: "" } },
-            [
-              _c(
-                "v-card",
-                { attrs: { dark: "", color: "teal" } },
-                [
-                  _c("v-card-text", { staticClass: "px-0" }, [
-                    _vm._v("Analisis de Telas")
-                  ])
-                ],
-                1
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "v-flex",
-            { attrs: { xs12: "" } },
-            [
-              _c(
-                "v-card",
-                { attrs: { dark: "", color: "amber" } },
-                [
-                  _c("v-card-text", { staticClass: "px-0" }, [
-                    _vm._v("Fundamentos de Cosas I")
-                  ])
                 ],
                 1
               )
             ],
             1
           )
-        ],
+        }),
         1
       )
     ],
@@ -84988,6 +85197,7 @@ var InfoProf = vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('info-prof-c
 var InfoCoord = vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('info-cood-component', __webpack_require__(/*! ./components/VerInfoCord.vue */ "./resources/js/components/VerInfoCord.vue")["default"]);
 var VistCrearCorreoProfe = vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('crear-correo-prof-component', __webpack_require__(/*! ./components/VistaCrearCorreo.vue */ "./resources/js/components/VistaCrearCorreo.vue")["default"]);
 var VistCrearCorreoAlumno = vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('crear-correo-alumno-component', __webpack_require__(/*! ./components/VistaCrearCorreoAlumno.vue */ "./resources/js/components/VistaCrearCorreoAlumno.vue")["default"]);
+var NotasAlumno = vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('notas-alumno-component', __webpack_require__(/*! ./components/AlumnoNotasViejas.vue */ "./resources/js/components/AlumnoNotasViejas.vue")["default"]);
 var routes = [{
   path: '/',
   component: Example
@@ -85024,6 +85234,9 @@ var routes = [{
 }, {
   path: '/infoCD',
   component: InfoCoord
+}, {
+  path: '/notasOld',
+  component: NotasAlumno
 }];
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_2__["default"]({
   routes: routes
@@ -85231,6 +85444,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AlumnoHorario_vue_vue_type_template_id_3087eae3___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AlumnoHorario_vue_vue_type_template_id_3087eae3___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/AlumnoNotasViejas.vue":
+/*!*******************************************************!*\
+  !*** ./resources/js/components/AlumnoNotasViejas.vue ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _AlumnoNotasViejas_vue_vue_type_template_id_2a53eb70___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AlumnoNotasViejas.vue?vue&type=template&id=2a53eb70& */ "./resources/js/components/AlumnoNotasViejas.vue?vue&type=template&id=2a53eb70&");
+/* harmony import */ var _AlumnoNotasViejas_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AlumnoNotasViejas.vue?vue&type=script&lang=js& */ "./resources/js/components/AlumnoNotasViejas.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _AlumnoNotasViejas_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _AlumnoNotasViejas_vue_vue_type_template_id_2a53eb70___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _AlumnoNotasViejas_vue_vue_type_template_id_2a53eb70___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/AlumnoNotasViejas.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/AlumnoNotasViejas.vue?vue&type=script&lang=js&":
+/*!********************************************************************************!*\
+  !*** ./resources/js/components/AlumnoNotasViejas.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AlumnoNotasViejas_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./AlumnoNotasViejas.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/AlumnoNotasViejas.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AlumnoNotasViejas_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/AlumnoNotasViejas.vue?vue&type=template&id=2a53eb70&":
+/*!**************************************************************************************!*\
+  !*** ./resources/js/components/AlumnoNotasViejas.vue?vue&type=template&id=2a53eb70& ***!
+  \**************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AlumnoNotasViejas_vue_vue_type_template_id_2a53eb70___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./AlumnoNotasViejas.vue?vue&type=template&id=2a53eb70& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/AlumnoNotasViejas.vue?vue&type=template&id=2a53eb70&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AlumnoNotasViejas_vue_vue_type_template_id_2a53eb70___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AlumnoNotasViejas_vue_vue_type_template_id_2a53eb70___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

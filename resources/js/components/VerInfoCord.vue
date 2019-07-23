@@ -18,7 +18,7 @@
                         mask="##.###.###-#"
                         required
 
-                        ></v-text-field>
+                    ></v-text-field>
                         
                         <v-text-field
                         v-model="nombres"

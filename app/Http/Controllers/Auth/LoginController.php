@@ -77,9 +77,9 @@ class LoginController extends Controller
         }
         // check if they're an existing user
 		$existingUser = Alumno::where('correo', $user->email)->first();
-		$id=$existingUser->id;
 		if($existingUser){
 			// log them in
+			$id=$existingUser->id;
 			auth()->guard('alumno')->login($existingUser,true);
 			return redirect('alumno/'.$id.'/home');
 		}

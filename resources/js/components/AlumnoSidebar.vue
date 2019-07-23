@@ -47,7 +47,7 @@
                 userid: null,
                 titles: [
                     { title: 'Información Personal', icon: 'description' , route: '/info'},
-                    { title: 'Datos Curriculares', icon: 'assignment_ind' , route: '/'},
+                    { title: 'Notas Anteriores', icon: 'assignment_ind' , route: '/notasOld'},
                     { title: 'Mi Horario', icon: 'calendar_today', route: '/horario'},
                     { title: 'Mensajes', icon: 'forum' , route: '/mensajesA'},
                     { title: 'Pagos', icon: 'payment' , route: '/' }

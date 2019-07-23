@@ -25,33 +25,32 @@
             </v-layout>
         </v-container>
         <v-spacer></v-spacer>
-        <v-container grid-list-xs text-xs-center md1>
-            <v-expansion-panel dark>
-                <v-expansion-panel-content class="deep-purple">
-                    <div slot="header">Ingenieria en Caca</div>
-                    <v-card light>
-                        <v-card-text>Notas:<br/>Pep 1: 7.0</v-card-text>
-                    </v-card>
-                </v-expansion-panel-content>
-            </v-expansion-panel>
-
-            <v-expansion-panel dark>
-                <v-expansion-panel-content class="teal">
-                    <div slot="header">Fundamentos de Orrego II</div>
-                    <v-card light>
-                        <v-card-text>Notas:<br/>Pep 1: 2.0</v-card-text>
-                    </v-card>
-                </v-expansion-panel-content>
-            </v-expansion-panel>
-            <v-flex xs12>
-                <v-card dark color="teal">
-                    <v-card-text class="px-0">Analisis de Telas</v-card-text>
-                </v-card>
-            </v-flex>
-            <v-flex xs12>
-                <v-card dark color="amber">
-                    <v-card-text class="px-0">Fundamentos de Cosas I</v-card-text>
-                </v-card>
+        <div v-if="loading" justify-center>
+            <v-progress-circular
+                :width="3"
+                color="primary"
+                indeterminate
+            ></v-progress-circular>
+        </div>
+        <v-container v-else grid-list-xs text-xs-center md1>
+            <v-flex v-for="seccion in secciones" :key="item">
+                <v-expansion-panel dark>
+                    <v-expansion-panel-content v-bind:class="seccion.color">
+                        <div slot="header">{{seccion.nombre+' | '+seccion.profesor}}</div>
+                        <v-card light>
+                            <v-card-title><h1>Notas</h1></v-card-title>
+                            <v-card-text>
+                                PEP 1: {{seccion.P1}} <br>
+                                PEP 2: {{seccion.P2}} <br>
+                                PEP 3: {{seccion.P3}} <br>
+                                Control 1: {{seccion.C1}} <br>
+                                Control 2: {{seccion.C2}} <br>
+                                Control 3: {{seccion.C3}} <br>
+                                Promedio: {{seccion.promedio}} <br>
+                            </v-card-text>
+                        </v-card>
+                    </v-expansion-panel-content>
+                </v-expansion-panel>
             </v-flex>
         </v-container>
     </v-app>
@@ -80,11 +79,13 @@
                     { title: '17:00-6:40'}
                 ],
                 right: null,
-                horario: null
+                horario: null,
+                secciones: null,
+                loading: true
             }
         },
         methods: {
-            getUserName:function() {
+            getData:function() {
                 let url=window.location.href;
                 let splitted=url.split("/alumno/");
                 let userId=splitted[1];
@@ -103,10 +104,23 @@
                 }).then(response => {
                     this.horario = response.data;
                 });
+                axios({
+                    method: 'get',
+                    url: 'http://192.168.10.10/verCalificaciones/' + this.userid,
+                    headers: {
+
+                    },
+                    validateStatus: (status) => {
+                        return true; // I'm always returning true, you may want to do it depending on the status received
+                    }
+                }).then(response => {
+                    this.secciones = response.data;
+                });
+                this.loading=false;
             },
         },
         beforeMount(){
-            this.getUserName();
+            this.getData();
         },
     }
 </script>

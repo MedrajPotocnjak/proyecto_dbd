@@ -46,6 +46,7 @@ const InfoProf=Vue.component('info-prof-component', require('./components/VerInf
 const InfoCoord=Vue.component('info-cood-component',require('./components/VerInfoCord.vue').default);
 const VistCrearCorreoProfe=Vue.component('crear-correo-prof-component', require('./components/VistaCrearCorreo.vue').default);
 const VistCrearCorreoAlumno=Vue.component('crear-correo-alumno-component', require('./components/VistaCrearCorreoAlumno.vue').default);
+const NotasAlumno=Vue.component('notas-alumno-component',require('./components/AlumnoNotasViejas.vue').default);
 const routes = [
 
   { path: '/', component: Example },
@@ -66,7 +67,8 @@ const routes = [
 
   { path: '/mensajesA', component: VistCrearCorreoAlumno},
   { path: '/mensajesP', component: VistCrearCorreoProfe},
-  { path: '/infoCD', component: InfoCoord}
+  { path: '/infoCD', component: InfoCoord},
+  { path: '/notasOld', component: NotasAlumno}
 ];
 
 const router = new VueRouter({

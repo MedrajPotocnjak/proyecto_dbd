@@ -43,6 +43,9 @@ Route::put('/Alumno/{id}','AlumnoController@update');
 Route::get('/Alumno/{id}','AlumnoController@show');
 Route::delete('/Alumno/{id}','AlumnoController@destroy');
 Route::get('/Alumno/getNombre/{id}','AlumnoController@getAlumnoName');
+Route::get('/getSemestre','AlumnoController@obtenerSemestre');
+Route::get('/verCalificaciones/{id}','AlumnoController@verCalificaciones');
+Route::get('/verCalificacionesOld/{id}','AlumnoController@verCalificacionesOld');
 
 //Rutas Asignatura
 Route::get('/Asignatura','AsignaturaController@index');
