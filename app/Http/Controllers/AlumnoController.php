@@ -319,7 +319,15 @@ class AlumnoController extends Controller
         return "No se pudo inscribir la asignatura";
 
     }
-
+	public function desinscribirAsignatura(Request $request, $id) {
+		$alumno=Alumno::find($id);
+		$rut=$alumno->rut;
+		$seccion=$request->codigo_seccion;
+		
+		$alumnoSeccion = Seccion_Alumno::all()->where('rut_alumno','=',$rut)->where('codigo_seccion','=',$seccion)->first();
+        $alumnoSeccion ->delete();
+        return "Borrado";
+	}
     /**
      * Display the specified resource.
      *

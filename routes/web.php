@@ -47,6 +47,7 @@ Route::get('/getSemestre','AlumnoController@obtenerSemestre');
 Route::get('/verCalificaciones/{id}','AlumnoController@verCalificaciones');
 Route::get('/verCalificacionesOld/{id}','AlumnoController@verCalificacionesOld');
 Route::get('/Alumno/RamosTomables/{id}','AlumnoController@ramosTomables');
+Route::delete('/Alumno/desinscribir/{id}','AlumnoController@desinscribirAsignatura');
 //Rutas Asignatura
 Route::get('/Asignatura','AsignaturaController@index');
 Route::post('/Asignatura','AsignaturaController@store');
