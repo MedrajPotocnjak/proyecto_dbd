@@ -4,7 +4,7 @@
         
             <v-card class="mx-auto">
                 <v-container>
-                    <h2>Crear nuevo Departamento {{coordinador}}</h2>
+                    <h2>Crear nuevo Departamento </h2>
                     <v-form
                         ref="form"
                         v-model="valid"
@@ -13,7 +13,8 @@
                          <v-overflow-btn
                         class="my-2"
                         :items="coordinadores"
-                        item-text="rut"
+                        item-text="nombres"
+                        item-value="rut"
                         label="Coordinador"
                         v-model="coordinador"
                         target="#dropdown-example-1"
