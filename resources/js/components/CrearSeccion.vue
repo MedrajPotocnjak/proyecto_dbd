@@ -12,15 +12,23 @@
                     >
                         <v-overflow-btn
                         class="my-2"
-                        :items="profesor"
-                        label="Profesor"
+                        :items="asignatura"
+                        item-text="nombre"
+                        item-value="codigo"
+                        label="Asignatura"
+                        v-model="asig"
+                        target="#dropdown-example-1"
                         required
                         ></v-overflow-btn>
                         
                         <v-overflow-btn
-                        class="my-2"
-                        :items="asignatura"
-                        label="Asignatura"
+                        class="my-3"
+                        :items="profesor"
+                        item-text="nombres"
+                        item-value="rut"
+                        label="Profesor"
+                        v-model="profe"
+                        target="#dropdown-example-2"
                         required
                         ></v-overflow-btn>
 
@@ -66,6 +74,14 @@
                              
                 </v-container>
             </v-card>
+            <v-snackbar
+                v-model="snackbar"
+                :bottom=true
+                :timeout=4000
+                :vertical="mode === 'vertical'"
+            >
+                {{snackbarText}}
+            </v-snackbar>
         </v-flex>
   
     
@@ -76,17 +92,19 @@
   export default {
     data: () => ({
       valid: true,
-      
+      snackbar: false,
+      snackbarText: "Seccion Creada",
+      asig: null,
+      profe: null,
       rutRules: [
         v => !!v || 'Rut es requerido',
         v => (v && v.length <= 30) || 'Rut debe tener un largo menor de 30'
       ],
-      profesor: ['Profe1', 'Profe13', 'Profe41', 'Profe81'],
-      asignatura: ['A2', 'ASIG B', 'ASIG A', ' UWU'],
-      rut_profesor: '',
+
+      asignatura: '',
+      profesor: '',
       nombre: '',
-      codigo_asignatura: '',
-      cupos: '',
+      cupos: 0,
       tipo: '',
       nombreRules: [
         v => !!v || 'Nombre es requerido',
@@ -104,8 +122,33 @@
         }
       },
       submit(){
+        axios.post('http://192.168.10.10/Seccion/', {
+            'rut_profesor': this.profe,
+            'codigo_asignatura': this.asig,
+            'nombre': this.nombre,
+            'cupos': this.cupos,
+            'tipo': this.tipo
+          }).then(response => {
 
+          });
+          this.snackbar=true;
+      },
+      getAsignatura() {
+          axios.get('http://192.168.10.10/Asignatura/', {
+          }).then(response => {
+            this.asignatura=response.data;
+          });
+      },
+      getProfe() {
+          axios.get('http://192.168.10.10/Profesor/', {
+          }).then(response => {
+            this.profesor=response.data;
+           });
       }
-    }
+    },
+    beforeMount() {
+          this.getAsignatura();
+          this.getProfe();
+      },
   }
 </script>

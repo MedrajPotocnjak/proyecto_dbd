@@ -46,7 +46,9 @@ class SeccionController extends Controller
         $seccion = new Seccion();
         $seccion->nombre = $request->nombre;
         $seccion->cupos = $request->cupos;
-        $seccion->tipos = $request->tipo;
+        $seccion->tipo = $request->tipo;
+        $seccion->rut_profesor = $request->rut_profesor;
+        $seccion->codigo_asignatura = $request->codigo_asignatura;
         $seccion->save();
         return response()->json($seccion);
     }
@@ -105,8 +107,14 @@ class SeccionController extends Controller
         if ($request->cupos != NULL){
             $seccion->cupos = $request->cupos;
         }
-        if ($request->tipos != NULL){
-            $seccion->tipos = $request->tipo;
+        if ($request->tipo != NULL){
+            $seccion->tipo = $request->tipo;
+        }
+        if ($request->rut_profesor != NULL){
+            $seccion->rut_profesor = $request->rut_profesor;
+        }
+        if ($request->codigo_asignatura != NULL){
+            $seccion->codigo_asignatura = $request->codigo_asignatura;
         }
         $seccion->save();
         return response()->json($seccion);
