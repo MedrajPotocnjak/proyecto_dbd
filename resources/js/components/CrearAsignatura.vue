@@ -33,6 +33,8 @@
                         :counter="3"
                         :rules="generalRules"
                         label="Asistencia minima"
+                        type="number"
+                        min="1"
                         max="100"
                         mask="###"
                         required
@@ -101,6 +103,8 @@
                         :counter="7"
                         :rules="generalRules"
                         label="Version plan de estudios AAAA.Ver"
+                        mask="####.#"
+                        return-masked-value="true"
                         required
                         ></v-text-field>
 
@@ -117,6 +121,14 @@
                              
                 </v-container>
             </v-card>
+            <v-snackbar
+                v-model="snackbar"
+                :bottom=true
+                :timeout=4000
+                :vertical="mode === 'vertical'"
+            >
+                {{snackbarText}}
+            </v-snackbar>
         </v-flex>
   
     
@@ -127,18 +139,20 @@
   export default {
     data: () => ({
       valid: true,
+      snackbar: false,
+      snackbarText: "Asignatura Creada",
       nombre: '',
       nombreRules: [
         v => !!v || 'Nombre es requerido',
         v => (v && v.length <= 30) || 'Nombre debe tener un largo menor de 30'
       ],
       jornada: '',
-      asistencia_minima: '',
+      asistencia_minima: 0,
       ponderacion: '',
-      nivel: '',
-      horas_teoria: '',
-      horas_laboratorio: '',
-      horas_ejercicios: '',
+      nivel: 0,
+      horas_teoria: 0,
+      horas_laboratorio: 0,
+      horas_ejercicios: 0,
       version_plan_estudios: '',
       generalRules: [
         v => !!v || 'Este campo es requerido'
@@ -152,7 +166,22 @@
         }
       },
       submit(){
+        axios.post('http://192.168.10.10/Asignatura/', {
+            'nombre': this.nombre,
+            'jornada': this.jornada,
+            'asistencia_minima': this.asistencia_minima,
+            'ponderacion': this.ponderacion,
+            'nivel': this.nivel,
+            'horas_teoria': this.horas_teoria,
+            'horas_laboratorio': this.horas_laboratorio,
+            'horas_ejercicios': this.horas_ejercicios,
+            'version_plan_estudios': this.version_plan_estudios,
 
+          
+          }).then(response => {
+
+          });
+          this.snackbar=true;
       }
     }
   }
