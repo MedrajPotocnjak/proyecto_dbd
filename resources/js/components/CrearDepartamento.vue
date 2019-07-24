@@ -10,14 +10,13 @@
                         v-model="valid"
                         lazy-validation
                     >
-                        <v-text-field
-                        v-model="rut"
-                        :counter="9"
-                        :rules="rutRules"
-                        label="Rut Coordinador"
-                        mask="##.###.###-#"
+                         <v-overflow-btn
+                        class="my-2"
+                        :items="coordinador"
+                        label="Coordinador"
+                        target="#dropdown-example-1"
                         required
-                        ></v-text-field>
+                        ></v-overflow-btn>
                         
                         <v-text-field
                         v-model="nombre"
@@ -58,6 +57,7 @@
         v => !!v || 'Rut es requerido',
         v => (v && v.length <= 30) || 'Rut debe tener un largo menor de 30'
       ],
+      coordinador:  ['C2', 'C3', 'C4', 'C5'],
       nombre: '',
       nombreRules: [
         v => !!v || 'Nombre es requerido',

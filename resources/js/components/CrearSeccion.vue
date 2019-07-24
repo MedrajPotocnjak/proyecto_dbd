@@ -10,14 +10,12 @@
                         v-model="valid"
                         lazy-validation
                     >
-                        <v-text-field
-                        v-model="rut_profesor"
-                        :counter="9"
-                        :rules="rutRules"
-                        label="Rut Profesor"
-                        mask="##.###.###-#"
+                        <v-overflow-btn
+                        class="my-2"
+                        :items="profesor"
+                        label="Profesor"
                         required
-                        ></v-text-field>
+                        ></v-overflow-btn>
                         
                         <v-overflow-btn
                         class="my-2"
@@ -83,6 +81,8 @@
         v => !!v || 'Rut es requerido',
         v => (v && v.length <= 30) || 'Rut debe tener un largo menor de 30'
       ],
+      profesor: ['Profe1', 'Profe13', 'Profe41', 'Profe81'],
+      asignatura: ['A2', 'ASIG B', 'ASIG A', ' UWU'],
       rut_profesor: '',
       nombre: '',
       codigo_asignatura: '',
