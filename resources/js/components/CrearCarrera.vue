@@ -11,15 +11,17 @@
                         lazy-validation
                     >
 
-                        <v-overflow-btn
+                       <v-overflow-btn
                         class="my-2"
                         :items="departamento"
+                        item-text="nombre"
+                        item-value="codigo"
                         label="Departamento"
+                        v-model="depto"
                         target="#dropdown-example-1"
+                        required
                         ></v-overflow-btn>
-
-                        
-                        
+ 
                         
                         <v-text-field
                         v-model="nombre"
@@ -49,7 +51,7 @@
 
                         <v-text-field
                         v-model="arancel"
-                        :counter="10"
+                        :counter="9"
                         :rules="arancelRules"
                         label="Arancel"
                         mask="##########"
@@ -72,6 +74,14 @@
                              
                 </v-container>
             </v-card>
+            <v-snackbar
+                v-model="snackbar"
+                :bottom=true
+                :timeout=4000
+                :vertical="mode === 'vertical'"
+            >
+                {{snackbarText}}
+            </v-snackbar>
         </v-flex>
   
     
@@ -81,9 +91,12 @@
 <script>
   export default {
     data: () => ({
+      snackbar: false,
+      snackbarText: "Carrera Creado",
       valid: true,
-      departamento: ['Depa1', 'Depa4', 'Depa3', 'Depa2'],
-      asignaturas_plan: '',
+      depto: null,
+      departamento: '',
+      asignaturas_plan: 0,
       asignaturas_planRules: [
         v => !!v || 'Asignaturas plan es requerido',
         v => (v && v.length <= 3) || 'Asignaturas plan debe tener un largo menor de 3 enteros'
@@ -93,11 +106,11 @@
         v => !!v || 'Nombre es requerido',
         v => (v && v.length <= 30) || 'Nombre debe tener un largo menor de 30'
       ],
-      cantidad_alumnos: '',
+      cantidad_alumnos: 0,
       cantidad_alumnosRules: [
         v => !!v || 'Cantidad de alumnos es requerido',
       ],
-      arancel: '',
+      arancel: 0,
       arancelRules: [
         v => !!v || 'Arancel es requerido',
       ]
@@ -110,8 +123,28 @@
         }
       },
       submit(){
-          
+          axios.post('http://192.168.10.10/Carrera/', {
+            'nombre': this.nombre,
+
+            'codigo_departamento': this.depto,
+
+            'asignaturas_plan': this.asignaturas_plan,
+            'cantidad_alumnos': this.cantidad_alumnos,
+            'arancel': this.arancel
+          }).then(response => {
+
+          });
+          this.snackbar=true;
+      },
+      getDepto() {
+          axios.get('http://192.168.10.10/Departamento/', {
+          }).then(response => {
+            this.departamento=response.data;
+          });
       }
-    }
+    },
+    beforeMount() {
+          this.getDepto();
+      },
   }
 </script>
