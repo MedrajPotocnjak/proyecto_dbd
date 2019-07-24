@@ -49,6 +49,13 @@ const VistCrearCorreoAlumno=Vue.component('crear-correo-alumno-component', requi
 const NotasAlumno=Vue.component('notas-alumno-component',require('./components/AlumnoNotasViejas.vue').default);
 const crearDepto=Vue.component('crear-depto-component',require('./components/CrearDepartamento.vue').default);
 
+
+const crearAsignatura=Vue.component('crear-asig-component',require('./components/CrearAsignatura.vue').default);
+const crearCarrera=Vue.component('crear-carrera-component',require('./components/CrearCarrera.vue').default);
+const crearCoordinador=Vue.component('crear-coordinador-component',require('./components/CrearCoordinador.vue').default);
+const crearSeccion=Vue.component('crear-seccion-component',require('./components/CrearSeccion.vue').default);
+
+
 const routes = [
 
   { path: '/', component: Example },
@@ -71,7 +78,11 @@ const routes = [
   { path: '/mensajesP', component: VistCrearCorreoProfe},
   { path: '/infoCD', component: InfoCoord},
   { path: '/notasOld', component: NotasAlumno},
-    {path: '/crearDepto',component: crearDepto},
+  { path: '/crearDepto', component: crearDepto},
+  { path: '/crearAsignatura',component: crearAsignatura},
+  { path: '/crearCarrera',component: crearCarrera},
+  { path: '/crearCoordinador',component: crearCoordinador},
+  { path: '/crearSeccion',component: crearSeccion},
 ];
 
 const router = new VueRouter({

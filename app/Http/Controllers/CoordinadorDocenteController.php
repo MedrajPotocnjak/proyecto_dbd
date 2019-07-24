@@ -39,7 +39,6 @@ class CoordinadorDocenteController extends Controller
     public function store(Request $request)
     {
         $coordinador = new CoordinadorDocente();
-        $coordinador->save();
         $coordinador->rut = $request->rut;
         $coordinador->password = $request->password;
         $coordinador->nombres = $request->nombres;

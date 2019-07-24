@@ -20,7 +20,7 @@
                         ></v-text-field>
                         
                         <v-text-field
-                        v-model="nombre"
+                        v-model="nombres"
                         :counter="30"
                         :rules="nombreRules"
                         label="Nombre"
@@ -59,11 +59,19 @@
                         Crear Coordinador
                         </v-btn>
 
-                        
+                        {{nombres}}, {{apellido_paterno}},{{apellido_materno}},{{password}}
                     </v-form>
                              
                 </v-container>
             </v-card>
+            <v-snackbar
+                v-model="snackbar"
+                :bottom=true
+                :timeout=4000
+                :vertical="mode === 'vertical'"
+            >
+                {{snackbarText}}
+            </v-snackbar>
         </v-flex>
   
     
@@ -74,12 +82,14 @@
   export default {
     data: () => ({
       valid: true,
-      rut: '',
+      snackbar: false,
+      snackbarText: "Coordinador Creado",
+      rut: 0,
       rutRules: [
         v => !!v || 'Rut es requerido',
         v => (v && v.length <= 30) || 'Rut debe tener un largo menor de 30'
       ],
-      nombre: '',
+      nombres: '',
       nombreRules: [
         v => !!v || 'Nombre es requerido',
         v => (v && v.length <= 30) || 'Nombre debe tener un largo menor de 30'
@@ -109,7 +119,16 @@
         }
       },
       submit(){
-          
+          axios.post('http://192.168.10.10/CoordinadorDocente/', {
+            'rut' : this.rut,
+            'password': this.password,
+            'nombres': this.nombres,
+            'apellido_paterno' : this.apellido_paterno,
+            'apellido_materno': this.apellido_materno
+          }).then(response => {
+
+          });
+          this.snackbar=true;
       }
     }
   }

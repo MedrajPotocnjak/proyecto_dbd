@@ -46,13 +46,19 @@
                 username: null,
                 titles: [
                     { title: 'Información Personal', icon: 'description' , route: '/'},
-                    { title: 'Datos Curriculares', icon: 'assignment_ind' , route: '/'},
+                    { title: 'Crear Asignatura', icon: 'description' , route: '/crearAsignatura'},
+                    { title: 'Crear Carrera', icon: 'description' , route: '/crearCarrera'},
+                    { title: 'Crear Coordinador', icon: 'description' , route: '/crearCoordinador'},
+                    { title: 'Crear Departamento', icon: 'description' , route: '/crearDepto'},
+                    { title: 'Crear Seccion', icon: 'description' , route: '/crearSeccion'},
                     { title: 'Mi Horario', icon: 'calendar_today', route: '/horario'},
                     { title: 'Departamentos', icon: 'forum' , route: '/crearDepto'},
                     { title: 'Pagos', icon: 'payment' , route: '/' }
                 ],
             }
         },
+
+
         methods: {
             getUserName:function() {
               axios.get('http://192.168.10.10/Alumno')

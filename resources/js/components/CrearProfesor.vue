@@ -20,7 +20,7 @@
                         ></v-text-field>
                         
                         <v-text-field
-                        v-model="nombre"
+                        v-model="nombres"
                         :counter="30"
                         :rules="nombreRules"
                         label="Nombre"
@@ -54,17 +54,29 @@
                         <v-text-field
                         v-model="area"
                         :counter="30"
-                        :rules="area"
+                        :rules="areaRules"
                         label="Area"
                         required
                         ></v-text-field>
+
+                        <v-overflow-btn
+                        class="my-2"
+                        :items="departamento"
+                        item-text="nombre"
+                        item-value="codigo"
+                        label="Departamento"
+                        v-model="depto"
+                        target="#dropdown-example-1"
+                        required
+                        ></v-overflow-btn>
+
 
                         <v-text-field
                         v-model="fecha_nacimiento"
                         :counter="10"
                         :rules="fecha_nacimientoRules"
                         label="Fecha nacimiento (En formato: DD/MM/AAAA)"
-                        mask="##/##/####"
+                        mask="##-##-####"
                         return-masked-value="true"
                         required
                         ></v-text-field>
@@ -135,12 +147,22 @@
                         >
                         Crear Profesor
                         </v-btn>
-
+                        {{rut}} / {{nombres}} / {{apellido_paterno}} / {{apellido_materno}} / {{depto}} / {{area}} <br>
+                        {{fecha_nacimiento}} / {{sexo}} / {{nacionalidad}} / {{telefono}} <br>
+                        {{comuna}} / {{provincia}} / {{correo}}
                         
                     </v-form>
                              
                 </v-container>
             </v-card>
+            <v-snackbar
+                v-model="snackbar"
+                :bottom=true
+                :timeout=4000
+                :vertical="mode === 'vertical'"
+            >
+                {{snackbarText}}
+            </v-snackbar>
         </v-flex>
   
     
@@ -151,12 +173,15 @@
   export default {
     data: () => ({
       valid: true,
-      rut: '',
+      rut: 0,
+      snackbar: false,
+      snackbarText: "Profesor Creado",
+      depto: null,
       rutRules: [
         v => !!v || 'Rut es requerido',
         v => (v && v.length <= 30) || 'Rut debe tener un largo menor de 30'
       ],
-      nombre: '',
+      nombres: '',
       nombreRules: [
         v => !!v || 'Nombre es requerido',
         v => (v && v.length <= 30) || 'Nombre debe tener un largo menor de 30'
@@ -229,8 +254,36 @@
         }
       },
       submit(){
-          
+          axios.post('http://192.168.10.10/Profesor/', {
+            'rut' : this.rut,
+            'nombres': this.nombres,
+            'apellido_paterno' : this.apellido_paterno,
+            'apellido_materno': this.apellido_materno,
+            'password': this.password,
+            'codigo_departamento': this.depto,
+            'area': this.area,
+            'fecha_nacimiento': this.fecha_nacimiento,
+            'nacionalidad': this.nacionalidad,
+            'sexo': this.sexo,
+            'telefono': this.telefono,
+            'region' : this.region,
+            'provincia': this.provincia,
+            'comuna': this.comuna,
+            'correo' : this.correo
+          }).then(response => {
+
+          });
+          this.snackbar=true;
+      },
+      getDepto() {
+          axios.get('http://192.168.10.10/Departamento/', {
+          }).then(response => {
+            this.departamento=response.data;
+          });
       }
-    }
+    },
+    beforeMount() {
+          this.getDepto();
+      },
   }
 </script>
