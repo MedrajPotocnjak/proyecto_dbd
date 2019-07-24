@@ -9,7 +9,7 @@ class Seccion extends Model
     //
     protected $table='seccion';
 	protected $primaryKey='codigo';
-    protected $fillable=['nombre','cupos','tipo'];
+    protected $fillable=['nombre','cupos','tipo','rut_profesor','codigo_asignatura'];
     public function seccion_salas(){
     	return $this->hasMany(Seccion_Sala::class);
     }
