@@ -3011,10 +3011,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       valid: true,
+      snackbar: false,
+      snackbarText: "Asignatura Creada",
       nombre: '',
       nombreRules: [function (v) {
         return !!v || 'Nombre es requerido';
@@ -3022,12 +3036,12 @@ __webpack_require__.r(__webpack_exports__);
         return v && v.length <= 30 || 'Nombre debe tener un largo menor de 30';
       }],
       jornada: '',
-      asistencia_minima: '',
+      asistencia_minima: 0,
       ponderacion: '',
-      nivel: '',
-      horas_teoria: '',
-      horas_laboratorio: '',
-      horas_ejercicios: '',
+      nivel: 0,
+      horas_teoria: 0,
+      horas_laboratorio: 0,
+      horas_ejercicios: 0,
       version_plan_estudios: '',
       generalRules: [function (v) {
         return !!v || 'Este campo es requerido';
@@ -3040,7 +3054,20 @@ __webpack_require__.r(__webpack_exports__);
         this.snackbar = true;
       }
     },
-    submit: function submit() {}
+    submit: function submit() {
+      axios.post('http://192.168.10.10/Asignatura/', {
+        'nombre': this.nombre,
+        'jornada': this.jornada,
+        'asistencia_minima': this.asistencia_minima,
+        'ponderacion': this.ponderacion,
+        'nivel': this.nivel,
+        'horas_teoria': this.horas_teoria,
+        'horas_laboratorio': this.horas_laboratorio,
+        'horas_ejercicios': this.horas_ejercicios,
+        'version_plan_estudios': this.version_plan_estudios
+      }).then(function (response) {});
+      this.snackbar = true;
+    }
   }
 });
 
@@ -4078,12 +4105,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ProfesorHorario",
   data: function data() {
@@ -4115,7 +4136,8 @@ __webpack_require__.r(__webpack_exports__);
         title: '17:00-18:40'
       }],
       right: null,
-      horario: null
+      horario: null,
+      loading: false
     };
   },
   methods: {
@@ -4138,6 +4160,17 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (response) {
         _this.horario = response.data;
       });
+      axios({
+        method: 'get',
+        url: 'http://192.168.10.10/Profesor/getSecciones/' + this.userid,
+        headers: {},
+        validateStatus: function validateStatus(status) {
+          return true; // I'm always returning true, you may want to do it depending on the status received
+        }
+      }).then(function (response) {
+        _this.secciones = response.data;
+      });
+      this.loading = false;
     }
   },
   beforeMount: function beforeMount() {
@@ -42939,6 +42972,8 @@ var render = function() {
                           counter: 3,
                           rules: _vm.generalRules,
                           label: "Asistencia minima",
+                          type: "number",
+                          min: "1",
                           max: "100",
                           mask: "###",
                           required: ""
@@ -43053,6 +43088,8 @@ var render = function() {
                           counter: 7,
                           rules: _vm.generalRules,
                           label: "Version plan de estudios AAAA.Ver",
+                          mask: "####.#",
+                          "return-masked-value": "true",
                           required: ""
                         },
                         model: {
@@ -43084,6 +43121,29 @@ var render = function() {
               )
             ],
             1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-snackbar",
+            {
+              attrs: {
+                bottom: true,
+                timeout: 4000,
+                vertical: _vm.mode === "vertical"
+              },
+              model: {
+                value: _vm.snackbar,
+                callback: function($$v) {
+                  _vm.snackbar = $$v
+                },
+                expression: "snackbar"
+              }
+            },
+            [
+              _vm._v(
+                "\n              " + _vm._s(_vm.snackbarText) + "\n          "
+              )
+            ]
           )
         ],
         1
@@ -44512,110 +44572,76 @@ var render = function() {
       _vm._v(" "),
       _c("v-spacer"),
       _vm._v(" "),
-      _c(
-        "v-container",
-        { attrs: { "grid-list-xs": "", "text-xs-center": "", md1: "" } },
-        [
-          _c(
-            "v-expansion-panel",
-            { attrs: { dark: "" } },
+      _vm.loading
+        ? _c(
+            "div",
+            { attrs: { "justify-center": "" } },
             [
-              _c(
-                "v-expansion-panel-content",
-                { staticClass: "deep-purple" },
-                [
-                  _c("div", { attrs: { slot: "header" }, slot: "header" }, [
-                    _vm._v("Ingenieria en Fisica")
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "v-card",
-                    { attrs: { light: "" } },
-                    [
-                      _c("v-card-text", [
-                        _vm._v("Notas:"),
-                        _c("br"),
-                        _vm._v("Pep 1: 7.0")
-                      ])
-                    ],
-                    1
-                  )
-                ],
-                1
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "v-expansion-panel",
-            { attrs: { dark: "" } },
-            [
-              _c(
-                "v-expansion-panel-content",
-                { staticClass: "teal" },
-                [
-                  _c("div", { attrs: { slot: "header" }, slot: "header" }, [
-                    _vm._v("Diseño de Calculo II")
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "v-card",
-                    { attrs: { light: "" } },
-                    [
-                      _c("v-card-text", [
-                        _vm._v("Notas:"),
-                        _c("br"),
-                        _vm._v("Pep 1: 2.0")
-                      ])
-                    ],
-                    1
-                  )
-                ],
-                1
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "v-flex",
-            { attrs: { xs12: "" } },
-            [
-              _c(
-                "v-card",
-                { attrs: { dark: "", color: "teal" } },
-                [
-                  _c("v-card-text", { staticClass: "px-0" }, [
-                    _vm._v("Analisis de Telas")
-                  ])
-                ],
-                1
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "v-flex",
-            { attrs: { xs12: "" } },
-            [
-              _c(
-                "v-card",
-                { attrs: { dark: "", color: "amber" } },
-                [
-                  _c("v-card-text", { staticClass: "px-0" }, [
-                    _vm._v("Fundamentos de Cosas I")
-                  ])
-                ],
-                1
-              )
+              _c("v-progress-circular", {
+                attrs: { width: 3, color: "primary", indeterminate: "" }
+              })
             ],
             1
           )
-        ],
-        1
-      )
+        : _c(
+            "v-container",
+            { attrs: { "grid-list-xs": "", "text-xs-center": "", md1: "" } },
+            _vm._l(_vm.secciones, function(seccion) {
+              return _c(
+                "v-flex",
+                { key: _vm.item },
+                [
+                  _c(
+                    "v-expansion-panel",
+                    { attrs: { dark: "" } },
+                    [
+                      _c(
+                        "v-expansion-panel-content",
+                        { class: seccion.color },
+                        [
+                          _c(
+                            "div",
+                            { attrs: { slot: "header" }, slot: "header" },
+                            [_vm._v(_vm._s(seccion.nombre))]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-card",
+                            { attrs: { light: "" } },
+                            [
+                              _c("v-card-title", [
+                                _c("h1", [_vm._v("Información Sección")])
+                              ]),
+                              _vm._v(" "),
+                              _c("v-card-text", [
+                                _vm._v(
+                                  "\n                            Tipo sección: " +
+                                    _vm._s(seccion.tipo) +
+                                    " "
+                                ),
+                                _c("br"),
+                                _vm._v(
+                                  "\n                            Cupos: " +
+                                    _vm._s(seccion.cupos) +
+                                    " "
+                                ),
+                                _c("br")
+                              ])
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            }),
+            1
+          )
     ],
     1
   )
