@@ -2883,6 +2883,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -42153,11 +42154,7 @@ var render = function() {
               _c(
                 "v-container",
                 [
-                  _c("h2", [
-                    _vm._v(
-                      "Crear nuevo Departamento " + _vm._s(_vm.coordinador)
-                    )
-                  ]),
+                  _c("h2", [_vm._v("Crear nuevo Departamento ")]),
                   _vm._v(" "),
                   _c(
                     "v-form",
@@ -42177,7 +42174,8 @@ var render = function() {
                         staticClass: "my-2",
                         attrs: {
                           items: _vm.coordinadores,
-                          "item-text": "rut",
+                          "item-text": "nombres",
+                          "item-value": "rut",
                           label: "Coordinador",
                           target: "#dropdown-example-1",
                           required: ""

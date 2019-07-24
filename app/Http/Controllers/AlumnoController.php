@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Carrera;
+use App\Carrera_Asignatura;
 use App\Alumno;
 use App\Certificado;
 use App\Certificado_Alumno;
@@ -111,6 +112,32 @@ class AlumnoController extends Controller
         return $collection->all();
     }
 
+	public function ramosTomables($id) {
+		$alumno=Alumno::find($id);
+        $rut=$alumno->rut;
+		$secciones_alumno_cursando=collect(Seccion_Alumno::all()->where('rut_alumno','=',$rut)->where('estado_cursado','=','s'));
+		$secciones_alumno_no_cursando=collect(Seccion_Alumno::all()->where('rut_alumno','=',$rut)->where('estado_cursado','=','n'));
+		$carrera=Carrera::find($alumno->codigo_carrera);
+		$carrera_asignatura=Carrera_Asignatura::all()->where('codigo_carrera','=',$carrera->codigo);
+		$asignaturas=new Collection;
+		foreach ($carrera_asignatura as $ca) {
+			$asignatura=Asignatura::find($ca->codigo_asignatura);
+			$secciones=Seccion::all()->where('codigo_asignatura','=',$asignatura->codigo);
+			$ramo_tomable=true;
+			foreach ($secciones as $seccion) {
+				$secciones_alumnos=Seccion_Alumno::all()->where('rut_alumno','=',$rut);
+				foreach ($secciones_alumnos as $sa) {
+					if ($sa->aprobado==1 || $sa->estado_cursado=='s') {
+						$ramo_tomable=false;
+					}
+				}
+			}
+			if ($ramo_tomable) {
+				$asignaturas->push($asignatura);
+			}
+		}
+		return $asignaturas;
+	}
     
     public function getCertificados($id){
         $collection= new Collection;
