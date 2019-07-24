@@ -48,8 +48,6 @@ const VistCrearCorreoProfe=Vue.component('crear-correo-prof-component', require(
 const VistCrearCorreoAlumno=Vue.component('crear-correo-alumno-component', require('./components/VistaCrearCorreoAlumno.vue').default);
 const NotasAlumno=Vue.component('notas-alumno-component',require('./components/AlumnoNotasViejas.vue').default);
 const crearDepto=Vue.component('crear-depto-component',require('./components/CrearDepartamento.vue').default);
-
-
 const crearAsignatura=Vue.component('crear-asig-component',require('./components/CrearAsignatura.vue').default);
 const crearCarrera=Vue.component('crear-carrera-component',require('./components/CrearCarrera.vue').default);
 const crearCoordinador=Vue.component('crear-coordinador-component',require('./components/CrearCoordinador.vue').default);

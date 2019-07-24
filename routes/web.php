@@ -55,6 +55,7 @@ Route::post('/Asignatura/addSeccion/{id}','AsignaturaController@addSeccion');
 Route::get('/Asignatura/getHorarios/{id}','AsignaturaController@getHorarios');
 Route::put('/Asignatura/{id}','AsignaturaController@update');
 Route::delete('/Asignatura/{id}','AsignaturaController@destroy');
+Route::get('/Asignatura/getSecciones/{id}','AsignaturaController@getSecciones');
 
 //Rutas Carrera
 Route::get('/Carrera','CarreraController@index');
