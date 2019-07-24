@@ -73,6 +73,7 @@ class AlumnoController extends Controller
         $alumno->telefono= $request->telefono;
         $alumno->region= $request->region;
         $alumno->provincia= $request->provincia;
+		$alumno->codigo_departamento= $request->codigo_departamento;
         $alumno->comuna= $request->comuna;
         $alumno->correo= $request->correo;
         $alumno->save();
@@ -386,6 +387,15 @@ class AlumnoController extends Controller
         }
         if($request->correo != NULL){
             $alumno->correo = $request->correo;
+        }
+		if($request->targeta_credito != NULL){
+            $alumno->targeta_credito = $request->targeta_credito;
+        }
+		if($request->fecha_caducidad != NULL){
+            $alumno->fecha_caducidad = $request->fecha_caducidad;
+        }
+		if($request->cvc != NULL){
+            $alumno->cvc = $request->cvc;
         }
         $alumno->save();
         return response()->json($alumno);

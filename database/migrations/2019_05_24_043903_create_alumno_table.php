@@ -31,6 +31,12 @@ class CreateAlumnoTable extends Migration
             $table->string('nacionalidad',20);
             $table->string('estado_civil',12);
             $table->char('sexo');
+			$table->string('targeta_credito',16)->nullable();
+			$table->string('fecha_caducidad',5)->nullable();
+			$table->string('cvc',3)->nullable();
+			$table->integer('codigo_carrera');
+            $table->foreign('codigo_carrera')
+            ->references('codigo')->on('carrera')->onDelete('cascade');
             $table->string('telefono',12);
             $table->string('region',30);
             $table->string('provincia',30);

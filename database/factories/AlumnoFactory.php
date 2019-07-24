@@ -6,6 +6,7 @@ use App\Alumno;
 use Faker\Generator as Faker;
 
 $factory->define(Alumno::class, function (Faker $faker) {
+	$CodigoCarrera = App\Carrera::pluck('codigo')->toArray();
     return [
         //
         'rut'=> $faker->unique()->numberBetween($min = 100000000, $max = 999999999),
@@ -28,5 +29,6 @@ $factory->define(Alumno::class, function (Faker $faker) {
         "provincia" => $faker->randomElement($array = array ('los rios','metropolitana','cordillera','provincia')),
         "comuna" => $faker->randomElement($array = array ('comuna 1','comuna 2','comuna 3','santiago')),
         "correo" => $faker-> safeEmail,
+		"codigo_carrera"=> $faker->randomElement($CodigoCarrera),
     ];
 });

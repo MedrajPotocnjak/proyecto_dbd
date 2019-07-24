@@ -14,21 +14,20 @@ class DatabaseSeeder extends Seeder
        
 		//Model::reguard();
         $this->call(AdministradorTableSeeder::class);
-        $this->call(AlumnoTableSeeder::class);
-		$this->call(AsignaturaTableSeeder::class);
-		$this->call(ProfesorTableSeeder::class);
-		$this->call(SalaTableSeeder::class);
-        $this->call(SeccionTableSeeder::class);
         $this->call(CoordinadorDocenteTableSeeder::class);
 		$this->call(DepartamentoTableSeeder::class);
 		$this->call(CarreraTableSeeder::class);
 		$this->call(CertificadoTableSeeder::class);
-		
+		$this->call(AlumnoTableSeeder::class);
+		$this->call(AsignaturaTableSeeder::class);
+		$this->call(ProfesorTableSeeder::class);
 		$this->call(SolicitudTableSeeder::class);
 		$this->call(EstudioSeeder::class);
 		$this->call(PagoTableSeeder::class);
 		$this->call(MatriculaTableSeeder::class);
 		$this->call(MensajeTableSeeder::class);
+		$this->call(SalaTableSeeder::class);
+        $this->call(SeccionTableSeeder::class);
 		
 		//tablas intermedias
 		$this->call(CarreraAsignaturaTableSeeder::class);

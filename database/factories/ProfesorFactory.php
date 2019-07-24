@@ -6,6 +6,7 @@ use App\Profesor;
 use Faker\Generator as Faker;
 
 $factory->define(Profesor::class, function (Faker $faker) {
+	$CodigoDepa = App\Departamento::pluck('codigo')->toArray();
     return [
         //
         'rut'=> $faker->unique()->numberBetween($min = 10000000, $max = 999999999),
@@ -22,5 +23,6 @@ $factory->define(Profesor::class, function (Faker $faker) {
         "provincia" => $faker->randomElement($array = array ('los rios','metropolitana','cordillera','provincia')),
         "comuna" => $faker->randomElement($array = array ('comuna 1','comuna 2','comuna 3','santiago')),
         "correo" => $faker-> safeEmail,
+		"codigo_departamento"=> $faker->randomElement($CodigoDepa),
     ];
 });

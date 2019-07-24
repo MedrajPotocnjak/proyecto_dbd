@@ -21,6 +21,9 @@ class CreateProfesorTable extends Migration
             $table->string("apellido_materno", 15);; 
             $table->string('password',255);
 			$table->string('remember_token',100)->nullable();
+			$table->integer('codigo_departamento');
+			$table->foreign('codigo_departamento')
+            ->references('codigo')->on('departamento')->onDelete('cascade');
             $table->string("area",30);
             $table->dateTime("fecha_nacimiento");
             $table->string("nacionalidad",20);
