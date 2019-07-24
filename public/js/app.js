@@ -1918,39 +1918,13 @@ __webpack_require__.r(__webpack_exports__);
         icon: 'calendar_today',
         route: '/horario'
       }, {
-        title: 'Mensajes',
+        title: 'Departamentos',
         icon: 'forum',
-        route: '/'
+        route: '/crearDepto'
       }, {
         title: 'Pagos',
         icon: 'payment',
         route: '/'
-      }],
-      items: [{
-        title: 'Lunes'
-      }, {
-        title: 'Martes'
-      }, {
-        title: 'Miercoles'
-      }, {
-        title: 'Jueves'
-      }, {
-        title: 'Viernes'
-      }, {
-        title: 'Sábado'
-      }],
-      bloques: [{
-        title: '8:00-9:30'
-      }, {
-        title: '9:30-11:10'
-      }, {
-        title: '11:20-12:50'
-      }, {
-        title: '13:50-15:20'
-      }, {
-        title: '15:30-17:00'
-      }, {
-        title: '17:00-6:40'
       }]
     };
   },
@@ -2838,6 +2812,122 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     submit: function submit() {}
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CrearDepartamento.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/CrearDepartamento.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      valid: true,
+      rut: '',
+      snackbar: false,
+      snackbarText: "Departamento Creado",
+      rutRules: [function (v) {
+        return !!v || 'Rut es requerido';
+      }, function (v) {
+        return v && v.length <= 30 || 'Rut debe tener un largo menor de 30';
+      }],
+      coordinadores: ['C2', 'C3', 'C4', 'C5'],
+      coordinador: null,
+      nombre: '',
+      nombreRules: [function (v) {
+        return !!v || 'Nombre es requerido';
+      }, function (v) {
+        return v && v.length <= 60 || 'Nombre debe tener un largo menor de 30';
+      }]
+    };
+  },
+  methods: {
+    validate: function validate() {
+      if (this.$refs.form.validate()) {
+        this.snackbar = true;
+      }
+    },
+    submit: function submit() {
+      axios.post('http://192.168.10.10/Departamento/', {
+        'nombre': this.nombre,
+        'rut_coordinador': this.coordinador
+      }).then(function (response) {});
+      this.snackbar = true;
+    },
+    getCoord: function getCoord() {
+      var _this = this;
+
+      axios.get('http://192.168.10.10/CoordinadorDocente/', {}).then(function (response) {
+        _this.coordinadores = response.data;
+      });
+    }
+  },
+  beforeMount: function beforeMount() {
+    this.getCoord();
   }
 });
 
@@ -42018,6 +42108,148 @@ var render = function() {
               )
             ],
             1
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CrearDepartamento.vue?vue&type=template&id=1b8d1dd0&":
+/*!********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/CrearDepartamento.vue?vue&type=template&id=1b8d1dd0& ***!
+  \********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "mt-2" },
+    [
+      _c(
+        "v-flex",
+        { attrs: { xs12: "", sm8: "", "offset-sm1": "" } },
+        [
+          _c(
+            "v-card",
+            { staticClass: "mx-auto" },
+            [
+              _c(
+                "v-container",
+                [
+                  _c("h2", [
+                    _vm._v(
+                      "Crear nuevo Departamento " + _vm._s(_vm.coordinador)
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "v-form",
+                    {
+                      ref: "form",
+                      attrs: { "lazy-validation": "" },
+                      model: {
+                        value: _vm.valid,
+                        callback: function($$v) {
+                          _vm.valid = $$v
+                        },
+                        expression: "valid"
+                      }
+                    },
+                    [
+                      _c("v-overflow-btn", {
+                        staticClass: "my-2",
+                        attrs: {
+                          items: _vm.coordinadores,
+                          "item-text": "rut",
+                          label: "Coordinador",
+                          target: "#dropdown-example-1",
+                          required: ""
+                        },
+                        model: {
+                          value: _vm.coordinador,
+                          callback: function($$v) {
+                            _vm.coordinador = $$v
+                          },
+                          expression: "coordinador"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("v-text-field", {
+                        attrs: {
+                          counter: 60,
+                          rules: _vm.nombreRules,
+                          label: "Nombre Departamento",
+                          required: ""
+                        },
+                        model: {
+                          value: _vm.nombre,
+                          callback: function($$v) {
+                            _vm.nombre = $$v
+                          },
+                          expression: "nombre"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "v-btn",
+                        {
+                          attrs: { disabled: !_vm.valid, color: "success" },
+                          on: { click: _vm.submit }
+                        },
+                        [
+                          _vm._v(
+                            "\n                      Crear Departamento\n                      "
+                          )
+                        ]
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-snackbar",
+            {
+              attrs: {
+                bottom: true,
+                timeout: 4000,
+                vertical: _vm.mode === "vertical"
+              },
+              model: {
+                value: _vm.snackbar,
+                callback: function($$v) {
+                  _vm.snackbar = $$v
+                },
+                expression: "snackbar"
+              }
+            },
+            [
+              _vm._v(
+                "\n              " + _vm._s(_vm.snackbarText) + "\n          "
+              )
+            ]
           )
         ],
         1
@@ -85198,6 +85430,7 @@ var InfoCoord = vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('info-cood-
 var VistCrearCorreoProfe = vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('crear-correo-prof-component', __webpack_require__(/*! ./components/VistaCrearCorreo.vue */ "./resources/js/components/VistaCrearCorreo.vue")["default"]);
 var VistCrearCorreoAlumno = vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('crear-correo-alumno-component', __webpack_require__(/*! ./components/VistaCrearCorreoAlumno.vue */ "./resources/js/components/VistaCrearCorreoAlumno.vue")["default"]);
 var NotasAlumno = vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('notas-alumno-component', __webpack_require__(/*! ./components/AlumnoNotasViejas.vue */ "./resources/js/components/AlumnoNotasViejas.vue")["default"]);
+var crearDepto = vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('crear-depto-component', __webpack_require__(/*! ./components/CrearDepartamento.vue */ "./resources/js/components/CrearDepartamento.vue")["default"]);
 var routes = [{
   path: '/',
   component: Example
@@ -85237,6 +85470,9 @@ var routes = [{
 }, {
   path: '/notasOld',
   component: NotasAlumno
+}, {
+  path: '/crearDepto',
+  component: crearDepto
 }];
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_2__["default"]({
   routes: routes
@@ -85789,6 +86025,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CrearAlumno_vue_vue_type_template_id_32ff8460___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CrearAlumno_vue_vue_type_template_id_32ff8460___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/CrearDepartamento.vue":
+/*!*******************************************************!*\
+  !*** ./resources/js/components/CrearDepartamento.vue ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _CrearDepartamento_vue_vue_type_template_id_1b8d1dd0___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CrearDepartamento.vue?vue&type=template&id=1b8d1dd0& */ "./resources/js/components/CrearDepartamento.vue?vue&type=template&id=1b8d1dd0&");
+/* harmony import */ var _CrearDepartamento_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CrearDepartamento.vue?vue&type=script&lang=js& */ "./resources/js/components/CrearDepartamento.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _CrearDepartamento_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _CrearDepartamento_vue_vue_type_template_id_1b8d1dd0___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _CrearDepartamento_vue_vue_type_template_id_1b8d1dd0___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/CrearDepartamento.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/CrearDepartamento.vue?vue&type=script&lang=js&":
+/*!********************************************************************************!*\
+  !*** ./resources/js/components/CrearDepartamento.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CrearDepartamento_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./CrearDepartamento.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CrearDepartamento.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CrearDepartamento_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/CrearDepartamento.vue?vue&type=template&id=1b8d1dd0&":
+/*!**************************************************************************************!*\
+  !*** ./resources/js/components/CrearDepartamento.vue?vue&type=template&id=1b8d1dd0& ***!
+  \**************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CrearDepartamento_vue_vue_type_template_id_1b8d1dd0___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./CrearDepartamento.vue?vue&type=template&id=1b8d1dd0& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CrearDepartamento.vue?vue&type=template&id=1b8d1dd0&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CrearDepartamento_vue_vue_type_template_id_1b8d1dd0___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CrearDepartamento_vue_vue_type_template_id_1b8d1dd0___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

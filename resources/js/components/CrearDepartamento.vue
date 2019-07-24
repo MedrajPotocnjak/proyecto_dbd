@@ -4,7 +4,7 @@
         
             <v-card class="mx-auto">
                 <v-container>
-                    <h2>Crear nuevo Departamento</h2>
+                    <h2>Crear nuevo Departamento {{coordinador}}</h2>
                     <v-form
                         ref="form"
                         v-model="valid"
@@ -12,8 +12,10 @@
                     >
                          <v-overflow-btn
                         class="my-2"
-                        :items="coordinador"
+                        :items="coordinadores"
+                        item-text="rut"
                         label="Coordinador"
+                        v-model="coordinador"
                         target="#dropdown-example-1"
                         required
                         ></v-overflow-btn>
@@ -25,9 +27,6 @@
                         label="Nombre Departamento"
                         required
                         ></v-text-field>
-
-                        
-
 
                         <v-btn
                         :disabled="!valid"
@@ -42,6 +41,14 @@
                              
                 </v-container>
             </v-card>
+            <v-snackbar
+                v-model="snackbar"
+                :bottom=true
+                :timeout=4000
+                :vertical="mode === 'vertical'"
+            >
+                {{snackbarText}}
+            </v-snackbar>
         </v-flex>
   
     
@@ -53,11 +60,14 @@
     data: () => ({
       valid: true,
       rut: '',
+        snackbar: false,
+        snackbarText: "Departamento Creado",
       rutRules: [
         v => !!v || 'Rut es requerido',
         v => (v && v.length <= 30) || 'Rut debe tener un largo menor de 30'
       ],
-      coordinador:  ['C2', 'C3', 'C4', 'C5'],
+      coordinadores:  ['C2', 'C3', 'C4', 'C5'],
+      coordinador: null,
       nombre: '',
       nombreRules: [
         v => !!v || 'Nombre es requerido',
@@ -72,8 +82,23 @@
         }
       },
       submit(){
-          
+          axios.post('http://192.168.10.10/Departamento/', {
+            'nombre': this.nombre,
+              'rut_coordinador' : this.coordinador
+          }).then(response => {
+
+          });
+          this.snackbar=true;
+      },
+      getCoord() {
+          axios.get('http://192.168.10.10/CoordinadorDocente/', {
+          }).then(response => {
+            this.coordinadores=response.data;
+          });
       }
-    }
+    },
+    beforeMount() {
+          this.getCoord();
+      },
   }
 </script>
