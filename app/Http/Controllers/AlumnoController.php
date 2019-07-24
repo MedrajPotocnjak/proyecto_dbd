@@ -251,7 +251,7 @@ class AlumnoController extends Controller
 				$color='green';
 			}
 			
-			$salida->push(['nombre' => $asignatura->nombre, 'profesor' => $nombre_profesor, 'color' =>$color
+			$salida->push(['nombre' => $asignatura->nombre.'-'.$seccion->nombre.'-'.strtoupper($seccion->tipo), 'profesor' => $nombre_profesor, 'color' =>$color
 																															   , 'P1' =>$seccion_alumno->nota_p1
 																															   , 'P2' =>$seccion_alumno->nota_p2
 																															   , 'P3' =>$seccion_alumno->nota_p3
@@ -278,7 +278,7 @@ class AlumnoController extends Controller
 			$profesor=Profesor::all()->where('rut','=',$seccion->rut_profesor)->first();
 			$asignatura=Asignatura::find($seccion->codigo_asignatura);
 			$nombre_profesor=$profesor->nombres.' '.$profesor->apellido_paterno.' '.$profesor->apellido_materno;
-			$salida->push(['nombre' => $asignatura->nombre, 'profesor' => $nombre_profesor, 'aprobado' =>$seccion_alumno->aprobado, 'color' =>$colors[$colorpos]
+			$salida->push(['nombre' => $asignatura->nombre.'-'.$seccion->nombre.'-'.strtoupper($seccion->tipo), 'profesor' => $nombre_profesor, 'aprobado' =>$seccion_alumno->aprobado, 'color' =>$colors[$colorpos]
 																															   , 'P1' =>$seccion_alumno->nota_p1
 																															   , 'P2' =>$seccion_alumno->nota_p2
 																															   , 'P3' =>$seccion_alumno->nota_p3

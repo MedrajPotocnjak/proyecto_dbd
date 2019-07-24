@@ -9,7 +9,7 @@ class Profesor extends Authenticatable
 {
     //
     protected $table='profesor';
-    protected $fillable=['rut','nombres','apellido_paterno','apellido_materno','password','area','fecha_nacimiento','nacionalidad','sexo','telefono','region','provincia','comuna','correo'];
+    protected $fillable=['rut','nombres','codigo_departamento','apellido_paterno','apellido_materno','password','area','fecha_nacimiento','nacionalidad','sexo','telefono','region','provincia','comuna','correo'];
     public function secciones(){
     	return $this->hasMany(Seccion::class);
     }

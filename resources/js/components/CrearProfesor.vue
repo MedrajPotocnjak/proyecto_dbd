@@ -76,7 +76,7 @@
                         :counter="10"
                         :rules="fecha_nacimientoRules"
                         label="Fecha nacimiento (En formato: DD/MM/AAAA)"
-                        mask="##-##-####"
+                        mask="####-##-##"
                         return-masked-value="true"
                         required
                         ></v-text-field>
@@ -262,7 +262,7 @@
             'password': this.password,
             'codigo_departamento': this.depto,
             'area': this.area,
-            'fecha_nacimiento': this.fecha_nacimiento,
+            'fecha_nacimiento': this.fecha_nacimiento+' 00:00:00',
             'nacionalidad': this.nacionalidad,
             'sexo': this.sexo,
             'telefono': this.telefono,

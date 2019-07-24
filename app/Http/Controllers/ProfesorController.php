@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Profesor;
 use App\Mensaje;
+use App\Asignatura;
 use App\Seccion;
 use App\Seccion_Alumno;
 use App\Seccion_Sala;
@@ -58,6 +59,7 @@ class ProfesorController extends Controller
         $profesor->password= $request->password;
         $profesor->area= $request->area;
         $profesor->fecha_nacimiento= $request->fecha_nacimiento;
+		$profesor->codigo_departamento= $request->codigo_departamento;
         $profesor->nacionalidad= $request->nacionalidad;
         $profesor->sexo= $request->sexo;
         $profesor->telefono= $request->telefono;
@@ -313,5 +315,21 @@ class ProfesorController extends Controller
         
         return $horario;
 
+    }
+	
+	public function verSecciones($id){
+        $profesor=Profesor::find($id);
+		$rut=$profesor->rut;
+        $secciones=collect(Seccion::all()->where('rut_profesor','=',$rut));
+		$colors=["teal accent-3","purple darken-1","red darken-4","lime darken-1","blue-grey darken-1","brown lighten-1","deep-purple","cyan","light-blue","light-green accent-3"];
+		$colorpos=0;
+		$color='red';
+		$salida = new Collection;
+		foreach ($secciones as $seccion) {
+			$asignatura=Asignatura::find($seccion->codigo_asignatura);
+			$salida->push(['nombre' => $asignatura->nombre.'-'.$seccion->nombre.'-'.strtoupper($seccion->tipo), 'color' =>$colors[$colorpos],'tipo'=>$seccion->tipo]);
+			$colorpos=$colorpos+1;
+		}
+        return $salida;
     }
 }
