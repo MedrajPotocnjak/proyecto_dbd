@@ -49,6 +49,7 @@
                     { title: 'Información Personal', icon: 'description' , route: '/info'},
                     { title: 'Notas Anteriores', icon: 'assignment_ind' , route: '/notasOld'},
                     { title: 'Mi Horario', icon: 'calendar_today', route: '/horario'},
+                    { title: 'Tomar Asignatura', icon: 'calendar_today', route: '/tomaHorario'},
                     { title: 'Mensajes', icon: 'forum' , route: '/mensajesA'},
                     { title: 'Pagos', icon: 'payment' , route: '/' }
                 ],

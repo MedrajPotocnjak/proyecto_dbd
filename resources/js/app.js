@@ -54,10 +54,11 @@ const crearAsignatura=Vue.component('crear-asig-component',require('./components
 const crearCarrera=Vue.component('crear-carrera-component',require('./components/CrearCarrera.vue').default);
 const crearCoordinador=Vue.component('crear-coordinador-component',require('./components/CrearCoordinador.vue').default);
 const crearSeccion=Vue.component('crear-seccion-component',require('./components/CrearSeccion.vue').default);
+const tomaHorario=Vue.component('toma-horario-component',require('./components/alumno/TomaHorario.vue').default);
 
 
 const routes = [
-
+  { path: '/tomaHorario', component: tomaHorario },
   { path: '/', component: Example },
 
   { path: '/horario', component: Horario },
