@@ -65,6 +65,7 @@
 
                         <v-text-field
                         v-model="password"
+                        type="password"
                         :counter="255"
                         :rules="passwordRules"
                         label="Contraseña"
@@ -72,14 +73,25 @@
                         required
                         ></v-text-field>
                         <v-text-field
-                        v-model="fecha_nacimiento"
-                        :counter="10"
-                        :rules="fecha_nacimientoRules"
-                        label="Fecha nacimiento (En formato: DD/MM/AAAA)"
-                        mask="##/##/####"
-                        return-masked-value="true"
-                        required
+                            v-model="fecha_nacimiento"
+                            :counter="10"
+                            label="Fecha nacimiento (En formato: DD/MM/AAAA)"
+                            mask="####-##-##"
+                            return-masked-value="true"
+                            required
                         ></v-text-field>
+
+                        <v-overflow-btn
+                            class="my-2"
+                            :items="carreras"
+                            item-text="nombre"
+                            item-value="codigo"
+                            label="Departamento"
+                            v-model="carrera"
+                            target="#dropdown-example-1"
+                            required
+                        ></v-overflow-btn>
+
                         <v-text-field
                         v-model="nacionalidad"
                         :counter="20"
@@ -206,6 +218,8 @@
       nas: '',
       ppa: '',
       nar: '',
+      carreras: null,
+      carrera: '',
       fecha_nacimiento: '',
       nacionalidad: '',
       nacionalidadRules: [
@@ -256,9 +270,38 @@
           this.snackbar = true
         }
       },
-      submit(){
+        submit(){
+            axios.post('http://192.168.10.10/Alumno/', {
+                'rut' : this.rut,
+                'nombre': this.nombre,
+                'apellido_paterno' : this.apellido_paterno,
+                'apellido_materno': this.apellido_materno,
+                'password': this.password,
+                'codigo_carrera': this.carrera,
+                'fecha_nacimiento': this.fecha_nacimiento+' 00:00:00',
+                'nacionalidad': this.nacionalidad,
+                'estado_civil': this.estado_civil,
+                'sexo': this.sexo,
+                'ingreso': this.ingreso,
+                'telefono': this.telefono,
+                'region' : this.region,
+                'provincia': this.provincia,
+                'comuna': this.comuna,
+                'correo' : this.correo
+            }).then(response => {
 
-      }
-    }
+            });
+            this.snackbar=true;
+        },
+        getCarrera() {
+            axios.get('http://192.168.10.10/Carrera/', {
+            }).then(response => {
+                this.carreras=response.data;
+            });
+        }
+    },
+      beforeMount() {
+          this.getCarrera();
+      },
   }
 </script>

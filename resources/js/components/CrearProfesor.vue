@@ -46,6 +46,7 @@
                         <v-text-field
                         v-model="password"
                         :counter="255"
+                        type="password"
                         :rules="passwordRules"
                         label="Contraseña"
                         required

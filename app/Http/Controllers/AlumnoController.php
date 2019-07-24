@@ -54,19 +54,18 @@ class AlumnoController extends Controller
     public function store(Request $request)
     {
         //
-		$sem_actual=$this->obtenerSemestre();
         $alumno= new Alumno();
         $alumno->rut= $request->rut;
         $alumno->nombre= $request->nombre;
         $alumno->apellido_paterno= $request->apellido_paterno;
         $alumno->apellido_materno= $request->apellido_materno;
-        $alumno->nivel= $request->nivel;
-        $alumno->ingreso=$sem_actual->semestre.'/'.$sem_actual->year;
+        $alumno->nivel= 1;
+        $alumno->ingreso=$request->ingreso;
         $alumno->password= $request->password;
-        $alumno->asignaturas_aprobadas= $request->asignaturas_aprobadas;
-        $alumno->nas= $request->nas;
-        $alumno->ppa= $request->ppa;
-        $alumno->nar= $request->nar;
+        $alumno->asignaturas_aprobadas= 0;
+        $alumno->nas= "1.0";
+        $alumno->ppa= "1.0";
+        $alumno->nar= "1.0";
         $alumno->fecha_nacimiento= $request->fecha_nacimiento;
         $alumno->nacionalidad= $request->nacionalidad;
         $alumno->estado_civil= $request->estado_civil;
@@ -74,7 +73,7 @@ class AlumnoController extends Controller
         $alumno->telefono= $request->telefono;
         $alumno->region= $request->region;
         $alumno->provincia= $request->provincia;
-		$alumno->codigo_departamento= $request->codigo_departamento;
+		$alumno->codigo_carrera= $request->codigo_carrera;
         $alumno->comuna= $request->comuna;
         $alumno->correo= $request->correo;
         $alumno->save();

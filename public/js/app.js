@@ -2723,6 +2723,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2768,6 +2780,8 @@ __webpack_require__.r(__webpack_exports__);
       nas: '',
       ppa: '',
       nar: '',
+      carreras: null,
+      carrera: '',
       fecha_nacimiento: '',
       nacionalidad: '',
       nacionalidadRules: [function (v) {
@@ -2827,7 +2841,37 @@ __webpack_require__.r(__webpack_exports__);
         this.snackbar = true;
       }
     },
-    submit: function submit() {}
+    submit: function submit() {
+      axios.post('http://192.168.10.10/Alumno/', {
+        'rut': this.rut,
+        'nombre': this.nombre,
+        'apellido_paterno': this.apellido_paterno,
+        'apellido_materno': this.apellido_materno,
+        'password': this.password,
+        'codigo_carrera': this.carrera,
+        'fecha_nacimiento': this.fecha_nacimiento + ' 00:00:00',
+        'nacionalidad': this.nacionalidad,
+        'estado_civil': this.estado_civil,
+        'sexo': this.sexo,
+        'ingreso': this.ingreso,
+        'telefono': this.telefono,
+        'region': this.region,
+        'provincia': this.provincia,
+        'comuna': this.comuna,
+        'correo': this.correo
+      }).then(function (response) {});
+      this.snackbar = true;
+    },
+    getCarrera: function getCarrera() {
+      var _this = this;
+
+      axios.get('http://192.168.10.10/Carrera/', {}).then(function (response) {
+        _this.carreras = response.data;
+      });
+    }
+  },
+  beforeMount: function beforeMount() {
+    this.getCarrera();
   }
 });
 
@@ -3091,12 +3135,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      snackbar: false,
+      snackbarText: "Carrera Creado",
       valid: true,
-      departamento: ['Depa1', 'Depa4', 'Depa3', 'Depa2'],
-      asignaturas_plan: '',
+      depto: null,
+      departamento: '',
+      asignaturas_plan: 0,
       asignaturas_planRules: [function (v) {
         return !!v || 'Asignaturas plan es requerido';
       }, function (v) {
@@ -3108,11 +3165,11 @@ __webpack_require__.r(__webpack_exports__);
       }, function (v) {
         return v && v.length <= 30 || 'Nombre debe tener un largo menor de 30';
       }],
-      cantidad_alumnos: '',
+      cantidad_alumnos: 0,
       cantidad_alumnosRules: [function (v) {
         return !!v || 'Cantidad de alumnos es requerido';
       }],
-      arancel: '',
+      arancel: 0,
       arancelRules: [function (v) {
         return !!v || 'Arancel es requerido';
       }]
@@ -3124,7 +3181,26 @@ __webpack_require__.r(__webpack_exports__);
         this.snackbar = true;
       }
     },
-    submit: function submit() {}
+    submit: function submit() {
+      axios.post('http://192.168.10.10/Carrera/', {
+        'nombre': this.nombre,
+        'codigo_departamento': this.depto,
+        'asignaturas_plan': this.asignaturas_plan,
+        'cantidad_alumnos': this.cantidad_alumnos,
+        'arancel': this.arancel
+      }).then(function (response) {});
+      this.snackbar = true;
+    },
+    getDepto: function getDepto() {
+      var _this = this;
+
+      axios.get('http://192.168.10.10/Departamento/', {}).then(function (response) {
+        _this.departamento = response.data;
+      });
+    }
+  },
+  beforeMount: function beforeMount() {
+    this.getDepto();
   }
 });
 
@@ -3404,6 +3480,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
 //
 //
 //
@@ -42565,6 +42642,7 @@ var render = function() {
                       _vm._v(" "),
                       _c("v-text-field", {
                         attrs: {
+                          type: "password",
                           counter: 255,
                           rules: _vm.passwordRules,
                           label: "Contraseña",
@@ -42582,9 +42660,8 @@ var render = function() {
                       _c("v-text-field", {
                         attrs: {
                           counter: 10,
-                          rules: _vm.fecha_nacimientoRules,
                           label: "Fecha nacimiento (En formato: DD/MM/AAAA)",
-                          mask: "##/##/####",
+                          mask: "####-##-##",
                           "return-masked-value": "true",
                           required: ""
                         },
@@ -42594,6 +42671,25 @@ var render = function() {
                             _vm.fecha_nacimiento = $$v
                           },
                           expression: "fecha_nacimiento"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("v-overflow-btn", {
+                        staticClass: "my-2",
+                        attrs: {
+                          items: _vm.carreras,
+                          "item-text": "nombre",
+                          "item-value": "codigo",
+                          label: "Departamento",
+                          target: "#dropdown-example-1",
+                          required: ""
+                        },
+                        model: {
+                          value: _vm.carrera,
+                          callback: function($$v) {
+                            _vm.carrera = $$v
+                          },
+                          expression: "carrera"
                         }
                       }),
                       _vm._v(" "),
@@ -43053,8 +43149,18 @@ var render = function() {
                         staticClass: "my-2",
                         attrs: {
                           items: _vm.departamento,
+                          "item-text": "nombre",
+                          "item-value": "codigo",
                           label: "Departamento",
-                          target: "#dropdown-example-1"
+                          target: "#dropdown-example-1",
+                          required: ""
+                        },
+                        model: {
+                          value: _vm.depto,
+                          callback: function($$v) {
+                            _vm.depto = $$v
+                          },
+                          expression: "depto"
                         }
                       }),
                       _vm._v(" "),
@@ -43110,7 +43216,7 @@ var render = function() {
                       _vm._v(" "),
                       _c("v-text-field", {
                         attrs: {
-                          counter: 10,
+                          counter: 9,
                           rules: _vm.arancelRules,
                           label: "Arancel",
                           mask: "##########",
@@ -43145,6 +43251,29 @@ var render = function() {
               )
             ],
             1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-snackbar",
+            {
+              attrs: {
+                bottom: true,
+                timeout: 4000,
+                vertical: _vm.mode === "vertical"
+              },
+              model: {
+                value: _vm.snackbar,
+                callback: function($$v) {
+                  _vm.snackbar = $$v
+                },
+                expression: "snackbar"
+              }
+            },
+            [
+              _vm._v(
+                "\n              " + _vm._s(_vm.snackbarText) + "\n          "
+              )
+            ]
           )
         ],
         1
@@ -43609,6 +43738,7 @@ var render = function() {
                       _c("v-text-field", {
                         attrs: {
                           counter: 255,
+                          type: "password",
                           rules: _vm.passwordRules,
                           label: "Contraseña",
                           required: ""
