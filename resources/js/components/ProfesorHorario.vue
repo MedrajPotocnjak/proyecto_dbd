@@ -25,33 +25,27 @@
             </v-layout>
         </v-container>
         <v-spacer></v-spacer>
-        <v-container grid-list-xs text-xs-center md1>
-            <v-expansion-panel dark>
-                <v-expansion-panel-content class="deep-purple">
-                    <div slot="header">Ingenieria en Fisica</div>
-                    <v-card light>
-                        <v-card-text>Notas:<br/>Pep 1: 7.0</v-card-text>
-                    </v-card>
-                </v-expansion-panel-content>
-            </v-expansion-panel>
-
-            <v-expansion-panel dark>
-                <v-expansion-panel-content class="teal">
-                    <div slot="header">Diseño de Calculo II</div>
-                    <v-card light>
-                        <v-card-text>Notas:<br/>Pep 1: 2.0</v-card-text>
-                    </v-card>
-                </v-expansion-panel-content>
-            </v-expansion-panel>
-            <v-flex xs12>
-                <v-card dark color="teal">
-                    <v-card-text class="px-0">Analisis de Telas</v-card-text>
-                </v-card>
-            </v-flex>
-            <v-flex xs12>
-                <v-card dark color="amber">
-                    <v-card-text class="px-0">Fundamentos de Cosas I</v-card-text>
-                </v-card>
+        <div v-if="loading" justify-center>
+            <v-progress-circular
+                :width="3"
+                color="primary"
+                indeterminate
+            ></v-progress-circular>
+        </div>
+        <v-container v-else grid-list-xs text-xs-center md1>
+            <v-flex v-for="seccion in secciones" :key="item">
+                <v-expansion-panel dark>
+                    <v-expansion-panel-content v-bind:class="seccion.color">
+                        <div slot="header">{{seccion.nombre}}</div>
+                        <v-card light>
+                            <v-card-title><h1>Información Sección</h1></v-card-title>
+                            <v-card-text>
+                                Tipo sección: {{seccion.tipo}} <br>
+                                Cupos: {{seccion.cupos}} <br>
+                            </v-card-text>
+                        </v-card>
+                    </v-expansion-panel-content>
+                </v-expansion-panel>
             </v-flex>
         </v-container>
     </v-app>
@@ -81,6 +75,7 @@
                 ],
                 right: null,
                 horario: null,
+                loading: false,
             }
         },
         methods: {
@@ -103,6 +98,19 @@
                 }).then(response => {
                     this.horario = response.data;
                 });
+                axios({
+                    method: 'get',
+                    url: 'http://192.168.10.10/Profesor/getSecciones/' + this.userid,
+                    headers: {
+
+                    },
+                    validateStatus: (status) => {
+                        return true; // I'm always returning true, you may want to do it depending on the status received
+                    }
+                }).then(response => {
+                    this.secciones = response.data;
+                });
+                this.loading=false;
             },
         },
         beforeMount(){

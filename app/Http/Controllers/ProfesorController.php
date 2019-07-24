@@ -327,7 +327,7 @@ class ProfesorController extends Controller
 		$salida = new Collection;
 		foreach ($secciones as $seccion) {
 			$asignatura=Asignatura::find($seccion->codigo_asignatura);
-			$salida->push(['nombre' => $asignatura->nombre.'-'.$seccion->nombre.'-'.strtoupper($seccion->tipo), 'color' =>$colors[$colorpos],'tipo'=>$seccion->tipo]);
+			$salida->push(['nombre' => $asignatura->nombre.'-'.$seccion->nombre.'-'.strtoupper($seccion->tipo), 'color' =>$colors[$colorpos],'tipo'=>$seccion->tipo,'cupos'=>$seccion->cupos]);
 			$colorpos=$colorpos+1;
 		}
         return $salida;
