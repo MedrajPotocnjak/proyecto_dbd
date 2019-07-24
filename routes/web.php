@@ -141,7 +141,7 @@ Route::put('/Profesor/{id}','ProfesorController@update');
 Route::post('/Profesor/crearMensaje/{id}','ProfesorController@crearMensaje');
 Route::delete('/Profesor/{id}','ProfesorController@destroy');
 Route::get('/Profesor/{id}','ProfesorController@show');
-
+Route::get('/Profesor/getSecciones/{id}','ProfesorController@verSecciones');
 //Rutas Sala
 Route::get('/Sala','SalaController@index');
 Route::post('/Sala','SalaController@store');
