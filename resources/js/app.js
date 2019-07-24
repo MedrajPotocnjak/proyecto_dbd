@@ -30,31 +30,42 @@ Vue.use(VueRouter)
 // const files = require.context('./', true, /\.vue$/i);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
+//Login
 const Example=Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-const Features=Vue.component('alumno-sidebar-component', require('./components/AlumnoSidebar.vue').default);
-const Horario=Vue.component('alumno-horario-component', require('./components/AlumnoHorario.vue').default);
+//Alumno
+const Features=Vue.component('alumno-sidebar-component', require('./components/alumno/AlumnoSidebar.vue').default);
+const Horario=Vue.component('alumno-horario-component', require('./components/alumno/AlumnoHorario.vue').default);
+const tomaHorario=Vue.component('toma-horario-component',require('./components/alumno/TomaHorario.vue').default);
+const NotasAlumno=Vue.component('notas-alumno-component',require('./components/alumno/AlumnoNotasViejas.vue').default);
+const InfoAlumn=Vue.component('info-alumn-component', require('./components/alumno/VerInfoAlumno.vue').default);
+
+//Profesor
 const PHorario=Vue.component('profesor-horario-component', require('./components/ProfesorHorario.vue').default);
 const barraProfe=Vue.component('profesor-sidebar-component', require('./components/ProfesorSidebar.vue').default);
+const InfoProf=Vue.component('info-prof-component', require('./components/VerInfoProfesor.vue').default);
+
+//Coordinador
+const InfoCoord=Vue.component('info-cood-component',require('./components/VerInfoCord.vue').default);
 const barraCoord=Vue.component('coordinador-sidebar-component', require('./components/CoordinadorSidebar.vue').default);
-const barraAdmin=Vue.component('administrador-sidebar-component', require('./components/AdministradorSidebar.vue').default);
 const asignaturasCoord=Vue.component('asignatura-coordinador-sidebar-component', require('./components/AsignaturasCoordinador.vue').default);
 const crearAlumnoCoord=Vue.component('coordinador-crear-alumno-sidebar-component', require('./components/CrearAlumno.vue').default);
 const crearProfCoord=Vue.component('coordinador-crear-prof-sidebar-component', require('./components/CrearProfesor.vue').default);
 const SeccionAsignaturaCoord=Vue.component('seccion-asign-coord-component', require('./components/SeccionAsignatura.vue').default);
-const InfoAlumn=Vue.component('info-alumn-component', require('./components/VerInfoAlumno.vue').default);
-const InfoProf=Vue.component('info-prof-component', require('./components/VerInfoProfesor.vue').default);
-const InfoCoord=Vue.component('info-cood-component',require('./components/VerInfoCord.vue').default);
-const VistCrearCorreoProfe=Vue.component('crear-correo-prof-component', require('./components/VistaCrearCorreo.vue').default);
-const VistCrearCorreoAlumno=Vue.component('crear-correo-alumno-component', require('./components/VistaCrearCorreoAlumno.vue').default);
-const NotasAlumno=Vue.component('notas-alumno-component',require('./components/AlumnoNotasViejas.vue').default);
-const crearDepto=Vue.component('crear-depto-component',require('./components/CrearDepartamento.vue').default);
 
 
+//Admin
+const barraAdmin=Vue.component('administrador-sidebar-component', require('./components/AdministradorSidebar.vue').default);
 const crearAsignatura=Vue.component('crear-asig-component',require('./components/CrearAsignatura.vue').default);
 const crearCarrera=Vue.component('crear-carrera-component',require('./components/CrearCarrera.vue').default);
 const crearCoordinador=Vue.component('crear-coordinador-component',require('./components/CrearCoordinador.vue').default);
 const crearSeccion=Vue.component('crear-seccion-component',require('./components/CrearSeccion.vue').default);
-const tomaHorario=Vue.component('toma-horario-component',require('./components/alumno/TomaHorario.vue').default);
+const crearDepto=Vue.component('crear-depto-component',require('./components/CrearDepartamento.vue').default);
+
+
+
+//???
+const VistCrearCorreoProfe=Vue.component('crear-correo-prof-component', require('./components/VistaCrearCorreo.vue').default);
+const VistCrearCorreoAlumno=Vue.component('crear-correo-alumno-component', require('./components/VistaCrearCorreoAlumno.vue').default);
 
 
 const routes = [
