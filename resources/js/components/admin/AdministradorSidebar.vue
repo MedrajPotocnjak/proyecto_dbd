@@ -58,7 +58,7 @@
                     { title: 'Carreras Sistema', icon: 'view_stream' , route: '/listaCarrerasSistema'},
 
                     { title: 'Crear Asignatura', icon: 'description' , route: '/crearAsignatura'},
-                    
+                    { title: 'Lista Asignaturas', icon: 'view_stream' , route: '/listaAsignaturasSistema'},
                     
                     { title: 'Crear Seccion', icon: 'description' , route: '/crearSeccion'},
                     { title: 'Lista Secciones', icon: 'view_stream' , route: '/listaSeccionesSistema'},
