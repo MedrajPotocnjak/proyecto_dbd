@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Seccion;
 use App\Alumno;
+use App\Sala;
 use App\Profesor;
 use App\Asignatura;
 use App\Seccion_Sala;
@@ -73,7 +74,12 @@ class SeccionController extends Controller
 	}
 	public function getSalaSeccion($id) {
 		$seccion_salas=Seccion_Sala::all()->where('codigo_seccion','=',$id);
-		return $seccion_salas;
+		$salida=new Collection;
+		foreach($seccion_salas as $ss) {
+			$sala=Sala::find($ss->codigo_sala);
+			$salida->push(['sala'=>$sala->nombre,'bloque'=>$ss->bloque,'id'=>$ss->id,'codigo_sala'=>$sala->codigo]);
+		}
+		return $salida;
 
 	}
 	public function addHorario($id,Request $request) {

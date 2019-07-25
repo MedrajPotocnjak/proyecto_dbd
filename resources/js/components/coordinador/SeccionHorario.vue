@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-toolbar flat color="white" class="xs12  sm8 offset-sm1">
-      <v-toolbar-title>Secciones    </v-toolbar-title>
+      <v-toolbar-title>Horario    </v-toolbar-title>
         <v-overflow-btn
             class="my-2"
             :items="secciones"
@@ -10,7 +10,7 @@
             label="Secciones"
             v-model="seccion"
             target="#dropdown-example-1"
-            @change="buscarSeccion"
+            @change="buscarHorario"
             required
         ></v-overflow-btn>
       <v-divider
@@ -21,7 +21,7 @@
       <v-spacer></v-spacer>
       <v-dialog v-model="dialog" max-width="500px">
         <template v-slot:activator="{ on }">
-          <v-btn color="primary" dark class="mb-2" v-on="on">Crear seccion</v-btn>
+          <v-btn color="primary" dark class="mb-2" v-on="on">Crear Horario</v-btn>
         </template>
         <v-card>
           <v-card-title>
@@ -29,21 +29,22 @@
           </v-card-title>
 
           <v-card-text>
-              {{editedItem.codigo}}|{{editedItem.cupos}}|{{editedItem.nombre }}|
+              {{seccion}}|{{editedItem.bloque}}|{{sala }}|
             <v-container grid-list-md>
               <v-layout wrap>
                 <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="editedItem.rut_profesor" label="Rut profesor"></v-text-field>
+                  <v-text-field v-model="editedItem.bloque" label="Bloque"></v-text-field>
                 </v-flex>
-                <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="editedItem.nombre" label="nombre"></v-text-field>
-                </v-flex>
-                <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="editedItem.tipo" label="tipo"></v-text-field>
-                </v-flex>
-                <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="editedItem.cupos" label="cupos"></v-text-field>
-                </v-flex>
+                  <v-overflow-btn
+                      class="my-2"
+                      :items="salas"
+                      item-text="nombre"
+                      item-value="codigo"
+                      label="Sala"
+                      v-model="sala"
+                      target="#dropdown-example-1"
+                      required
+                  ></v-overflow-btn>
               </v-layout>
             </v-container>
           </v-card-text>
@@ -62,10 +63,8 @@
       class="elevation-1"
     >
       <template v-slot:items="props">
-        <td class="text-xs-left">{{ props.item.nombre }}</td>
-        <td class="text-xs-left">{{ props.item.tipo }}</td>
-        <td class="text-xs-left">{{ props.item.cupos }}</td>
-        <td class="text-xs-left">{{ props.item.rut_profesor }}</td>
+        <td class="text-xs-left">{{ props.item.bloque }}</td>
+        <td class="text-xs-left">{{ props.item.sala }}</td>
         <td class="justify-center layout px-0">
           <v-icon
             small
@@ -83,7 +82,7 @@
         </td>
       </template>
       <template v-slot:no-data>
-        No hay secciones.
+        No hay bloques para esta sección.
       </template>
     </v-data-table>
   </div>
@@ -96,16 +95,16 @@
         asignatura: 0,
         secciones:null,
         seccion: 0,
+        salas: [],
+        sala: 0,
       headers: [
         {
-          text: 'Nombre Seccion',
+          text: 'Bloque',
           align: 'left',
           sortable: false,
-          value: 'nombre_seccion'
+          value: 'bloque'
         },
-        { text: 'Tipo', value: 'tipo' },
-        { text: 'Cupos', value: 'cupos' },
-        { text: 'Rut Profesor', value: 'rut_profesor' },
+        { text: 'Sala', value: 'sala' },
         { text: 'Action', value: 'rut_profesor', sortable: false }
       ],
       desserts: [],
@@ -157,13 +156,14 @@
         this.editedIndex = this.desserts.indexOf(item)
         this.editedItem = Object.assign({}, item)
         this.dialog = true
+          this.sala=this.editedItem.codigo_sala
       },
 
       deleteItem (item) {
         const index = this.desserts.indexOf(item)
           this.editedItem = Object.assign({}, item)
         if (confirm('Are you sure you want to delete this item?') && this.desserts.splice(index, 1)) {
-            axios.delete('http://192.168.10.10/Seccion/'+this.editedItem.codigo, {
+            axios.delete('http://192.168.10.10/Seccion_Sala/'+this.editedItem.id, {
             }).then(response => {
             });
         }
@@ -181,25 +181,22 @@
       save () {
         if (this.editedIndex > -1) {
           Object.assign(this.desserts[this.editedIndex], this.editedItem)
-            axios.put('http://192.168.10.10/Seccion/'+this.editedItem.codigo, {
-                'nombre': this.editedItem.nombre,
-                'rut_profesor' : this.editedItem.rut_profesor,
-                'tipo' : this.editedItem.tipo,
-                'cupos' : this.editedItem.cupos,
+            axios.put('http://192.168.10.10/Seccion_Sala/'+this.editedItem.id, {
+                'bloque': this.editedItem.bloque,
+                'codigo_sala' : this.sala
             }).then(response => {
 
             });
         } else {
           this.desserts.push(this.editedItem)
-            axios.post('http://192.168.10.10/Seccion/', {
-                'nombre': this.editedItem.nombre,
-                'codigo_asignatura': this.asignatura,
-                'rut_profesor' : this.editedItem.rut_profesor,
-                'tipo' : this.editedItem.tipo,
-                'cupos' : this.editedItem.cupos,
+            axios.post('http://192.168.10.10/Seccion_Sala/', {
+                'bloque': this.editedItem.bloque,
+                'codigo_sala' : this.sala,
+                'codigo_seccion': this.seccion
             }).then(response => {
 
             });
+            this.buscarHorario();
         }
         this.close()
       },
@@ -209,7 +206,13 @@
                 this.secciones=response.data;
             });
         },
-       buscarSeccion () {
+        getSalas() {
+            axios.get('http://192.168.10.10/Sala/', {
+            }).then(response => {
+                this.salas=response.data;
+            });
+        },
+       buscarHorario () {
             axios.get('http://192.168.10.10/Seccion/getSalaSeccion/'+ this.seccion, {
             }).then(response => {
                 this.desserts=response.data;
@@ -218,6 +221,7 @@
     },
     beforeMount() {
           this.getAsignatura();
+          this.getSalas();
       },
   }
 </script>
