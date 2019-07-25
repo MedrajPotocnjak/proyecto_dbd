@@ -70,6 +70,7 @@ const listaMensajesProfesor=Vue.component('mensajes-profesor-component',require(
 const listaCarrerasSistema=Vue.component('lista-carrera-component',require('./components/listas/ListaCarrerasSistema.vue').default);
 const listaSeccionesSistema=Vue.component('lista-secciones-component',require('./components/listas/ListaSeccionesSistema.vue').default);
 const listaDepartamentosSistema=Vue.component('lista-deptos-component',require('./components/listas/ListaDepartamentosSistema.vue').default);
+const listaAsignaturasSistema=Vue.component('lista-asignaturas-component',require('./components/listas/ListaAsignaturasSistema.vue').default);
 
 
 
@@ -79,7 +80,7 @@ const VistCrearCorreoAlumno=Vue.component('crear-correo-alumno-component', requi
 
 
 const routes = [
-  
+  { path: '/listaAsignaturasSistema', component: listaAsignaturasSistema },
   { path: '/listaAlumnosSistema', component: listaAlumnosSistema },
   { path: '/listaProfesoresSistema', component: listaProfesoresSistema },
   { path: '/listaCoordinadoresSistema', component: listaCoordinadoresSistema },

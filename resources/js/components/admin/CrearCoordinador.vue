@@ -58,8 +58,6 @@
                         >
                         Crear Coordinador
                         </v-btn>
-
-                        {{nombres}}, {{apellido_paterno}},{{apellido_materno}},{{password}}
                     </v-form>
                              
                 </v-container>

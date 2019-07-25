@@ -148,9 +148,7 @@
                         >
                         Crear Profesor
                         </v-btn>
-                        {{rut}} / {{nombres}} / {{apellido_paterno}} / {{apellido_materno}} / {{depto}} / {{area}} <br>
-                        {{fecha_nacimiento}} / {{sexo}} / {{nacionalidad}} / {{telefono}} <br>
-                        {{comuna}} / {{provincia}} / {{correo}}
+                        
                         
                     </v-form>
                              
