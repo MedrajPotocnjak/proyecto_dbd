@@ -233,10 +233,15 @@ class AlumnoController extends Controller
 		$secciones_cursando=collect(Seccion::find($codigo_secciones));
 		$salida = new Collection;
 		foreach ($secciones_cursando as $seccion) {
-			
+			$profesor=Profesor::all()->where('rut','=',$seccion->rut_profesor)->first();
+			$asignatura=Asignatura::find($seccion->codigo_asignatura);
+			$nombre_profesor=$profesor->nombres.' '.$profesor->apellido_paterno.' '.$profesor->apellido_materno;
+			$nombreCompleto=$asignatura->nombre.'-'.$seccion->nombre.' | '.$nombre_profesor;
+			$salida->push(['codigo'=>$seccion->codigo,'nombre'=>$nombreCompleto]);
 		}
-        return $secciones_cursando;
+        return $salida;
     }
+	
 	public function verCalificacionesOld($id){
         $alumno=Alumno::find($id);
 		$rut=$alumno->rut;
@@ -333,14 +338,12 @@ class AlumnoController extends Controller
         return "No se pudo inscribir la asignatura";
 
     }
-	public function desinscribirAsignatura(Request $request, $id) {
+	public function desinscribirAsignatura($id,$seccion) {
 		$alumno=Alumno::find($id);
 		$rut=$alumno->rut;
-		$seccion=$request->codigo_seccion;
-		
 		$alumnoSeccion = Seccion_Alumno::all()->where('rut_alumno','=',$rut)->where('codigo_seccion','=',$seccion)->first();
         $alumnoSeccion ->delete();
-        return "Borrado";
+        return "Seccion ".$seccion." ha sido desinscrita";
 	}
     /**
      * Display the specified resource.

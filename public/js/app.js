@@ -2030,11 +2030,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       valid: true,
-      rut: '',
+      userid: '',
+      profe: null,
+      snackbar: false,
+      snackbarText: "Mensaje enviado",
       rutRules: [function (v) {
         return !!v || 'Rut es requerido';
       }, function (v) {
@@ -2058,7 +2070,33 @@ __webpack_require__.r(__webpack_exports__);
         this.snackbar = true;
       }
     },
-    submit: function submit() {}
+    getUserName: function getUserName() {
+      var url = window.location.href;
+      var splitted = url.split("/alumno/");
+      var userId = splitted[1];
+      splitted = userId.split("/");
+      userId = splitted[0];
+      this.userid = userId;
+    },
+    submit: function submit() {
+      axios.post('http://192.168.10.10/Alumno/createMensaje/' + this.userid, {
+        "rut_profesor": this.profe,
+        "asunto": this.asunto,
+        "contenido": this.contenido
+      }).then(function (response) {});
+      this.snackbar = true;
+    },
+    getProfe: function getProfe() {
+      var _this = this;
+
+      axios.get('http://192.168.10.10/Profesor/', {}).then(function (response) {
+        _this.profesor = response.data;
+      });
+    }
+  },
+  beforeMount: function beforeMount() {
+    this.getUserName();
+    this.getProfe();
   }
 });
 
@@ -2131,11 +2169,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       valid: true,
-      rut: '',
+      alumno: null,
+      snackbar: false,
+      snackbarText: "Mensaje enviado",
       rutRules: [function (v) {
         return !!v || 'Rut es requerido';
       }, function (v) {
@@ -2159,7 +2211,33 @@ __webpack_require__.r(__webpack_exports__);
         this.snackbar = true;
       }
     },
-    submit: function submit() {}
+    getUserName: function getUserName() {
+      var url = window.location.href;
+      var splitted = url.split("/profesor/");
+      var userId = splitted[1];
+      splitted = userId.split("/");
+      userId = splitted[0];
+      this.userid = userId;
+    },
+    submit: function submit() {
+      axios.post('http://192.168.10.10/Profesor/crearMensaje/' + this.userid, {
+        "rut_alumno": this.alumno,
+        "asunto": this.asunto,
+        "contenido": this.contenido
+      }).then(function (response) {});
+      this.snackbar = true;
+    },
+    getAlumno: function getAlumno() {
+      var _this = this;
+
+      axios.get('http://192.168.10.10/Alumno/', {}).then(function (response) {
+        _this.alumnos = response.data;
+      });
+    }
+  },
+  beforeMount: function beforeMount() {
+    this.getUserName();
+    this.getAlumno();
   }
 });
 
@@ -3353,7 +3431,7 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         title: 'Mensajes',
         icon: 'forum',
-        route: '/mensajesA'
+        route: '/mensajesP'
       }, {
         title: 'Pagos',
         icon: 'payment',
@@ -3562,15 +3640,40 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       asignatura: null,
       seccion: null,
-      lorem: "Lorem ipsum dolor sit amet, mel at clita quando. Te sit oratio vituperatoribus, nam ad ipsum posidonium mediocritatem,\n       explicari dissentiunt cu mea. Repudiare disputationi vim in, mollis iriure nec cu, alienum argumentum ius ad. Pri eu justo aeque torquatos.",
+      snackbar: false,
+      snackbarText: "Asignatura Inscrita",
+      horarios: '',
       ramos: ['Fundamentos de Ingenieria de software', 'Diseño de base de datos', 'Ingenieria y Sociedad', 'Calculo III'],
       secciones: ['A1', 'B3', 'E4', 'B4'],
-      horarios: ['Solo ramos del nivel', 'Concentrado en la mañana', 'Concelntrado en la tarde', 'Ramos clave'],
+      horarius: ['Solo ramos del nivel', 'Concentrado en la mañana', 'Concelntrado en la tarde', 'Ramos clave'],
       dialog: false,
       headers: [{
         text: 'Nombre Ramo',
@@ -3578,6 +3681,11 @@ __webpack_require__.r(__webpack_exports__);
         sortable: false,
         value: 'nombre'
       }],
+      infoSeccion: {
+        profesor: '-',
+        cupos: '-',
+        tipo: '-'
+      },
       desserts: [],
       userid: '',
       editedIndex: -1,
@@ -3601,16 +3709,13 @@ __webpack_require__.r(__webpack_exports__);
       val || this.close();
     }
   },
-  created: function created() {
-    this.initialize();
-  },
   methods: {
     initialize: function initialize() {
       this.desserts = [{
-        id: 1,
+        codigo: 1,
         nombre: 'Calculo II'
       }, {
-        id: 2,
+        codigo: 2,
         nombre: 'Analisis de cosas'
       }, {
         id: 3,
@@ -3624,7 +3729,16 @@ __webpack_require__.r(__webpack_exports__);
     },
     deleteItem: function deleteItem(item) {
       var index = this.desserts.indexOf(item);
-      confirm('Desinscribir ramo?') && this.desserts.splice(index, 1);
+      this.editedItem = Object.assign({}, item);
+
+      if (confirm('Desinscribir ramo?') && this.desserts.splice(index, 1)) {
+        axios["delete"]('http://192.168.10.10/Alumno/desinscribir/' + this.userid + '/' + this.editedItem.codigo, {}).then(function (response) {})["catch"](function (error) {
+          // handle error
+          console.log(error);
+        });
+        this.ramosActuales();
+        this.getAsignaturas();
+      }
     },
     close: function close() {
       var _this = this;
@@ -3655,7 +3769,7 @@ __webpack_require__.r(__webpack_exports__);
     getAsignaturas: function getAsignaturas() {
       var _this2 = this;
 
-      axios.get('http://192.168.10.10/Alumno/RamosTomables/' + this.userid, {}).then(function (response) {
+      axios.get('http://192.168.10.10/Alumno/getPosibleAsignatura/' + this.userid, {}).then(function (response) {
         _this2.ramos = response.data;
       });
     },
@@ -3665,11 +3779,43 @@ __webpack_require__.r(__webpack_exports__);
       axios.get('http://192.168.10.10/Asignatura/getSecciones/' + this.asignatura, {}).then(function (response) {
         _this3.secciones = response.data;
       });
+    },
+    getHorarioSeccion: function getHorarioSeccion() {
+      var _this4 = this;
+
+      this.getInfoSeccion();
+      axios.get('http://192.168.10.10/Seccion/getHorarios/' + this.seccion, {}).then(function (response) {
+        _this4.horarios = response.data;
+      });
+    },
+    tomarRamo: function tomarRamo() {
+      axios.post('http://192.168.10.10/Alumno/inscribirAsignatura/' + this.userid, {
+        "asignatura": this.asignatura,
+        "seccion": this.seccion
+      }).then(function (response) {});
+      this.snackbar = true;
+      this.ramosActuales();
+      this.getAsignaturas();
+    },
+    ramosActuales: function ramosActuales() {
+      var _this5 = this;
+
+      axios.get('http://192.168.10.10/Alumno/getSeccionesCursando/' + this.userid, {}).then(function (response) {
+        _this5.desserts = response.data;
+      });
+    },
+    getInfoSeccion: function getInfoSeccion() {
+      var _this6 = this;
+
+      axios.get('http://192.168.10.10/Seccion/obtenerInfo/' + this.seccion, {}).then(function (response) {
+        _this6.infoSeccion = response.data;
+      });
     }
   },
   beforeMount: function beforeMount() {
     this.getUserName();
     this.getAsignaturas();
+    this.ramosActuales();
   }
 });
 
@@ -5594,7 +5740,7 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         title: 'Mensajes',
         icon: 'forum',
-        route: '/mensajesP'
+        route: '/mensajesA'
       }]
     };
   },
@@ -42264,20 +42410,22 @@ var render = function() {
                       }
                     },
                     [
-                      _c("v-text-field", {
+                      _c("v-overflow-btn", {
+                        staticClass: "my-3",
                         attrs: {
-                          counter: 9,
-                          rules: _vm.rutRules,
-                          label: "Rut profesor destinatario",
-                          mask: "##.###.###-#",
+                          items: _vm.profesor,
+                          "item-text": "nombres",
+                          "item-value": "rut",
+                          label: "Profesor",
+                          target: "#dropdown-example-2",
                           required: ""
                         },
                         model: {
-                          value: _vm.rut,
+                          value: _vm.profe,
                           callback: function($$v) {
-                            _vm.rut = $$v
+                            _vm.profe = $$v
                           },
-                          expression: "rut"
+                          expression: "profe"
                         }
                       }),
                       _vm._v(" "),
@@ -42335,6 +42483,25 @@ var render = function() {
           )
         ],
         1
+      ),
+      _vm._v(" "),
+      _c(
+        "v-snackbar",
+        {
+          attrs: {
+            bottom: true,
+            timeout: 4000,
+            vertical: _vm.mode === "vertical"
+          },
+          model: {
+            value: _vm.snackbar,
+            callback: function($$v) {
+              _vm.snackbar = $$v
+            },
+            expression: "snackbar"
+          }
+        },
+        [_vm._v("\n              " + _vm._s(_vm.snackbarText) + "\n          ")]
       )
     ],
     1
@@ -42393,20 +42560,22 @@ var render = function() {
                       }
                     },
                     [
-                      _c("v-text-field", {
+                      _c("v-overflow-btn", {
+                        staticClass: "my-3",
                         attrs: {
-                          counter: 9,
-                          rules: _vm.rutRules,
-                          label: "Rut alumno destinatario",
-                          mask: "##.###.###-#",
+                          items: _vm.alumnos,
+                          "item-text": "nombre",
+                          "item-value": "rut",
+                          label: "Alumno",
+                          target: "#dropdown-example-2",
                           required: ""
                         },
                         model: {
-                          value: _vm.rut,
+                          value: _vm.alumno,
                           callback: function($$v) {
-                            _vm.rut = $$v
+                            _vm.alumno = $$v
                           },
-                          expression: "rut"
+                          expression: "alumno"
                         }
                       }),
                       _vm._v(" "),
@@ -42461,6 +42630,29 @@ var render = function() {
               )
             ],
             1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-snackbar",
+            {
+              attrs: {
+                bottom: true,
+                timeout: 4000,
+                vertical: _vm.mode === "vertical"
+              },
+              model: {
+                value: _vm.snackbar,
+                callback: function($$v) {
+                  _vm.snackbar = $$v
+                },
+                expression: "snackbar"
+              }
+            },
+            [
+              _vm._v(
+                "\n              " + _vm._s(_vm.snackbarText) + "\n          "
+              )
+            ]
           )
         ],
         1
@@ -44142,14 +44334,10 @@ var render = function() {
                                     key: "items",
                                     fn: function(props) {
                                       return [
-                                        _c("td", [
-                                          _vm._v(_vm._s(props.item.nombre))
-                                        ]),
-                                        _vm._v(" "),
                                         _c(
                                           "td",
-                                          { staticClass: "text-xs-right" },
-                                          [_vm._v(_vm._s(props.item.calories))]
+                                          { staticClass: "text-xs-left" },
+                                          [_vm._v(_vm._s(props.item.nombre))]
                                         ),
                                         _vm._v(" "),
                                         _c(
@@ -44258,7 +44446,7 @@ var render = function() {
                                     },
                                     [
                                       _c("v-overflow-btn", {
-                                        staticClass: "my-2",
+                                        staticClass: "text-xs-center",
                                         attrs: {
                                           items: _vm.ramos,
                                           "item-text": "nombre",
@@ -44267,6 +44455,7 @@ var render = function() {
                                           target: "#dropdown-example-1",
                                           required: ""
                                         },
+                                        on: { change: _vm.buscarSeccion },
                                         model: {
                                           value: _vm.asignatura,
                                           callback: function($$v) {
@@ -44274,23 +44463,9 @@ var render = function() {
                                           },
                                           expression: "asignatura"
                                         }
-                                      }),
-                                      _vm._v(
-                                        "\n                  " +
-                                          _vm._s(_vm.asignatura) +
-                                          "\n                "
-                                      )
+                                      })
                                     ],
                                     1
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "v-btn",
-                                    {
-                                      attrs: { outline: "", color: "indigo" },
-                                      on: { click: _vm.buscarSeccion }
-                                    },
-                                    [_vm._v("Seleccionar Ramo")]
                                   )
                                 ],
                                 1
@@ -44355,7 +44530,7 @@ var render = function() {
                                     [
                                       _c("v-select", {
                                         attrs: {
-                                          items: _vm.horarios,
+                                          items: _vm.horarius,
                                           label: "Horarios Sugeridos",
                                           outline: ""
                                         }
@@ -44368,7 +44543,7 @@ var render = function() {
                                     "v-btn",
                                     {
                                       attrs: { outline: "", color: "indigo" },
-                                      on: { click: _vm.tomarHorario }
+                                      on: { click: _vm.tomarRamo }
                                     },
                                     [_vm._v("Tomar horario sugerido")]
                                   )
@@ -44432,6 +44607,7 @@ var render = function() {
                               target: "#dropdown-example-2",
                               required: ""
                             },
+                            on: { change: _vm.getHorarioSeccion },
                             model: {
                               value: _vm.seccion,
                               callback: function($$v) {
@@ -44441,10 +44617,43 @@ var render = function() {
                             }
                           }),
                           _vm._v(" "),
+                          _c("br"),
+                          _vm._v(
+                            "\n                Información de la Sección\n                "
+                          ),
+                          _c("br"),
+                          _vm._v(
+                            "\n                Profesor: " +
+                              _vm._s(_vm.infoSeccion.profesor) +
+                              "\n                "
+                          ),
+                          _c("br"),
+                          _vm._v(
+                            "\n                Tipo: " +
+                              _vm._s(_vm.infoSeccion.tipo) +
+                              "\n                "
+                          ),
+                          _c("br"),
+                          _vm._v(
+                            "\n                Cupos: " +
+                              _vm._s(_vm.infoSeccion.cupos) +
+                              "\n                "
+                          ),
+                          _c("br"),
+                          _vm._v(
+                            "\n                \n                Bloques afectados: " +
+                              _vm._s(_vm.horarios) +
+                              "\n\n                "
+                          ),
+                          _c("br"),
+                          _vm._v(" "),
                           _c(
                             "v-btn",
-                            { attrs: { outline: "", color: "indigo" } },
-                            [_vm._v("Tomar ramo")]
+                            {
+                              attrs: { outline: "", color: "indigo" },
+                              on: { click: _vm.tomarRamo }
+                            },
+                            [_vm._v("Tomar Ramo")]
                           )
                         ],
                         1
@@ -44486,7 +44695,7 @@ var render = function() {
                   _vm._v(" "),
                   _c("v-card-text", [
                     _vm._v(
-                      "\n              \n          Esta seccion son tiene ocupados los horarios:\n\n              \n          "
+                      "\n              \n          Esta seccion son tiene ocupados los horarios:\n\n          "
                     )
                   ])
                 ],
@@ -44497,6 +44706,29 @@ var render = function() {
           )
         ],
         1
+      ),
+      _vm._v(" "),
+      _c(
+        "v-snackbar",
+        {
+          attrs: {
+            bottom: true,
+            timeout: 4000,
+            vertical: _vm.mode === "vertical"
+          },
+          model: {
+            value: _vm.snackbar,
+            callback: function($$v) {
+              _vm.snackbar = $$v
+            },
+            expression: "snackbar"
+          }
+        },
+        [
+          _vm._v(
+            "\n                " + _vm._s(_vm.snackbarText) + "\n            "
+          )
+        ]
       )
     ],
     1

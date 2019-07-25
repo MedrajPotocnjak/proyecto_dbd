@@ -20,8 +20,7 @@
       class="elevation-1"
     >
       <template v-slot:items="props">
-        <td>{{ props.item.nombre }}</td>
-        <td class="text-xs-right">{{ props.item.calories }}</td>
+        <td class="text-xs-left">{{ props.item.nombre }}</td>
         <td class="justify-right layout px-0">
           
           <v-icon
@@ -60,7 +59,7 @@
                 <v-flex xs12 sm9 d-flex align-center>
                   
                   <v-overflow-btn
-                        class="my-2"
+                        class="text-xs-center"
                         :items="ramos"
                         item-text="nombre"
                         item-value="codigo"
@@ -135,7 +134,14 @@
                         @change="getHorarioSeccion"
                         required
                         ></v-overflow-btn>
-
+                <br>
+                Información de la Sección
+                <br>
+                Profesor: {{infoSeccion.profesor}}
+                <br>
+                Tipo: {{infoSeccion.tipo}}
+                <br>
+                Cupos: {{infoSeccion.cupos}}
                 <br>
                 
                 Bloques afectados: {{ horarios }}
@@ -158,7 +164,6 @@
               
           Esta seccion son tiene ocupados los horarios:
 
-              
           </v-card-text>
         </v-card>
 
@@ -187,9 +192,7 @@
       snackbar: false,
       snackbarText: "Asignatura Inscrita",
       horarios: '',
-      lorem: `Lorem ipsum dolor sit amet, mel at clita quando. Te sit oratio vituperatoribus, nam ad ipsum posidonium mediocritatem,
-       explicari dissentiunt cu mea. Repudiare disputationi vim in, mollis iriure nec cu, alienum argumentum ius ad. Pri eu justo aeque torquatos.`,
-ramos: ['Fundamentos de Ingenieria de software',
+      ramos: ['Fundamentos de Ingenieria de software',
         'Diseño de base de datos',
          'Ingenieria y Sociedad',
           'Calculo III'],
@@ -210,6 +213,11 @@ ramos: ['Fundamentos de Ingenieria de software',
           value: 'nombre'
         }
       ],
+      infoSeccion: {
+          profesor: '-',
+          cupos: '-',
+          tipo: '-',
+      },
       desserts: [],
         userid: '',
       editedIndex: -1,
@@ -235,26 +243,22 @@ ramos: ['Fundamentos de Ingenieria de software',
       }
     },
 
-    created () {
-      this.initialize()
-    },
-
     methods: {
       initialize () {
         this.desserts = [
           {
-            id: 1,
+            codigo: 1,
             nombre: 'Calculo II'
           },
           {
-            id: 2,
+              codigo: 2,
             nombre: 'Analisis de cosas'
           },
           {
             id: 3,
             nombre: 'Estadisticas para Humanistas'
           }
-          
+
         ]
       },
 
@@ -266,7 +270,17 @@ ramos: ['Fundamentos de Ingenieria de software',
 
       deleteItem (item) {
         const index = this.desserts.indexOf(item)
-        confirm('Desinscribir ramo?') && this.desserts.splice(index, 1)
+          this.editedItem = Object.assign({}, item)
+        if (confirm('Desinscribir ramo?') && this.desserts.splice(index, 1)) {
+            axios.delete('http://192.168.10.10/Alumno/desinscribir/'+this.userid+'/'+this.editedItem.codigo, {
+            }).then(response => {
+            }).catch(function (error) {
+                // handle error
+                console.log(error);
+            })
+            this.ramosActuales();
+            this.getAsignaturas();
+        }
       },
 
       close () {
@@ -307,10 +321,12 @@ ramos: ['Fundamentos de Ingenieria de software',
           });
       },
       getHorarioSeccion () {
+        this.getInfoSeccion();
         axios.get('http://192.168.10.10/Seccion/getHorarios/'+ this.seccion, {
           }).then(response => {
             this.horarios=response.data;
           });
+
       },
       tomarRamo () {
           axios.post('http://192.168.10.10/Alumno/inscribirAsignatura/'+ this.userid, {
@@ -320,14 +336,27 @@ ramos: ['Fundamentos de Ingenieria de software',
 
           });
           this.snackbar=true;
-      }
-
-
+          this.ramosActuales();
+          this.getAsignaturas();
+      },
+      ramosActuales () {
+            axios.get('http://192.168.10.10/Alumno/getSeccionesCursando/'+ this.userid, {
+            }).then(response => {
+                this.desserts=response.data;
+            });
+        },
+        getInfoSeccion() {
+            axios.get('http://192.168.10.10/Seccion/obtenerInfo/'+this.seccion, {
+            }).then(response => {
+                this.infoSeccion=response.data;
+            });
+        },
 
     },
       beforeMount(){
           this.getUserName();
           this.getAsignaturas();
+          this.ramosActuales();
       },
   }
 </script>
