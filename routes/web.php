@@ -49,7 +49,8 @@ Route::get('/verCalificacionesOld/{id}','AlumnoController@verCalificacionesOld')
 Route::get('/Alumno/RamosTomables/{id}','AlumnoController@ramosTomables');
 Route::delete('/Alumno/desinscribir/{id}/{seccion}','AlumnoController@desinscribirAsignatura');
 Route::get('/Alumno/getHorario/{id}','AlumnoController@getHorario');
-
+Route::post('/Alumno/sugerirRamos/{id}','AlumnoController@sugerirRamos');
+Route::get('/Alumno/verHorarioArray/{id}','AlumnoController@verHorarioArray');
 
 
 //Rutas Asignatura

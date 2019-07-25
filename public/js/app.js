@@ -3656,13 +3656,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3687,6 +3680,7 @@ __webpack_require__.r(__webpack_exports__);
         tipo: '-'
       },
       desserts: [],
+      horarioArray: [],
       userid: '',
       editedIndex: -1,
       editedItem: {
@@ -3796,6 +3790,7 @@ __webpack_require__.r(__webpack_exports__);
       this.snackbar = true;
       this.ramosActuales();
       this.getAsignaturas();
+      this.getHorarioArray();
     },
     ramosActuales: function ramosActuales() {
       var _this5 = this;
@@ -3810,12 +3805,26 @@ __webpack_require__.r(__webpack_exports__);
       axios.get('http://192.168.10.10/Seccion/obtenerInfo/' + this.seccion, {}).then(function (response) {
         _this6.infoSeccion = response.data;
       });
+    },
+    tomarRamosSugeridos: function tomarRamosSugeridos() {
+      axios.post('http://192.168.10.10/Alumno/sugerirRamos/' + this.userid, {}).then(function (response) {});
+      this.getAsignaturas();
+      this.getHorarioArray();
+      this.ramosActuales();
+    },
+    getHorarioArray: function getHorarioArray() {
+      var _this7 = this;
+
+      axios.get('http://192.168.10.10/Alumno/verHorarioArray/' + this.userid, {}).then(function (response) {
+        _this7.horarioArray = response.data;
+      });
     }
   },
   beforeMount: function beforeMount() {
     this.getUserName();
     this.getAsignaturas();
     this.ramosActuales();
+    this.getHorarioArray();
   }
 });
 
@@ -44303,16 +44312,10 @@ var render = function() {
                             "v-toolbar",
                             { attrs: { dark: "", color: "primary" } },
                             [
-                              _c("v-toolbar-side-icon"),
-                              _vm._v(" "),
                               _c(
                                 "v-toolbar-title",
                                 { staticClass: "white--text" },
-                                [
-                                  _vm._v(
-                                    "Ramos inscritos " + _vm._s(_vm.userid)
-                                  )
-                                ]
+                                [_vm._v("Ramos inscritos")]
                               ),
                               _vm._v(" "),
                               _c("v-spacer")
@@ -44415,8 +44418,6 @@ var render = function() {
                             "v-toolbar",
                             { attrs: { dark: "", color: "primary" } },
                             [
-                              _c("v-toolbar-side-icon"),
-                              _vm._v(" "),
                               _c(
                                 "v-toolbar-title",
                                 { staticClass: "white--text" },
@@ -44498,8 +44499,6 @@ var render = function() {
                             "v-toolbar",
                             { attrs: { dark: "", color: "primary" } },
                             [
-                              _c("v-toolbar-side-icon"),
-                              _vm._v(" "),
                               _c(
                                 "v-toolbar-title",
                                 { staticClass: "white--text" },
@@ -44518,32 +44517,10 @@ var render = function() {
                                 "center",
                                 [
                                   _c(
-                                    "v-flex",
-                                    {
-                                      attrs: {
-                                        xs12: "",
-                                        sm9: "",
-                                        "d-flex": "",
-                                        "align-center": ""
-                                      }
-                                    },
-                                    [
-                                      _c("v-select", {
-                                        attrs: {
-                                          items: _vm.horarius,
-                                          label: "Horarios Sugeridos",
-                                          outline: ""
-                                        }
-                                      })
-                                    ],
-                                    1
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
                                     "v-btn",
                                     {
                                       attrs: { outline: "", color: "indigo" },
-                                      on: { click: _vm.tomarRamo }
+                                      on: { click: _vm.tomarRamosSugeridos }
                                     },
                                     [_vm._v("Tomar horario sugerido")]
                                   )
@@ -44580,8 +44557,6 @@ var render = function() {
                     "v-toolbar",
                     { attrs: { dark: "", color: "primary" } },
                     [
-                      _c("v-toolbar-side-icon"),
-                      _vm._v(" "),
                       _c("v-toolbar-title", { staticClass: "white--text" }, [
                         _vm._v("Secciones")
                       ]),
@@ -44682,8 +44657,6 @@ var render = function() {
                     "v-toolbar",
                     { attrs: { dark: "", color: "primary" } },
                     [
-                      _c("v-toolbar-side-icon"),
-                      _vm._v(" "),
                       _c("v-toolbar-title", { staticClass: "white--text" }, [
                         _vm._v("Vista Horario")
                       ]),
@@ -44695,7 +44668,13 @@ var render = function() {
                   _vm._v(" "),
                   _c("v-card-text", [
                     _vm._v(
-                      "\n              \n          Esta seccion son tiene ocupados los horarios:\n\n          "
+                      "\n              \n          El Horario Actual es:\n            "
+                    ),
+                    _c("br"),
+                    _vm._v(
+                      "\n              " +
+                        _vm._s(_vm.horarioArray) +
+                        "\n          "
                     )
                   ])
                 ],

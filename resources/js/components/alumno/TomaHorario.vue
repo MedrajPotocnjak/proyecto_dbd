@@ -7,8 +7,8 @@
             <v-card color="light-blue lighten-4" tile>
 
  <v-toolbar dark color="primary">
-    <v-toolbar-side-icon></v-toolbar-side-icon>
-    <v-toolbar-title class="white--text">Ramos inscritos {{userid}}</v-toolbar-title>
+
+    <v-toolbar-title class="white--text">Ramos inscritos</v-toolbar-title>
     <v-spacer></v-spacer> </v-toolbar>
               <v-card-text>
                 
@@ -50,7 +50,7 @@
           <v-flex d-flex>
             <v-card color="light-blue lighten-4" tile flat>
                      <v-toolbar dark color="primary">
-    <v-toolbar-side-icon></v-toolbar-side-icon>
+
     <v-toolbar-title class="white--text">Ramos disponibles</v-toolbar-title>
     <v-spacer></v-spacer> </v-toolbar>
 
@@ -81,21 +81,13 @@
           <v-flex d-flex>
             <v-card color="light-blue lighten-4" tile flat>
                      <v-toolbar dark color="primary">
-    <v-toolbar-side-icon></v-toolbar-side-icon>
+
     <v-toolbar-title class="white--text">Recomendacion Horario</v-toolbar-title>
     <v-spacer></v-spacer> </v-toolbar>
 
               <v-card-text>  
               <center>
-                <v-flex xs12 sm9 d-flex align-center>
-                  <v-select
-                    :items="horarius"
-                    label="Horarios Sugeridos"
-                    outline
-                  ></v-select>
-                </v-flex>
-
-               <v-btn outline color="indigo" @click="tomarRamo">Tomar horario sugerido</v-btn>
+               <v-btn outline color="indigo" @click="tomarRamosSugeridos">Tomar horario sugerido</v-btn>
 
               </center>
 
@@ -114,7 +106,7 @@
         <v-card color="light-blue lighten-4" tile flat>
 
  <v-toolbar dark color="primary">
-    <v-toolbar-side-icon></v-toolbar-side-icon>
+
     <v-toolbar-title class="white--text">Secciones</v-toolbar-title>
     <v-spacer></v-spacer> </v-toolbar>
 
@@ -157,13 +149,14 @@
       <v-flex d-flex xs12 sm4>
         <v-card color="light-blue lighten-4" tile flat>
             <v-toolbar dark color="primary">
-    <v-toolbar-side-icon></v-toolbar-side-icon>
+
     <v-toolbar-title class="white--text">Vista Horario</v-toolbar-title>
     <v-spacer></v-spacer> </v-toolbar>
           <v-card-text>
               
-          Esta seccion son tiene ocupados los horarios:
-
+          El Horario Actual es:
+            <br>
+              {{horarioArray}}
           </v-card-text>
         </v-card>
 
@@ -219,6 +212,7 @@
           tipo: '-',
       },
       desserts: [],
+      horarioArray:[],
         userid: '',
       editedIndex: -1,
       editedItem: {
@@ -338,6 +332,7 @@
           this.snackbar=true;
           this.ramosActuales();
           this.getAsignaturas();
+          this.getHorarioArray();
       },
       ramosActuales () {
             axios.get('http://192.168.10.10/Alumno/getSeccionesCursando/'+ this.userid, {
@@ -351,12 +346,26 @@
                 this.infoSeccion=response.data;
             });
         },
-
+        tomarRamosSugeridos() {
+            axios.post('http://192.168.10.10/Alumno/sugerirRamos/'+this.userid, {
+            }).then(response => {
+            });
+            this.getAsignaturas();
+            this.getHorarioArray();
+            this.ramosActuales();
+        },
+        getHorarioArray() {
+            axios.get('http://192.168.10.10/Alumno/verHorarioArray/'+this.userid, {
+            }).then(response => {
+                this.horarioArray=response.data;
+            });
+        },
     },
       beforeMount(){
           this.getUserName();
           this.getAsignaturas();
           this.ramosActuales();
+          this.getHorarioArray();
       },
   }
 </script>
