@@ -51,7 +51,7 @@ const asignaturasCoord=Vue.component('asignatura-coordinador-sidebar-component',
 const crearAlumnoCoord=Vue.component('coordinador-crear-alumno-sidebar-component', require('./components/coordinador/CrearAlumno.vue').default);
 const crearProfCoord=Vue.component('coordinador-crear-prof-sidebar-component', require('./components/coordinador/CrearProfesor.vue').default);
 const SeccionAsignaturaCoord=Vue.component('seccion-asign-coord-component', require('./components/coordinador/SeccionAsignatura.vue').default);
-
+const seccionHorario=Vue.component('seccion-horario-component',require('./components/coordinador/SeccionHorario.vue').default);
 
 //Admin
 const barraAdmin=Vue.component('administrador-sidebar-component', require('./components/admin/AdministradorSidebar.vue').default);
@@ -124,7 +124,7 @@ const routes = [
   { path: '/crearCoordinador',component: crearCoordinador},
   { path: '/crearSeccion',component: crearSeccion},
   { path: '/crearSala',component: crearSala},
-  
+  { path: '/seccionHorario',component: seccionHorario},
 ];
 
 const router = new VueRouter({
