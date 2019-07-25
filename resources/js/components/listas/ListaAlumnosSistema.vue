@@ -4,7 +4,7 @@
         
             <v-card class="mx-auto">
                 <v-container>
-                    <h2>Lista Alumnos</h2>
+
 
                     <div>
     <v-toolbar flat color="white">
@@ -17,7 +17,7 @@
       <v-spacer></v-spacer>
       <v-dialog v-model="dialog" max-width="500px">
         <template v-slot:activator="{ on }">
-          <v-btn color="primary" dark class="mb-2"  :to="{route: '/crearAlumno'}" >Nuevo Alumno</v-btn>
+         
         </template>
         <v-card>
           <v-card-title>
