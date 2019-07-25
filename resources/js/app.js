@@ -61,6 +61,16 @@ const crearCoordinador=Vue.component('crear-coordinador-component',require('./co
 const crearSeccion=Vue.component('crear-seccion-component',require('./components/admin/CrearSeccion.vue').default);
 const crearDepto=Vue.component('crear-depto-component',require('./components/admin/CrearDepartamento.vue').default);
 
+//Listas
+const listaAlumnosSistema=Vue.component('lista-alumnossis-component', require('./components/listas/ListaAlumnosSistema.vue').default);
+const listaProfesoresSistema=Vue.component('lista-profesoressis-component',require('./components/listas/ListaProfesoresSistema.vue').default);
+const listaCoordinadoresSistema=Vue.component('lista-coordsis-component',require('./components/listas/ListaCoordinadoresSistema.vue').default);
+const listaMensajesAlumno=Vue.component('mensajes-alumno-component',require('./components/listas/ListaMensajesAlumno.vue').default);
+const listaMensajesProfesor=Vue.component('mensajes-profesor-component',require('./components/listas/ListaMensajesProfesor.vue').default);
+const listaCarrerasSistema=Vue.component('lista-carrera-component',require('./components/listas/ListaCarrerasSistema.vue').default);
+const listaSeccionesSistema=Vue.component('lista-secciones-component',require('./components/listas/ListaSeccionesSistema.vue').default);
+const listaDepartamentosSistema=Vue.component('lista-deptos-component',require('./components/listas/ListaDepartamentosSistema.vue').default);
+
 
 
 //???
@@ -69,6 +79,18 @@ const VistCrearCorreoAlumno=Vue.component('crear-correo-alumno-component', requi
 
 
 const routes = [
+  
+  { path: '/listaAlumnosSistema', component: listaAlumnosSistema },
+  { path: '/listaProfesoresSistema', component: listaProfesoresSistema },
+  { path: '/listaCoordinadoresSistema', component: listaCoordinadoresSistema },
+  { path: '/listaMensajesAlumno', component: listaMensajesAlumno },
+  { path: '/listaMensajesProfesor', component: listaMensajesProfesor },
+  { path: '/listaCarrerasSistema', component: listaCarrerasSistema },
+  { path: '/listaSeccionesSistema', component: listaSeccionesSistema },
+  { path: '/listaDepartamentosSistema', component: listaDepartamentosSistema },
+  
+  
+  
   { path: '/tomaHorario', component: tomaHorario },
   { path: '/', component: Example },
 

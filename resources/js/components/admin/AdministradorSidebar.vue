@@ -46,13 +46,27 @@
                 username: null,
                 titles: [
                     { title: 'Información Personal', icon: 'description' , route: '/'},
+                    { title: 'Crear Alumnos', icon: 'mood' , route: '/crearAlumno'},
+                    { title: 'Alumnos Sistema', icon: 'view_stream' , route: '/listaAlumnosSistema'},
+                    
                     { title: 'Crear Asignatura', icon: 'description' , route: '/crearAsignatura'},
                     { title: 'Crear Carrera', icon: 'description' , route: '/crearCarrera'},
                     { title: 'Crear Coordinador', icon: 'description' , route: '/crearCoordinador'},
                     { title: 'Crear Departamento', icon: 'description' , route: '/crearDepto'},
+                    
                     { title: 'Crear Seccion', icon: 'description' , route: '/crearSeccion'},
                     { title: 'Mi Horario', icon: 'calendar_today', route: '/horario'},
+                    
                     { title: 'Departamentos', icon: 'forum' , route: '/crearDepto'},
+                    
+                    { title: 'listaProfesoresSistema', icon: 'view_stream' , route: '/listaProfesoresSistema'},
+                    { title: 'listaCoordinadoresSistema', icon: 'view_stream' , route: '/listaCoordinadoresSistema'},
+                    { title: 'listaMensajesAlumno', icon: 'view_stream' , route: '/listaMensajesAlumno'},
+                    { title: 'listaMensajesProfesor', icon: 'view_stream' , route: '/listaMensajesProfesor'},
+                    { title: 'listaCarrerasSistema', icon: 'view_stream' , route: '/listaCarrerasSistema'},
+                    { title: 'listaSeccionesSistema', icon: 'view_stream' , route: '/listaSeccionesSistema'},
+                    { title: 'listaDepartamentosSistema', icon: 'view_stream' , route: '/listaDepartamentosSistema'},
+
                     { title: 'Pagos', icon: 'payment' , route: '/' }
                 ],
             }

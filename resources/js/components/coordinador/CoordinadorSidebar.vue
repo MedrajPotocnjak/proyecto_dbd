@@ -49,7 +49,11 @@
                     { title: 'Alumnos', icon: 'mood' , route: '/crearAlumno'},
                     { title: 'Profesor', icon: 'sentiment_very_dissatisfied', route: '/crearProfesor'},
                     { title: 'Asignaturas', icon: 'view_stream' , route: '/asignaturas'},
+
+                    
                     { title: 'Secciones', icon: 'view_module' , route: '/seccionAsignatura' }
+
+
                 ],
             }
         },
