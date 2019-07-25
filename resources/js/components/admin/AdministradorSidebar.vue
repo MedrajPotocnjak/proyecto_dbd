@@ -56,18 +56,12 @@
                     { title: 'Departamentos Sistema', icon: 'view_stream' , route: '/listaDepartamentosSistema'},
                     { title: 'Crear Carrera', icon: 'description' , route: '/crearCarrera'},
                     { title: 'Carreras Sistema', icon: 'view_stream' , route: '/listaCarrerasSistema'},
-
                     { title: 'Crear Asignatura', icon: 'description' , route: '/crearAsignatura'},
                     { title: 'Lista Asignaturas', icon: 'view_stream' , route: '/listaAsignaturasSistema'},
-                    
                     { title: 'Crear Seccion', icon: 'description' , route: '/crearSeccion'},
                     { title: 'Lista Secciones', icon: 'view_stream' , route: '/listaSeccionesSistema'},
                     { title: 'Crear Sala', icon: 'description' , route: '/crearSala'},
-                    { title: 'Lista Salas', icon: 'view_stream' , route: '/listaSalasSistema'},
-                    
-                    { title: 'listaMensajesAlumno', icon: 'view_stream' , route: '/listaMensajesAlumno'},
-                    { title: 'listaMensajesProfesor', icon: 'view_stream' , route: '/listaMensajesProfesor'}
-                    
+                    { title: 'Lista Salas', icon: 'view_stream' , route: '/listaSalasSistema'}
                     
                 ],
             }

@@ -50,8 +50,10 @@
                     { title: 'Notas Anteriores', icon: 'assignment_ind' , route: '/notasOld'},
                     { title: 'Mi Horario', icon: 'calendar_today', route: '/horario'},
                     { title: 'Tomar Asignatura', icon: 'calendar_today', route: '/tomaHorario'},
-                    { title: 'Mensajes', icon: 'forum' , route: '/mensajesP'},
+                    { title: 'Enviar Mensaje', icon: 'forum' , route: '/mensajesP'},
+                    { title: 'Bandeja de entrada', icon: 'mail_outline' , route: '/listaMensajesAlumno'},
                     { title: 'Pagos', icon: 'payment' , route: '/' }
+                    
                 ],
             }
         },

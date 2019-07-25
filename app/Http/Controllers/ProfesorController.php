@@ -197,8 +197,15 @@ class ProfesorController extends Controller
     
     public function verMensajes($id){
         $coleccion = new Collection;
-        $coleccion = collect(Mensaje::all()->where('rut_profesor','=',$id));
-        return response()->json($mensajes->pluck('asunto','contenido')->all());
+        $profesor = Profesor::find($id);
+        $rut = $profesor->rut;
+        $mensajes = collect(Mensaje::all()->where('rut_profesor','=',$rut));
+        foreach($mensajes as $me){
+            $coleccion-> push($me);
+        }
+        return $coleccion;
+
+
     }
 
     public function crearMensaje(Request $request, $id){

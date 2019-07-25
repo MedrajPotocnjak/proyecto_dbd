@@ -47,7 +47,8 @@
                 titles: [
                     { title: 'Información Personal', icon: 'description' , route: '/infoP'},
                     { title: 'Mis Secciones', icon: 'calendar_today', route: '/phorario'},
-                    { title: 'Mensajes', icon: 'forum' , route: '/mensajesA'},
+                    { title: 'Enviar Mensaje', icon: 'forum' , route: '/mensajesA'},
+                    { title: 'Bandeja de entrada', icon: 'mail_outline' , route: '/listaMensajesProfesor'}
                 ],
             }
         },
