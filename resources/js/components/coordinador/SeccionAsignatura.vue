@@ -161,7 +161,13 @@
 
       deleteItem (item) {
         const index = this.desserts.indexOf(item)
-        confirm('Are you sure you want to delete this item?') && this.desserts.splice(index, 1)
+          this.editedItem = Object.assign({}, item)
+        if (confirm('Are you sure you want to delete this item?') && this.desserts.splice(index, 1)) {
+            axios.delete('http://192.168.10.10/Seccion/'+this.editedItem.codigo, {
+            }).then(response => {
+            });
+        }
+
       },
 
       close () {
@@ -185,6 +191,15 @@
             });
         } else {
           this.desserts.push(this.editedItem)
+            axios.post('http://192.168.10.10/Seccion/', {
+                'nombre': this.editedItem.nombre,
+                'codigo_asignatura': this.asignatura,
+                'rut_profesor' : this.editedItem.rut_profesor,
+                'tipo' : this.editedItem.tipo,
+                'cupos' : this.editedItem.cupos,
+            }).then(response => {
+
+            });
         }
         this.close()
       },

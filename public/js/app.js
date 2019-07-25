@@ -3551,9 +3551,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      asignatura: null,
+      seccion: null,
       lorem: "Lorem ipsum dolor sit amet, mel at clita quando. Te sit oratio vituperatoribus, nam ad ipsum posidonium mediocritatem,\n       explicari dissentiunt cu mea. Repudiare disputationi vim in, mollis iriure nec cu, alienum argumentum ius ad. Pri eu justo aeque torquatos.",
       ramos: ['Fundamentos de Ingenieria de software', 'Diseño de base de datos', 'Ingenieria y Sociedad', 'Calculo III'],
       secciones: ['A1', 'B3', 'E4', 'B4'],
@@ -3566,6 +3579,7 @@ __webpack_require__.r(__webpack_exports__);
         value: 'nombre'
       }],
       desserts: [],
+      userid: '',
       editedIndex: -1,
       editedItem: {
         nombre: '',
@@ -3629,7 +3643,33 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       this.close();
+    },
+    getUserName: function getUserName() {
+      var url = window.location.href;
+      var splitted = url.split("/alumno/");
+      var userId = splitted[1];
+      splitted = userId.split("/");
+      userId = splitted[0];
+      this.userid = userId;
+    },
+    getAsignaturas: function getAsignaturas() {
+      var _this2 = this;
+
+      axios.get('http://192.168.10.10/Alumno/RamosTomables/' + this.userid, {}).then(function (response) {
+        _this2.ramos = response.data;
+      });
+    },
+    buscarSeccion: function buscarSeccion() {
+      var _this3 = this;
+
+      axios.get('http://192.168.10.10/Asignatura/getSecciones/' + this.asignatura, {}).then(function (response) {
+        _this3.secciones = response.data;
+      });
     }
+  },
+  beforeMount: function beforeMount() {
+    this.getUserName();
+    this.getAsignaturas();
   }
 });
 
@@ -4980,26 +5020,41 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       dialog: false,
+      asignatura: 0,
+      asignaturas: null,
+      secciones: null,
       headers: [{
-        text: 'Rut profesor',
+        text: 'Nombre Seccion',
         align: 'left',
         sortable: false,
-        value: 'rut_profesor'
-      }, {
-        text: 'Nombre',
-        value: 'nombre'
+        value: 'nombre_seccion'
       }, {
         text: 'Tipo',
         value: 'tipo'
       }, {
-        text: 'Horario',
-        value: 'horario'
+        text: 'Cupos',
+        value: 'cupos'
       }, {
-        text: 'Actions',
+        text: 'Rut Profesor',
+        value: 'rut_profesor'
+      }, {
+        text: 'Action',
         value: 'rut_profesor',
         sortable: false
       }],
@@ -5009,7 +5064,8 @@ __webpack_require__.r(__webpack_exports__);
         rut_profesor: 0,
         nombre: '',
         tipo: 0,
-        horario: 0
+        cupos: 0,
+        codigo: 0
       },
       defaultItem: {
         rut_profesor: 0,
@@ -5034,11 +5090,11 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     initialize: function initialize() {
-      this.desserts = [{
+      this.asignaturas = [{
         rut_profesor: 99999999,
         nombre: '159',
-        tipo: 6.0,
-        horario: '24'
+        tipo: 'l',
+        cupos: 30
       }];
     },
     editItem: function editItem(item) {
@@ -5048,7 +5104,11 @@ __webpack_require__.r(__webpack_exports__);
     },
     deleteItem: function deleteItem(item) {
       var index = this.desserts.indexOf(item);
-      confirm('Are you sure you want to delete this item?') && this.desserts.splice(index, 1);
+      this.editedItem = Object.assign({}, item);
+
+      if (confirm('Are you sure you want to delete this item?') && this.desserts.splice(index, 1)) {
+        axios["delete"]('http://192.168.10.10/Seccion/' + this.editedItem.codigo, {}).then(function (response) {});
+      }
     },
     close: function close() {
       var _this = this;
@@ -5062,12 +5122,42 @@ __webpack_require__.r(__webpack_exports__);
     save: function save() {
       if (this.editedIndex > -1) {
         Object.assign(this.desserts[this.editedIndex], this.editedItem);
+        axios.put('http://192.168.10.10/Seccion/' + this.editedItem.codigo, {
+          'nombre': this.editedItem.nombre,
+          'rut_profesor': this.editedItem.rut_profesor,
+          'tipo': this.editedItem.tipo,
+          'cupos': this.editedItem.cupos
+        }).then(function (response) {});
       } else {
         this.desserts.push(this.editedItem);
+        axios.post('http://192.168.10.10/Seccion/', {
+          'nombre': this.editedItem.nombre,
+          'codigo_asignatura': this.asignatura,
+          'rut_profesor': this.editedItem.rut_profesor,
+          'tipo': this.editedItem.tipo,
+          'cupos': this.editedItem.cupos
+        }).then(function (response) {});
       }
 
       this.close();
+    },
+    getAsignatura: function getAsignatura() {
+      var _this2 = this;
+
+      axios.get('http://192.168.10.10/Asignatura/', {}).then(function (response) {
+        _this2.asignaturas = response.data;
+      });
+    },
+    buscarSeccion: function buscarSeccion() {
+      var _this3 = this;
+
+      axios.get('http://192.168.10.10/Asignatura/getSecciones/' + this.asignatura, {}).then(function (response) {
+        _this3.desserts = response.data;
+      });
     }
+  },
+  beforeMount: function beforeMount() {
+    this.getAsignatura();
   }
 });
 
@@ -44026,7 +44116,11 @@ var render = function() {
                               _c(
                                 "v-toolbar-title",
                                 { staticClass: "white--text" },
-                                [_vm._v("Ramos inscritos")]
+                                [
+                                  _vm._v(
+                                    "Ramos inscritos " + _vm._s(_vm.userid)
+                                  )
+                                ]
                               ),
                               _vm._v(" "),
                               _c("v-spacer")
@@ -44163,15 +44257,40 @@ var render = function() {
                                       }
                                     },
                                     [
-                                      _c("v-select", {
+                                      _c("v-overflow-btn", {
+                                        staticClass: "my-2",
                                         attrs: {
                                           items: _vm.ramos,
-                                          label: "Ramos",
-                                          outline: ""
+                                          "item-text": "nombre",
+                                          "item-value": "codigo",
+                                          label: "Asignaturas Disponibles",
+                                          target: "#dropdown-example-1",
+                                          required: ""
+                                        },
+                                        model: {
+                                          value: _vm.asignatura,
+                                          callback: function($$v) {
+                                            _vm.asignatura = $$v
+                                          },
+                                          expression: "asignatura"
                                         }
-                                      })
+                                      }),
+                                      _vm._v(
+                                        "\n                  " +
+                                          _vm._s(_vm.asignatura) +
+                                          "\n                "
+                                      )
                                     ],
                                     1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-btn",
+                                    {
+                                      attrs: { outline: "", color: "indigo" },
+                                      on: { click: _vm.buscarSeccion }
+                                    },
+                                    [_vm._v("Seleccionar Ramo")]
                                   )
                                 ],
                                 1
@@ -44247,7 +44366,10 @@ var render = function() {
                                   _vm._v(" "),
                                   _c(
                                     "v-btn",
-                                    { attrs: { outline: "", color: "indigo" } },
+                                    {
+                                      attrs: { outline: "", color: "indigo" },
+                                      on: { click: _vm.tomarHorario }
+                                    },
                                     [_vm._v("Tomar horario sugerido")]
                                   )
                                 ],
@@ -44300,27 +44422,24 @@ var render = function() {
                       _c(
                         "center",
                         [
-                          _c(
-                            "v-flex",
-                            {
-                              attrs: {
-                                xs12: "",
-                                sm9: "",
-                                "d-flex": "",
-                                "align-center": ""
-                              }
+                          _c("v-overflow-btn", {
+                            staticClass: "my-3",
+                            attrs: {
+                              items: _vm.secciones,
+                              "item-text": "nombre",
+                              "item-value": "codigo",
+                              label: "Secciones",
+                              target: "#dropdown-example-2",
+                              required: ""
                             },
-                            [
-                              _c("v-select", {
-                                attrs: {
-                                  items: _vm.secciones,
-                                  label: "Secciones",
-                                  outline: ""
-                                }
-                              })
-                            ],
-                            1
-                          ),
+                            model: {
+                              value: _vm.seccion,
+                              callback: function($$v) {
+                                _vm.seccion = $$v
+                              },
+                              expression: "seccion"
+                            }
+                          }),
                           _vm._v(" "),
                           _c(
                             "v-btn",
@@ -45847,7 +45966,27 @@ var render = function() {
           attrs: { flat: "", color: "white" }
         },
         [
-          _c("v-toolbar-title", [_vm._v("Secciones")]),
+          _c("v-toolbar-title", [_vm._v("Secciones    ")]),
+          _vm._v(" "),
+          _c("v-overflow-btn", {
+            staticClass: "my-2",
+            attrs: {
+              items: _vm.asignaturas,
+              "item-text": "nombre",
+              "item-value": "codigo",
+              label: "Asignatura",
+              target: "#dropdown-example-1",
+              required: ""
+            },
+            on: { change: _vm.buscarSeccion },
+            model: {
+              value: _vm.asignatura,
+              callback: function($$v) {
+                _vm.asignatura = $$v
+              },
+              expression: "asignatura"
+            }
+          }),
           _vm._v(" "),
           _c("v-divider", {
             staticClass: "mx-2",
@@ -45903,6 +46042,15 @@ var render = function() {
                   _c(
                     "v-card-text",
                     [
+                      _vm._v(
+                        "\n            " +
+                          _vm._s(_vm.editedItem.codigo) +
+                          "|" +
+                          _vm._s(_vm.editedItem.cupos) +
+                          "|" +
+                          _vm._s(_vm.editedItem.nombre) +
+                          "|\n          "
+                      ),
                       _c(
                         "v-container",
                         { attrs: { "grid-list-md": "" } },
@@ -45974,13 +46122,13 @@ var render = function() {
                                 { attrs: { xs12: "", sm6: "", md4: "" } },
                                 [
                                   _c("v-text-field", {
-                                    attrs: { label: "horario" },
+                                    attrs: { label: "cupos" },
                                     model: {
-                                      value: _vm.editedItem.horario,
+                                      value: _vm.editedItem.cupos,
                                       callback: function($$v) {
-                                        _vm.$set(_vm.editedItem, "horario", $$v)
+                                        _vm.$set(_vm.editedItem, "cupos", $$v)
                                       },
-                                      expression: "editedItem.horario"
+                                      expression: "editedItem.cupos"
                                     }
                                   })
                                 ],
@@ -46039,8 +46187,6 @@ var render = function() {
             key: "items",
             fn: function(props) {
               return [
-                _c("td", [_vm._v(_vm._s(props.item.rut_profesor))]),
-                _vm._v(" "),
                 _c("td", { staticClass: "text-xs-left" }, [
                   _vm._v(_vm._s(props.item.nombre))
                 ]),
@@ -46050,7 +46196,11 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("td", { staticClass: "text-xs-left" }, [
-                  _vm._v(_vm._s(props.item.horario))
+                  _vm._v(_vm._s(props.item.cupos))
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "text-xs-left" }, [
+                  _vm._v(_vm._s(props.item.rut_profesor))
                 ]),
                 _vm._v(" "),
                 _c(
@@ -46092,16 +46242,7 @@ var render = function() {
           {
             key: "no-data",
             fn: function() {
-              return [
-                _c(
-                  "v-btn",
-                  {
-                    attrs: { color: "primary" },
-                    on: { click: _vm.initialize }
-                  },
-                  [_vm._v("Reset")]
-                )
-              ]
+              return [_vm._v("\n      No hay secciones.\n    ")]
             },
             proxy: true
           }
