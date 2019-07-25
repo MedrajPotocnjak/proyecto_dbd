@@ -79,8 +79,14 @@ class AsignaturaController extends Controller
 		return $collection;
 	}
 	public function getSecciones($id) {
-		$secciones=Seccion::all()->where('codigo_asignatura','=',$id);
-		return $secciones;
+
+        $secciones=Seccion::all()->where('codigo_asignatura','=',$id);
+        $retorno = new Collection;
+        foreach ($secciones as $se) {
+            $retorno->push($se);
+        }
+
+		return $retorno;
 	}
 	public function addSeccion($id,Request $request) {
         $seccion = New Seccion;

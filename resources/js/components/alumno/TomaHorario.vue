@@ -8,7 +8,7 @@
 
  <v-toolbar dark color="primary">
     <v-toolbar-side-icon></v-toolbar-side-icon>
-    <v-toolbar-title class="white--text">Ramos inscritos</v-toolbar-title>
+    <v-toolbar-title class="white--text">Ramos inscritos {{userid}}</v-toolbar-title>
     <v-spacer></v-spacer> </v-toolbar>
               <v-card-text>
                 
@@ -58,13 +58,21 @@
               <v-card-text> 
                 <center>
                 <v-flex xs12 sm9 d-flex align-center>
-                  <v-select
-                    :items="ramos"
-                    label="Ramos"
-                    outline
-                  ></v-select>
+                  
+                  <v-overflow-btn
+                        class="my-2"
+                        :items="ramos"
+                        item-text="nombre"
+                        item-value="codigo"
+                        label="Asignaturas Disponibles"
+                        v-model="asignatura"
+                        target="#dropdown-example-1"
+                        required
+                        ></v-overflow-btn>
+                  {{ asignatura }}
                 </v-flex>
 
+              <v-btn outline color="indigo" @click="buscarSeccion" >Seleccionar Ramo</v-btn>
 
               </center>
               </v-card-text>
@@ -88,7 +96,7 @@
                   ></v-select>
                 </v-flex>
 
-               <v-btn outline color="indigo">Tomar horario sugerido</v-btn>
+               <v-btn outline color="indigo" @click="tomarHorario">Tomar horario sugerido</v-btn>
 
               </center>
 
@@ -116,13 +124,16 @@
             
 
             <center>
-                <v-flex xs12 sm9 d-flex align-center>
-                  <v-select
-                    :items="secciones"
-                    label="Secciones"
-                    outline
-                  ></v-select>
-                </v-flex>
+                <v-overflow-btn
+                        class="my-3"
+                        :items="secciones"
+                        item-text="nombre"
+                        item-value="codigo"
+                        label="Secciones"
+                        v-model="seccion"
+                        target="#dropdown-example-2"
+                        required
+                        ></v-overflow-btn>
 
                 
                 <v-btn outline color="indigo">Tomar ramo</v-btn>
@@ -153,6 +164,8 @@
 <script>
   export default {
     data: () => ({
+      asignatura: null,
+      seccion: null,
       lorem: `Lorem ipsum dolor sit amet, mel at clita quando. Te sit oratio vituperatoribus, nam ad ipsum posidonium mediocritatem,
        explicari dissentiunt cu mea. Repudiare disputationi vim in, mollis iriure nec cu, alienum argumentum ius ad. Pri eu justo aeque torquatos.`,
 ramos: ['Fundamentos de Ingenieria de software',
@@ -177,6 +190,7 @@ ramos: ['Fundamentos de Ingenieria de software',
         }
       ],
       desserts: [],
+        userid: '',
       editedIndex: -1,
       editedItem: {
         nombre: '',
@@ -249,7 +263,35 @@ ramos: ['Fundamentos de Ingenieria de software',
           this.desserts.push(this.editedItem)
         }
         this.close()
+      },
+        getUserName:function() {
+            let url = window.location.href;
+            let splitted = url.split("/alumno/");
+            let userId = splitted[1];
+            splitted = userId.split("/");
+            userId = splitted[0];
+            this.userid = userId;
+        },
+
+      getAsignaturas () {
+        axios.get('http://192.168.10.10/Alumno/RamosTomables/'+ this.userid, {
+          }).then(response => {
+            this.ramos=response.data;
+          });
+      },
+      buscarSeccion () {
+        axios.get('http://192.168.10.10/Asignatura/getSecciones/'+ this.asignatura, {
+          }).then(response => {
+            this.secciones=response.data;
+          });
       }
-    }
+
+
+
+    },
+      beforeMount(){
+          this.getUserName();
+          this.getAsignaturas();
+      },
   }
 </script>
