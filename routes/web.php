@@ -168,7 +168,7 @@ Route::post('/Seccion','SeccionController@store');
 Route::put('/Seccion/{id}','SeccionController@update');
 Route::delete('/Seccion/{id}','SeccionController@destroy');
 Route::get('/Seccion/obtenerInfo/{id}','SeccionController@obtenerInfo');
-
+Route::get('/Seccion/getSalaSeccion/{id}','SeccionController@getSalaSeccion');
 //Rutas Solicitud
 Route::get('/Solicitud','SolicitudController@index');
 Route::post('/Solicitud','SolicitudController@store');

@@ -71,7 +71,11 @@ class SeccionController extends Controller
 		return $seccion_salas->pluck('bloque');
 
 	}
-	
+	public function getSalaSeccion($id) {
+		$seccion_salas=Seccion_Sala::all()->where('codigo_seccion','=',$id);
+		return $seccion_salas;
+
+	}
 	public function addHorario($id,Request $request) {
 		$seccion_sala= new Seccion_Sala;
 		$seccion_sala->codigo_seccion=$id;
