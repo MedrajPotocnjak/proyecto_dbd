@@ -17,7 +17,6 @@ class CreateMensajeTable extends Migration
             $table->bigIncrements('id');
             $table->string('asunto',128);
             $table->text('contenido');
-            $table->dateTime('fecha');
 			$table->integer('rut_profesor');
 			$table->foreign('rut_profesor')
             ->references('rut')->on('profesor')->onDelete('cascade');

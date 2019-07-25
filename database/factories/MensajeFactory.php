@@ -11,7 +11,6 @@ $factory->define(mensaje::class, function (Faker $faker) {
         //
 		'asunto'=> $faker->sentence($nbWords = 6, $variableNbWords = true ),
 		'contenido'=> $faker->sentence($nbWords = 200, $variableNbWords = true ),
-		'fecha'=>$faker->dateTime($max = 'now', $timezone = null),
 		'rut_profesor' => $faker->randomElement($RutProfesores),
     ];
 });

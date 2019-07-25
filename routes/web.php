@@ -48,12 +48,18 @@ Route::get('/verCalificaciones/{id}','AlumnoController@verCalificaciones');
 Route::get('/verCalificacionesOld/{id}','AlumnoController@verCalificacionesOld');
 Route::get('/Alumno/RamosTomables/{id}','AlumnoController@ramosTomables');
 Route::delete('/Alumno/desinscribir/{id}','AlumnoController@desinscribirAsignatura');
+Route::get('/Alumno/getHorario/{id}','AlumnoController@getHorario');
+
+
+
 //Rutas Asignatura
 Route::get('/Asignatura','AsignaturaController@index');
 Route::post('/Asignatura','AsignaturaController@store');
 Route::post('/Asignatura/addSeccion/{id}','AsignaturaController@addSeccion');
 //Route::get();SHOW
 Route::get('/Asignatura/getHorarios/{id}','AsignaturaController@getHorarios');
+
+
 Route::put('/Asignatura/{id}','AsignaturaController@update');
 Route::delete('/Asignatura/{id}','AsignaturaController@destroy');
 Route::get('/Asignatura/getSecciones/{id}','AsignaturaController@getSecciones');

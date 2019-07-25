@@ -40,9 +40,9 @@ class MensajeController extends Controller
     {
         //
         $mensaje = new Mensaje();
+        $mensaje->rut_profesor = $request->rut_profesor;
         $mensaje->asunto = $request->asunto;
         $mensaje->contenido = $request->contenido;
-        $mensaje->fecha = $request->fecha;
         $mensaje->save();
         return response()->json($mensaje);
     }
@@ -86,9 +86,7 @@ class MensajeController extends Controller
         if ($request->contenido != NULL){
             $mensaje->contenido = $request->contenido;
         }
-        if ($request->fecha != NULL){
-            $mensaje->fecha = $request->fecha;
-        }
+        
         $mensaje->save();
         return response()->json($mensaje);
     }

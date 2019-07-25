@@ -86,11 +86,7 @@ class AlumnoController extends Controller
         $rut=$alumno->rut;
         $mensaje->asunto= $request->asunto;
         $mensaje->contenido= $request->contenido;
-        $mensaje->fecha = $request->fecha;
-        $idp = $request->id_profesor;
-        $profesor=Profesor::find($idp);
-        $rut_profesor =  $profesor->rut;
-        $mensaje->rut_profesor= $rut_profesor;
+        $mensaje->rut_profesor= $request->rut_profesor;
         $mensaje->save();
         $mensaje_alumno = new Mensaje_Alumno;
         $mensaje_alumno->codigo_mensaje = $mensaje->id;
@@ -314,20 +310,25 @@ class AlumnoController extends Controller
         $asignatura= Asignatura::find($codigo_asignatura);
         if($asignatura->nivel >= $nivelA){
             $seccion = Seccion::find($codigo_seccion);
-            $seccion_alumno=new Seccion_Alumno;
-            $seccion_alumno->rut_alumno= $rut;
-            $seccion_alumno->codigo_seccion= $seccion->codigo;
-            $seccion_alumno->aprobado = 0;
-            $seccion_alumno->nota_p1= $nota;
-            $seccion_alumno->nota_p2= $nota;
-            $seccion_alumno->nota_p3= $nota;
-            $seccion_alumno->nota_c1= $nota;
-            $seccion_alumno->nota_c2= $nota;
-            $seccion_alumno->nota_c3= $nota;
-            $seccion_alumno->promedio= $nota;
-            $seccion_alumno->estado_cursado = "s";
-            $seccion_alumno->save();
-            return "Asignatura inscrita correctamente";
+
+            $alumnoSeccion = Seccion_Alumno::all()->where('rut_alumno','=',$rut)->where('codigo_seccion','=',$seccion)->first();
+            print $alumnoSeccion;
+            if ($alumnoSeccion == null){
+                $seccion_alumno=new Seccion_Alumno;
+                $seccion_alumno->rut_alumno= $rut;
+                $seccion_alumno->codigo_seccion= $seccion->codigo;
+                $seccion_alumno->aprobado = 0;
+                $seccion_alumno->nota_p1= $nota;
+                $seccion_alumno->nota_p2= $nota;
+                $seccion_alumno->nota_p3= $nota;
+                $seccion_alumno->nota_c1= $nota;
+                $seccion_alumno->nota_c2= $nota;
+                $seccion_alumno->nota_c3= $nota;
+                $seccion_alumno->promedio= $nota;
+                $seccion_alumno->estado_cursado = "s";
+                $seccion_alumno->save();
+                return "Asignatura inscrita correctamente";
+            }
         }
         return "No se pudo inscribir la asignatura";
 
@@ -557,6 +558,27 @@ class AlumnoController extends Controller
         
         return $horario;
 
+    }
+
+    public function getHorario($id){
+
+        $alumno=Alumno::find($id);
+		$rut=$alumno->rut;
+        $secciones_alumnos=collect(Seccion_Alumno::all()->where('rut_alumno','=',$rut)->where('estado_cursado','=','s'));
+		$codigo_secciones=$secciones_alumnos->pluck('codigo_seccion');
+		$secciones_cursando=collect(Seccion::find($codigo_secciones));
+        $codigo_asignaaturas = $secciones_cursando->pluck('codigo_asignatura');
+        $asignatura_cursando = collect(Asignatura::find($codigo_asignaaturas));
+        return $asignatura_cursando;
+        $retorno = new Collection;
+        foreach ($secciones_alumnos as $se) {
+            $seccion = $se->codigo_seccion;
+            $secciones = collect(Seccion_Alumno::all()->where('rut_alumno','=',$rut));
+            $retorno->push($se);
+        }
+
+		return $retorno;
+        
     }
 
 	public function obtenerDatosCurriculares($id) {

@@ -8,7 +8,7 @@ class Mensaje extends Model
 {
     //
     protected $table='mensaje';
-    protected $fillable=['asunto','contenido','fecha'];
+    protected $fillable=['asunto','contenido','rut_profesor'];
     public function mensaje_alumnos(){
     	return $this->hasMany(Mensaje_Alumno::class);
     }
