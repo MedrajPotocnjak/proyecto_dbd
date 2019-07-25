@@ -62,8 +62,8 @@
                     
                     { title: 'Crear Seccion', icon: 'description' , route: '/crearSeccion'},
                     { title: 'Lista Secciones', icon: 'view_stream' , route: '/listaSeccionesSistema'},
-                    
-                    
+                    { title: 'Crear Sala', icon: 'description' , route: '/crearSala'},
+                    { title: 'Lista Salas', icon: 'view_stream' , route: '/listaSalasSistema'},
                     
                     { title: 'listaMensajesAlumno', icon: 'view_stream' , route: '/listaMensajesAlumno'},
                     { title: 'listaMensajesProfesor', icon: 'view_stream' , route: '/listaMensajesProfesor'}

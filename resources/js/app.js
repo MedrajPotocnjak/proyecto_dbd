@@ -60,6 +60,8 @@ const crearCarrera=Vue.component('crear-carrera-component',require('./components
 const crearCoordinador=Vue.component('crear-coordinador-component',require('./components/admin/CrearCoordinador.vue').default);
 const crearSeccion=Vue.component('crear-seccion-component',require('./components/admin/CrearSeccion.vue').default);
 const crearDepto=Vue.component('crear-depto-component',require('./components/admin/CrearDepartamento.vue').default);
+const crearSala=Vue.component('crear-sala-component',require('./components/admin/CrearSala.vue').default);
+
 
 //Listas
 const listaAlumnosSistema=Vue.component('lista-alumnossis-component', require('./components/listas/ListaAlumnosSistema.vue').default);
@@ -71,6 +73,7 @@ const listaCarrerasSistema=Vue.component('lista-carrera-component',require('./co
 const listaSeccionesSistema=Vue.component('lista-secciones-component',require('./components/listas/ListaSeccionesSistema.vue').default);
 const listaDepartamentosSistema=Vue.component('lista-deptos-component',require('./components/listas/ListaDepartamentosSistema.vue').default);
 const listaAsignaturasSistema=Vue.component('lista-asignaturas-component',require('./components/listas/ListaAsignaturasSistema.vue').default);
+const listaSalasSistema=Vue.component('lista-salas-component',require('./components/listas/ListaSalasSistema.vue').default);
 
 
 
@@ -80,6 +83,8 @@ const VistCrearCorreoAlumno=Vue.component('crear-correo-alumno-component', requi
 
 
 const routes = [
+  
+  { path: '/listaSalasSistema', component: listaSalasSistema },
   { path: '/listaAsignaturasSistema', component: listaAsignaturasSistema },
   { path: '/listaAlumnosSistema', component: listaAlumnosSistema },
   { path: '/listaProfesoresSistema', component: listaProfesoresSistema },
@@ -118,6 +123,8 @@ const routes = [
   { path: '/crearCarrera',component: crearCarrera},
   { path: '/crearCoordinador',component: crearCoordinador},
   { path: '/crearSeccion',component: crearSeccion},
+  { path: '/crearSala',component: crearSala},
+  
 ];
 
 const router = new VueRouter({
