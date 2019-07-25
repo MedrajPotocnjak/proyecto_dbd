@@ -12,14 +12,16 @@
                         v-model="valid"
                         lazy-validation
                     >
-                        <v-text-field
-                        v-model="rut"
-                        :counter="9"
-                        :rules="rutRules"
-                        label="Rut alumno destinatario"
-                        mask="##.###.###-#"
+                        <v-overflow-btn
+                        class="my-3"
+                        :items="alumnos"
+                        item-text="nombre"
+                        item-value="rut"
+                        label="Alumno"
+                        v-model="alumno"
+                        target="#dropdown-example-2"
                         required
-                        ></v-text-field>
+                        ></v-overflow-btn>
                         
                       <v-text-field
                         v-model="asunto"
@@ -50,6 +52,16 @@
                              
                 </v-container>
             </v-card>
+
+            <v-snackbar
+                v-model="snackbar"
+                :bottom=true
+                :timeout=4000
+                :vertical="mode === 'vertical'"
+            >
+                {{snackbarText}}
+            </v-snackbar>
+
         </v-flex>
   
     
@@ -60,7 +72,9 @@
   export default {
     data: () => ({
       valid: true,
-      rut: '',
+      alumno: null,
+      snackbar: false,
+      snackbarText: "Mensaje enviado",
       rutRules: [
         v => !!v || 'Rut es requerido',
         v => (v && v.length <= 9) || 'Rut debe tener un largo menor de 9'
@@ -83,9 +97,35 @@
           this.snackbar = true
         }
       },
+        getUserName:function() {
+            let url = window.location.href;
+            let splitted = url.split("/profesor/");
+            let userId = splitted[1];
+            splitted = userId.split("/");
+            userId = splitted[0];
+            this.userid = userId;
+      },
       submit(){
-          
+          axios.post('http://192.168.10.10/Profesor/crearMensaje/'+ this.userid, {
+
+            "rut_alumno": this.alumno,
+            "asunto": this.asunto,
+            "contenido": this.contenido
+          }).then(response => {
+
+          });
+          this.snackbar=true;
+      },
+      getAlumno() {
+          axios.get('http://192.168.10.10/Alumno/', {
+          }).then(response => {
+            this.alumnos=response.data;
+           });
       }
-    }
+    },
+    beforeMount() {
+          this.getUserName();
+          this.getAlumno();
+      },
   }
 </script>

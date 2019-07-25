@@ -198,8 +198,7 @@ class ProfesorController extends Controller
     public function verMensajes($id){
         $coleccion = new Collection;
         $coleccion = collect(Mensaje::all()->where('rut_profesor','=',$id));
-        $mensajes = $coleccion->sortBy('fecha');
-        return response()->json($mensajes->pluck('fecha','asunto','contenido')->all());
+        return response()->json($mensajes->pluck('asunto','contenido')->all());
     }
 
     public function crearMensaje(Request $request, $id){
@@ -210,7 +209,6 @@ class ProfesorController extends Controller
         $mensaje->rut_profesor = $profesor->rut;
         $mensaje->asunto= $request->asunto;
         $mensaje->contenido= $request->contenido;
-        $mensaje->fecha = $request->fecha;
         $rut_a = $request->rut_alumno;    
 
         $mensaje->save();
