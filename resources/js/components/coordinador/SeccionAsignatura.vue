@@ -1,7 +1,18 @@
 <template>
   <div>
     <v-toolbar flat color="white" class="xs12  sm8 offset-sm1">
-      <v-toolbar-title>Secciones</v-toolbar-title>
+      <v-toolbar-title>Secciones    </v-toolbar-title>
+        <v-overflow-btn
+            class="my-2"
+            :items="asignaturas"
+            item-text="nombre"
+            item-value="codigo"
+            label="Asignatura"
+            v-model="asignatura"
+            target="#dropdown-example-1"
+            @change="buscarSeccion"
+            required
+        ></v-overflow-btn>
       <v-divider
         class="mx-2"
         inset
@@ -18,6 +29,7 @@
           </v-card-title>
 
           <v-card-text>
+              {{editedItem.codigo}}|{{editedItem.cupos}}|{{editedItem.nombre }}|
             <v-container grid-list-md>
               <v-layout wrap>
                 <v-flex xs12 sm6 md4>
@@ -30,7 +42,7 @@
                   <v-text-field v-model="editedItem.tipo" label="tipo"></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="editedItem.horario" label="horario"></v-text-field>
+                  <v-text-field v-model="editedItem.cupos" label="cupos"></v-text-field>
                 </v-flex>
               </v-layout>
             </v-container>
@@ -50,10 +62,10 @@
       class="elevation-1"
     >
       <template v-slot:items="props">
-        <td>{{ props.item.rut_profesor }}</td>
         <td class="text-xs-left">{{ props.item.nombre }}</td>
         <td class="text-xs-left">{{ props.item.tipo }}</td>
-        <td class="text-xs-left">{{ props.item.horario }}</td>
+        <td class="text-xs-left">{{ props.item.cupos }}</td>
+        <td class="text-xs-left">{{ props.item.rut_profesor }}</td>
         <td class="justify-center layout px-0">
           <v-icon
             small
@@ -71,7 +83,7 @@
         </td>
       </template>
       <template v-slot:no-data>
-        <v-btn color="primary" @click="initialize">Reset</v-btn>
+        No hay secciones.
       </template>
     </v-data-table>
   </div>
@@ -81,17 +93,20 @@
   export default {
     data: () => ({
       dialog: false,
+        asignatura: 0,
+        asignaturas: null,
+        secciones:null,
       headers: [
         {
-          text: 'Rut profesor',
+          text: 'Nombre Seccion',
           align: 'left',
           sortable: false,
-          value: 'rut_profesor'
+          value: 'nombre_seccion'
         },
-        { text: 'Nombre', value: 'nombre' },
         { text: 'Tipo', value: 'tipo' },
-        { text: 'Horario', value: 'horario' },
-        { text: 'Actions', value: 'rut_profesor', sortable: false }
+        { text: 'Cupos', value: 'cupos' },
+        { text: 'Rut Profesor', value: 'rut_profesor' },
+        { text: 'Action', value: 'rut_profesor', sortable: false }
       ],
       desserts: [],
       editedIndex: -1,
@@ -99,8 +114,8 @@
         rut_profesor: 0,
         nombre: '',
         tipo: 0,
-        horario: 0,
- 
+        cupos: 0,
+        codigo: 0,
       },
       defaultItem: {
         rut_profesor: 0,
@@ -128,12 +143,12 @@
 
     methods: {
       initialize () {
-        this.desserts = [
+        this.asignaturas = [
           {
             rut_profesor: 99999999,
             nombre: '159',
-            tipo: 6.0,
-            horario: '24',
+            tipo: 'l',
+            cupos: 30,
           }
         ]
       },
@@ -146,7 +161,13 @@
 
       deleteItem (item) {
         const index = this.desserts.indexOf(item)
-        confirm('Are you sure you want to delete this item?') && this.desserts.splice(index, 1)
+          this.editedItem = Object.assign({}, item)
+        if (confirm('Are you sure you want to delete this item?') && this.desserts.splice(index, 1)) {
+            axios.delete('http://192.168.10.10/Seccion/'+this.editedItem.codigo, {
+            }).then(response => {
+            });
+        }
+
       },
 
       close () {
@@ -160,11 +181,43 @@
       save () {
         if (this.editedIndex > -1) {
           Object.assign(this.desserts[this.editedIndex], this.editedItem)
+            axios.put('http://192.168.10.10/Seccion/'+this.editedItem.codigo, {
+                'nombre': this.editedItem.nombre,
+                'rut_profesor' : this.editedItem.rut_profesor,
+                'tipo' : this.editedItem.tipo,
+                'cupos' : this.editedItem.cupos,
+            }).then(response => {
+
+            });
         } else {
           this.desserts.push(this.editedItem)
+            axios.post('http://192.168.10.10/Seccion/', {
+                'nombre': this.editedItem.nombre,
+                'codigo_asignatura': this.asignatura,
+                'rut_profesor' : this.editedItem.rut_profesor,
+                'tipo' : this.editedItem.tipo,
+                'cupos' : this.editedItem.cupos,
+            }).then(response => {
+
+            });
         }
         this.close()
-      }
-    }
+      },
+      getAsignatura() {
+            axios.get('http://192.168.10.10/Asignatura/', {
+            }).then(response => {
+                this.asignaturas=response.data;
+            });
+        },
+       buscarSeccion () {
+            axios.get('http://192.168.10.10/Asignatura/getSecciones/'+ this.asignatura, {
+            }).then(response => {
+                this.desserts=response.data;
+            });
+        }
+    },
+    beforeMount() {
+          this.getAsignatura();
+      },
   }
 </script>
