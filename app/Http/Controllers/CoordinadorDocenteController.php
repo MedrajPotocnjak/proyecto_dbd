@@ -145,6 +145,7 @@ class CoordinadorDocenteController extends Controller
         if($request->apellido_materno != NULL){
             $coordinador->apellido_materno= $request->apellido_materno;
         }
+        $coordinador->save();
         return response()->json($coordinador);
     }
 
