@@ -7,8 +7,8 @@
             <v-card color="light-blue lighten-4" tile>
 
  <v-toolbar dark color="primary">
-    <v-toolbar-side-icon></v-toolbar-side-icon>
-    <v-toolbar-title class="white--text">Ramos inscritos {{userid}}</v-toolbar-title>
+
+    <v-toolbar-title class="white--text">Ramos inscritos</v-toolbar-title>
     <v-spacer></v-spacer> </v-toolbar>
               <v-card-text>
                 
@@ -20,8 +20,7 @@
       class="elevation-1"
     >
       <template v-slot:items="props">
-        <td>{{ props.item.nombre }}</td>
-        <td class="text-xs-right">{{ props.item.calories }}</td>
+        <td class="text-xs-left">{{ props.item.nombre }}</td>
         <td class="justify-right layout px-0">
           
           <v-icon
@@ -51,7 +50,7 @@
           <v-flex d-flex>
             <v-card color="light-blue lighten-4" tile flat>
                      <v-toolbar dark color="primary">
-    <v-toolbar-side-icon></v-toolbar-side-icon>
+
     <v-toolbar-title class="white--text">Ramos disponibles</v-toolbar-title>
     <v-spacer></v-spacer> </v-toolbar>
 
@@ -60,7 +59,7 @@
                 <v-flex xs12 sm9 d-flex align-center>
                   
                   <v-overflow-btn
-                        class="my-2"
+                        class="text-xs-center"
                         :items="ramos"
                         item-text="nombre"
                         item-value="codigo"
@@ -82,21 +81,13 @@
           <v-flex d-flex>
             <v-card color="light-blue lighten-4" tile flat>
                      <v-toolbar dark color="primary">
-    <v-toolbar-side-icon></v-toolbar-side-icon>
+
     <v-toolbar-title class="white--text">Recomendacion Horario</v-toolbar-title>
     <v-spacer></v-spacer> </v-toolbar>
 
               <v-card-text>  
               <center>
-                <v-flex xs12 sm9 d-flex align-center>
-                  <v-select
-                    :items="horarius"
-                    label="Horarios Sugeridos"
-                    outline
-                  ></v-select>
-                </v-flex>
-
-               <v-btn outline color="indigo" @click="tomarRamo">Tomar horario sugerido</v-btn>
+               <v-btn outline color="indigo" @click="tomarRamosSugeridos">Tomar horario sugerido</v-btn>
 
               </center>
 
@@ -115,7 +106,7 @@
         <v-card color="light-blue lighten-4" tile flat>
 
  <v-toolbar dark color="primary">
-    <v-toolbar-side-icon></v-toolbar-side-icon>
+
     <v-toolbar-title class="white--text">Secciones</v-toolbar-title>
     <v-spacer></v-spacer> </v-toolbar>
 
@@ -135,7 +126,14 @@
                         @change="getHorarioSeccion"
                         required
                         ></v-overflow-btn>
-
+                <br>
+                Información de la Sección
+                <br>
+                Profesor: {{infoSeccion.profesor}}
+                <br>
+                Tipo: {{infoSeccion.tipo}}
+                <br>
+                Cupos: {{infoSeccion.cupos}}
                 <br>
                 
                 Bloques afectados: {{ horarios }}
@@ -151,14 +149,14 @@
       <v-flex d-flex xs12 sm4>
         <v-card color="light-blue lighten-4" tile flat>
             <v-toolbar dark color="primary">
-    <v-toolbar-side-icon></v-toolbar-side-icon>
+
     <v-toolbar-title class="white--text">Vista Horario</v-toolbar-title>
     <v-spacer></v-spacer> </v-toolbar>
           <v-card-text>
               
-          Esta seccion son tiene ocupados los horarios:
-
-              
+          El Horario Actual es:
+            <br>
+              {{horarioArray}}
           </v-card-text>
         </v-card>
 
@@ -187,9 +185,7 @@
       snackbar: false,
       snackbarText: "Asignatura Inscrita",
       horarios: '',
-      lorem: `Lorem ipsum dolor sit amet, mel at clita quando. Te sit oratio vituperatoribus, nam ad ipsum posidonium mediocritatem,
-       explicari dissentiunt cu mea. Repudiare disputationi vim in, mollis iriure nec cu, alienum argumentum ius ad. Pri eu justo aeque torquatos.`,
-ramos: ['Fundamentos de Ingenieria de software',
+      ramos: ['Fundamentos de Ingenieria de software',
         'Diseño de base de datos',
          'Ingenieria y Sociedad',
           'Calculo III'],
@@ -210,7 +206,13 @@ ramos: ['Fundamentos de Ingenieria de software',
           value: 'nombre'
         }
       ],
+      infoSeccion: {
+          profesor: '-',
+          cupos: '-',
+          tipo: '-',
+      },
       desserts: [],
+      horarioArray:[],
         userid: '',
       editedIndex: -1,
       editedItem: {
@@ -235,26 +237,22 @@ ramos: ['Fundamentos de Ingenieria de software',
       }
     },
 
-    created () {
-      this.initialize()
-    },
-
     methods: {
       initialize () {
         this.desserts = [
           {
-            id: 1,
+            codigo: 1,
             nombre: 'Calculo II'
           },
           {
-            id: 2,
+              codigo: 2,
             nombre: 'Analisis de cosas'
           },
           {
             id: 3,
             nombre: 'Estadisticas para Humanistas'
           }
-          
+
         ]
       },
 
@@ -266,7 +264,17 @@ ramos: ['Fundamentos de Ingenieria de software',
 
       deleteItem (item) {
         const index = this.desserts.indexOf(item)
-        confirm('Desinscribir ramo?') && this.desserts.splice(index, 1)
+          this.editedItem = Object.assign({}, item)
+        if (confirm('Desinscribir ramo?') && this.desserts.splice(index, 1)) {
+            axios.delete('http://192.168.10.10/Alumno/desinscribir/'+this.userid+'/'+this.editedItem.codigo, {
+            }).then(response => {
+            }).catch(function (error) {
+                // handle error
+                console.log(error);
+            })
+            this.ramosActuales();
+            this.getAsignaturas();
+        }
       },
 
       close () {
@@ -307,10 +315,12 @@ ramos: ['Fundamentos de Ingenieria de software',
           });
       },
       getHorarioSeccion () {
+        this.getInfoSeccion();
         axios.get('http://192.168.10.10/Seccion/getHorarios/'+ this.seccion, {
           }).then(response => {
             this.horarios=response.data;
           });
+
       },
       tomarRamo () {
           axios.post('http://192.168.10.10/Alumno/inscribirAsignatura/'+ this.userid, {
@@ -320,14 +330,42 @@ ramos: ['Fundamentos de Ingenieria de software',
 
           });
           this.snackbar=true;
-      }
-
-
-
+          this.ramosActuales();
+          this.getAsignaturas();
+          this.getHorarioArray();
+      },
+      ramosActuales () {
+            axios.get('http://192.168.10.10/Alumno/getSeccionesCursando/'+ this.userid, {
+            }).then(response => {
+                this.desserts=response.data;
+            });
+        },
+        getInfoSeccion() {
+            axios.get('http://192.168.10.10/Seccion/obtenerInfo/'+this.seccion, {
+            }).then(response => {
+                this.infoSeccion=response.data;
+            });
+        },
+        tomarRamosSugeridos() {
+            axios.post('http://192.168.10.10/Alumno/sugerirRamos/'+this.userid, {
+            }).then(response => {
+            });
+            this.getAsignaturas();
+            this.getHorarioArray();
+            this.ramosActuales();
+        },
+        getHorarioArray() {
+            axios.get('http://192.168.10.10/Alumno/verHorarioArray/'+this.userid, {
+            }).then(response => {
+                this.horarioArray=response.data;
+            });
+        },
     },
       beforeMount(){
           this.getUserName();
           this.getAsignaturas();
+          this.ramosActuales();
+          this.getHorarioArray();
       },
   }
 </script>

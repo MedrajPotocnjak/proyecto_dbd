@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Seccion;
 use App\Alumno;
+use App\Profesor;
+use App\Asignatura;
 use App\Seccion_Sala;
 use App\Seccion_Alumno;
 use Illuminate\Http\Request;
@@ -150,4 +152,14 @@ class SeccionController extends Controller
         }*/
         return $secciones_alumnos;
     }
+	
+	public function obtenerInfo($id) {
+		$seccion = Seccion::find($id);
+		$profesor=Profesor::all()->where('rut','=',$seccion->rut_profesor)->first();
+		$asignatura=Asignatura::find($seccion->codigo_asignatura);
+		$nombre_profesor=$profesor->nombres.' '.$profesor->apellido_paterno.' '.$profesor->apellido_materno;
+		$salida= new Collection;
+		$salida->push(["cupos"=>$seccion->cupos,"profesor"=>$nombre_profesor,"tipo"=>$seccion->tipo]);
+		return $salida->first();
+	}
 }

@@ -111,7 +111,6 @@ class AlumnoController extends Controller
 		$alumno=Alumno::find($id);
         $rut=$alumno->rut;
         $nivel=$alumno->nivel;
-        $asignaturas= Asignatura::all()->where('nivel','=',$nivel);
 
 		$secciones_alumno_cursando=collect(Seccion_Alumno::all()->where('rut_alumno','=',$rut)->where('estado_cursado','=','s'));
 		$secciones_alumno_no_cursando=collect(Seccion_Alumno::all()->where('rut_alumno','=',$rut)->where('estado_cursado','=','n'));
@@ -143,6 +142,119 @@ class AlumnoController extends Controller
 		return $asignaturas;
 	}
     
+	public function verHorarioArray($id) {
+		$alumno=Alumno::find($id);
+        $rut=$alumno->rut;
+		$bloques=new Collection;
+		$secciones_alumno_cursando=collect(Seccion_Alumno::all()->where('rut_alumno','=',$rut)->where('estado_cursado','=','s'));
+		foreach ($secciones_alumno_cursando as $sa) {
+			
+			$seccion=Seccion::find($sa->codigo_seccion);
+			$seccion_salas=Seccion_Sala::all()->where('codigo_seccion','=',$seccion->codigo);
+			$bloques_seccion=$seccion_salas->pluck('bloque');
+			
+			$bloques=$bloques->concat($bloques_seccion);
+		}
+		return $bloques;
+	}
+	
+	
+	public function sugerirRamos($id) {
+		$alumno=Alumno::find($id);
+        $rut=$alumno->rut;
+        $nivel=$alumno->nivel;
+		$secciones_alumno_cursando=collect(Seccion_Alumno::all()->where('rut_alumno','=',$rut)->where('estado_cursado','=','s'));
+		$secciones_alumno_no_cursando=collect(Seccion_Alumno::all()->where('rut_alumno','=',$rut)->where('estado_cursado','=','n'));
+		$carrera=Carrera::find($alumno->codigo_carrera);
+		$carrera_asignatura=Carrera_Asignatura::all()->where('codigo_carrera','=',$carrera->codigo);
+		$asignaturas=new Collection;
+		foreach ($carrera_asignatura as $ca) {
+			$asignatura=Asignatura::find($ca->codigo_asignatura);
+			$secciones=Seccion::all()->where('codigo_asignatura','=',$asignatura->codigo);
+            $ramo_tomable=true;
+            if ($asignatura->nivel < $nivel){
+                $ramo_tomable=false;
+            }
+            else{
+                foreach ($secciones as $seccion) {
+                    $secciones_alumnos=Seccion_Alumno::all()->where('rut_alumno','=',$rut);
+                    foreach ($secciones_alumnos as $sa) {
+                        if ($sa->aprobado==1 || $sa->estado_cursado=='s') {
+                            $ramo_tomable=false;
+                        }
+                        
+                    }
+                }
+            }
+			if ($ramo_tomable) {
+				$asignaturas->push($asignatura);
+			}
+		}
+		$insertable=true;
+		$t_tomado=false;
+		$l_tomado=false;
+		$e_tomado=false;
+		$secciones=new Collection;
+		foreach ($asignaturas as $asign) {
+			$secciones_asign=Seccion::all()->where('codigo_asignatura','=',$asign->codigo);
+			
+			foreach ($secciones_asign as $sec) {
+				if ($t_tomado && $l_tomado && $e_tomado) {
+					break;
+				}
+				$seccion_salas=Seccion_Sala::all()->where('codigo_seccion','=',$sec->codigo);
+				$bloques=$seccion_salas->pluck('bloque');
+				$t_tomado=false;
+				$l_tomado=false;
+				$e_tomado=false;
+				$insertable=true;
+				foreach ($secciones as $seccion_ingresada) {
+					$mi_seccion_salas=Seccion_Sala::all()->where('codigo_seccion','=',$seccion_ingresada->codigo);
+					$estos_bloques=$mi_seccion_salas->pluck('bloque');
+					$interseccion=$bloques->intersect($estos_bloques);
+					if (!$interseccion->isEmpty()) {
+						$insertable=false;
+					}
+				}
+				if ($insertable) { 
+					if ($sec->tipo=='l' && $l_tomado==false){
+						$secciones->push($sec);
+						$l_tomado=true;
+					}
+					if ($sec->tipo=='e' && $e_tomado==false){
+						$secciones->push($sec);
+						$e_tomado=true;
+					}
+					if ($sec->tipo=='t' && $t_tomado==false){
+						$secciones->push($sec);
+						$t_tomado=true;
+					}
+				}
+			}
+		}
+		$secciones_a_tomar=$secciones->unique();
+		$nota = "1.0";
+        foreach ($secciones_a_tomar as $seccion){
+            $alumnoSeccion = Seccion_Alumno::all()->where('rut_alumno','=',$rut)->where('codigo_seccion','=',$seccion)->first();
+            if ($alumnoSeccion == null){
+                $seccion_alumno=new Seccion_Alumno;
+                $seccion_alumno->rut_alumno= $rut;
+                $seccion_alumno->codigo_seccion= $seccion->codigo;
+                $seccion_alumno->aprobado = 0;
+                $seccion_alumno->nota_p1= $nota;
+                $seccion_alumno->nota_p2= $nota;
+                $seccion_alumno->nota_p3= $nota;
+                $seccion_alumno->nota_c1= $nota;
+                $seccion_alumno->nota_c2= $nota;
+                $seccion_alumno->nota_c3= $nota;
+                $seccion_alumno->promedio= $nota;
+                $seccion_alumno->estado_cursado = "s";
+                $seccion_alumno->save();
+            }
+		}
+		return $secciones_a_tomar;
+	}
+	
     public function getCertificados($id){
         $collection= new Collection;
         $alumno=Alumno::find($id);
@@ -233,10 +345,15 @@ class AlumnoController extends Controller
 		$secciones_cursando=collect(Seccion::find($codigo_secciones));
 		$salida = new Collection;
 		foreach ($secciones_cursando as $seccion) {
-			
+			$profesor=Profesor::all()->where('rut','=',$seccion->rut_profesor)->first();
+			$asignatura=Asignatura::find($seccion->codigo_asignatura);
+			$nombre_profesor=$profesor->nombres.' '.$profesor->apellido_paterno.' '.$profesor->apellido_materno;
+			$nombreCompleto=$asignatura->nombre.'-'.$seccion->nombre.'-'.strtoupper($seccion->tipo).' | '.$nombre_profesor;
+			$salida->push(['codigo'=>$seccion->codigo,'nombre'=>$nombreCompleto]);
 		}
-        return $secciones_cursando;
+        return $salida;
     }
+	
 	public function verCalificacionesOld($id){
         $alumno=Alumno::find($id);
 		$rut=$alumno->rut;
@@ -333,14 +450,12 @@ class AlumnoController extends Controller
         return "No se pudo inscribir la asignatura";
 
     }
-	public function desinscribirAsignatura(Request $request, $id) {
+	public function desinscribirAsignatura($id,$seccion) {
 		$alumno=Alumno::find($id);
 		$rut=$alumno->rut;
-		$seccion=$request->codigo_seccion;
-		
 		$alumnoSeccion = Seccion_Alumno::all()->where('rut_alumno','=',$rut)->where('codigo_seccion','=',$seccion)->first();
         $alumnoSeccion ->delete();
-        return "Borrado";
+        return "Seccion ".$seccion." ha sido desinscrita";
 	}
     /**
      * Display the specified resource.
