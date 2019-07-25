@@ -67,13 +67,13 @@
                         label="Asignaturas Disponibles"
                         v-model="asignatura"
                         target="#dropdown-example-1"
+                        @change="buscarSeccion"
                         required
                         ></v-overflow-btn>
-                  {{ asignatura }}
+                 
                 </v-flex>
 
-              <v-btn outline color="indigo" @click="buscarSeccion" >Seleccionar Ramo</v-btn>
-
+              
               </center>
               </v-card-text>
             </v-card>
@@ -90,13 +90,13 @@
               <center>
                 <v-flex xs12 sm9 d-flex align-center>
                   <v-select
-                    :items="horarios"
+                    :items="horarius"
                     label="Horarios Sugeridos"
                     outline
                   ></v-select>
                 </v-flex>
 
-               <v-btn outline color="indigo" @click="tomarHorario">Tomar horario sugerido</v-btn>
+               <v-btn outline color="indigo" @click="tomarRamo">Tomar horario sugerido</v-btn>
 
               </center>
 
@@ -132,11 +132,17 @@
                         label="Secciones"
                         v-model="seccion"
                         target="#dropdown-example-2"
+                        @change="getHorarioSeccion"
                         required
                         ></v-overflow-btn>
 
+                <br>
                 
-                <v-btn outline color="indigo">Tomar ramo</v-btn>
+                Bloques afectados: {{ horarios }}
+
+                <br>
+
+                <v-btn outline color="indigo" @click="tomarRamo">Tomar Ramo</v-btn>
               </center>
 
           </v-card-text>
@@ -155,8 +161,20 @@
               
           </v-card-text>
         </v-card>
+
+        
       </v-flex>
     </v-layout>
+
+    <v-snackbar
+                v-model="snackbar"
+                :bottom=true
+                :timeout=4000
+                :vertical="mode === 'vertical'"
+            >
+                {{snackbarText}}
+            </v-snackbar>
+
   </v-container>
 </template>
 
@@ -166,6 +184,9 @@
     data: () => ({
       asignatura: null,
       seccion: null,
+      snackbar: false,
+      snackbarText: "Asignatura Inscrita",
+      horarios: '',
       lorem: `Lorem ipsum dolor sit amet, mel at clita quando. Te sit oratio vituperatoribus, nam ad ipsum posidonium mediocritatem,
        explicari dissentiunt cu mea. Repudiare disputationi vim in, mollis iriure nec cu, alienum argumentum ius ad. Pri eu justo aeque torquatos.`,
 ramos: ['Fundamentos de Ingenieria de software',
@@ -176,7 +197,7 @@ ramos: ['Fundamentos de Ingenieria de software',
         'B3',
          'E4',
           'B4'],
-          horarios: ['Solo ramos del nivel',
+          horarius: ['Solo ramos del nivel',
         'Concentrado en la mañana',
          'Concelntrado en la tarde',
           'Ramos clave']
@@ -274,7 +295,7 @@ ramos: ['Fundamentos de Ingenieria de software',
         },
 
       getAsignaturas () {
-        axios.get('http://192.168.10.10/Alumno/RamosTomables/'+ this.userid, {
+        axios.get('http://192.168.10.10/Alumno/getPosibleAsignatura/'+ this.userid, {
           }).then(response => {
             this.ramos=response.data;
           });
@@ -284,6 +305,21 @@ ramos: ['Fundamentos de Ingenieria de software',
           }).then(response => {
             this.secciones=response.data;
           });
+      },
+      getHorarioSeccion () {
+        axios.get('http://192.168.10.10/Seccion/getHorarios/'+ this.seccion, {
+          }).then(response => {
+            this.horarios=response.data;
+          });
+      },
+      tomarRamo () {
+          axios.post('http://192.168.10.10/Alumno/inscribirAsignatura/'+ this.userid, {
+            "asignatura": this.asignatura,
+            "seccion": this.seccion
+          }).then(response => {
+
+          });
+          this.snackbar=true;
       }
 
 

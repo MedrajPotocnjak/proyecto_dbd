@@ -114,6 +114,9 @@ class AlumnoController extends Controller
 	public function ramosTomables($id) {
 		$alumno=Alumno::find($id);
         $rut=$alumno->rut;
+        $nivel=$alumno->nivel;
+        $asignaturas= Asignatura::all()->where('nivel','=',$nivel);
+
 		$secciones_alumno_cursando=collect(Seccion_Alumno::all()->where('rut_alumno','=',$rut)->where('estado_cursado','=','s'));
 		$secciones_alumno_no_cursando=collect(Seccion_Alumno::all()->where('rut_alumno','=',$rut)->where('estado_cursado','=','n'));
 		$carrera=Carrera::find($alumno->codigo_carrera);
@@ -122,15 +125,21 @@ class AlumnoController extends Controller
 		foreach ($carrera_asignatura as $ca) {
 			$asignatura=Asignatura::find($ca->codigo_asignatura);
 			$secciones=Seccion::all()->where('codigo_asignatura','=',$asignatura->codigo);
-			$ramo_tomable=true;
-			foreach ($secciones as $seccion) {
-				$secciones_alumnos=Seccion_Alumno::all()->where('rut_alumno','=',$rut);
-				foreach ($secciones_alumnos as $sa) {
-					if ($sa->aprobado==1 || $sa->estado_cursado=='s') {
-						$ramo_tomable=false;
-					}
-				}
-			}
+            $ramo_tomable=true;
+            if ($asignatura->nivel < $nivel){
+                $ramo_tomable=false;
+            }
+            else{
+                foreach ($secciones as $seccion) {
+                    $secciones_alumnos=Seccion_Alumno::all()->where('rut_alumno','=',$rut);
+                    foreach ($secciones_alumnos as $sa) {
+                        if ($sa->aprobado==1 || $sa->estado_cursado=='s') {
+                            $ramo_tomable=false;
+                        }
+                        
+                    }
+                }
+            }
 			if ($ramo_tomable) {
 				$asignaturas->push($asignatura);
 			}
@@ -193,8 +202,12 @@ class AlumnoController extends Controller
        // $collection= new Collection;
         $alumno=Alumno::find($id);
         $nivel=$alumno->nivel;
-        $asignaturas= Asignatura::all()->where('nivel','=',$nivel);
-        return $asignaturas->all();
+        $asignaturas= Asignatura::all()->where('nivel','>=',$nivel);
+        $retorno = new Collection;
+        foreach ($asignaturas as $se) {
+            $retorno->push($se);
+        }
+		return $retorno;
     }
 
     public function getPosibleAsignatura2($id){
