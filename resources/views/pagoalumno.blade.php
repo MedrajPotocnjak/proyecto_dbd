@@ -7,14 +7,13 @@
 </head>
 
 <body>
-    Alumno:  NombreAlumno
-    Rut: askhdsd
-
-    Ha realizado el pago por el monto de: Dinerodinero
-    para saldar (matriculaArancel)
-    en la fecha: fECHAFECH
-
-    
+    Alumno:  {{$nombre}}<br>
+    Rut: {{$rut}}<br>
+	<br>
+    Ha realizado el pago por el monto de: {{$costo}}<br>
+    para saldar {{$cosa}}<br>
+    en la fecha: {{$fecha}}<br>
+   
 </body>
 
 </html>

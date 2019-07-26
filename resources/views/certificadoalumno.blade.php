@@ -8,14 +8,14 @@
 
 <body>
    
-   Este Certificado acredita a: NombreAlumno, 
-   Cedula de identidad nacional Numero RutAlumno,
-   De la carrera CarreraAlumno
-   
-   Para los tramites de: TipoCertificado
+   Este Certificado acredita a: {{$NombreAlumno}},<br> 
+   Cedula de identidad nacional Numero {{$RutAlumno}},<br> 
+   De la carrera {{$CarreraAlumno}}<br> 
+   <br> 
+   Para los tramites de: <br>
 
 
-   Fecha Emision: Fecha
+   Fecha Emision: {{$Fecha}}
    Valido por 30 dias desde el momento de emision.
 
 

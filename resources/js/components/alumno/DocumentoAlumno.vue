@@ -24,10 +24,9 @@
       >
         <template v-slot:items="props">
           <td>{{ props.item.name }}</td>
-          <td class="text-xs-right"><v-btn small color = "success"> Descargar </v-btn></td> 
+          <td class="text-xs-right"><v-btn small color = "success" @click="downloadCert"> Descargar </v-btn></td>
         </template>
         <template v-slot:no-data>
-          <v-btn color="primary" @click="initialize">Reset</v-btn>
         </template>
       </v-data-table>
                     </v-expansion-panel-content>
@@ -91,7 +90,7 @@
       >
         <template v-slot:items="props">
           <td>{{ props.item.nombre }}</td>
-          <td class="text-xs-right"><v-btn small color = "success"> Descargar </v-btn></td> 
+          <td class="text-xs-right"><v-btn small color = "success" @click="downloadCompr(props.item)"> Descargar </v-btn></td>
         </template>
         <template v-slot:no-data>
             No hay Comprobantes
@@ -188,6 +187,38 @@
                   this.comprobante=response.data;
               });
           },
+          downloadCert(item) {
+              axios({
+                  url: 'http://192.168.10.10/Alumno/downloadCertificado/'+this.userid,
+                  method: 'GET',
+                  responseType: 'blob', // important
+              }).then((response) => {
+                  const url = window.URL.createObjectURL(new Blob([response.data]));
+                  const link = document.createElement('a');
+                  link.href = url;
+                  link.setAttribute('download', 'file.pdf');
+                  document.body.appendChild(link);
+                  link.click();
+              });
+          },
+          downloadCompr(item) {
+              axios({
+                  url: 'http://192.168.10.10/Alumno/downloadComprobante/'+this.userid,
+                  method: 'GET',
+                  responseType: 'blob', // important
+                  params: {
+                      'cosa': item.nombre,
+                      'costo': item.costo
+                  },
+              }).then((response) => {
+                  const url = window.URL.createObjectURL(new Blob([response.data]));
+                  const link = document.createElement('a');
+                  link.href = url;
+                  link.setAttribute('download', 'comprobante.pdf');
+                  document.body.appendChild(link);
+                  link.click();
+              });
+          }
       }
   }
 </script>
