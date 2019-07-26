@@ -11,6 +11,9 @@ use App\Seccion_Alumno;
 use App\Seccion;
 use App\Seccion_Sala;
 use App\Sala;
+use App\Pago;
+use App\Matricula;
+use App\Mensualidad;
 use App\Solicitud_Alumno;
 use App\Solicitud;
 use App\Mensaje;
@@ -762,5 +765,34 @@ class AlumnoController extends Controller
 	public function getAlumnoName($id) {
 		$alumno=Alumno::find($id);
 		return $alumno->nombre;
+	}
+	
+	public function getPagos($id) {
+		$alumno=Alumno::find($id);
+		$rut=$alumno->rut;
+		$pagos=Pago::all()->where('rut_alumno','=',$rut);
+		$salida= new Collection();
+		foreach($pagos as $pago) {
+			if ($pago->tipo_pago=="a") {
+				$mensualidad=Mensualidad::all()->where("codigo_pago",'=',$pago->codigo)->first();
+				if ($mensualidad) {
+					$salida->push(["nombre"=>'Mensualidad', 'costo'=>$mensualidad->costo,'fecha'=>$pago->created_at]);
+					}
+			}
+			else {
+				$matricula=Matricula::all()->where("codigo_pago",'=',$pago->codigo)->first();
+				if ($matricula) {
+					$fecha_matricula=Carbon::createFromFormat('Y-m-d H:i:s', $pago->created_at);
+					if ($fecha_matricula->month <=7){
+						$semestre = 1;
+					}
+					else{
+						$semestre = 2;
+					}
+					$salida->push(["nombre"=>'Matricula '.$semestre.'/'.$fecha_matricula->year, "costo"=>$matricula->costo,'fecha'=>$pago->created_at]);
+				}
+			}
+		}
+		return $salida;
 	}
 }

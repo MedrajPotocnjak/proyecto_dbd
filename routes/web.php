@@ -52,6 +52,7 @@ Route::delete('/Alumno/desinscribir/{id}/{seccion}','AlumnoController@desinscrib
 Route::get('/Alumno/getHorario/{id}','AlumnoController@getHorario');
 Route::post('/Alumno/sugerirRamos/{id}','AlumnoController@sugerirRamos');
 Route::get('/Alumno/verHorarioArray/{id}','AlumnoController@verHorarioArray');
+Route::get('/Alumno/getPagos/{id}','AlumnoController@getPagos');
 
 
 //Rutas Asignatura
