@@ -371,4 +371,15 @@ class ProfesorController extends Controller
 		}
         return $salida;
     }
+	public function obtenerSecciones($id){
+        $profesor=Profesor::find($id);
+		$rut=$profesor->rut;
+        $secciones=Seccion::all()->where('rut_profesor','=',$rut);
+		$salida=new Collection;
+		foreach ($secciones as $seccion) {
+			$asignatura=Asignatura::find($seccion->codigo_asignatura);
+			$salida->push(['nombre' => $asignatura->nombre.'-'.$seccion->nombre.'-'.strtoupper($seccion->tipo),'codigo'=>$seccion->codigo]);
+		}
+        return $salida;
+    }
 }

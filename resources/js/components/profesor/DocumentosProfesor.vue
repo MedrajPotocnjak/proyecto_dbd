@@ -1,5 +1,4 @@
 <template>
-  <v-app id = "inspire">
     <div>
       <v-toolbar flat color = "white">
         <v-toolbar-title> Documentos </v-toolbar-title>
@@ -32,7 +31,6 @@
         </template>
       </v-data-table>
     </div>
-  </v-app>
 </template>
 
 <script>

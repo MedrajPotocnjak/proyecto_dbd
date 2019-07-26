@@ -67,14 +67,13 @@
       class="elevation-1"
     >
       <template v-slot:items="props">
-        <td class="text-xs-left">{{ props.item.rut }}</td>
+        <td class="text-xs-left">{{ props.item.rut_alumno }}</td>
         <td class="text-xs-left">{{ props.item.promedio }}</td>
         <td class="text-xs-left">{{ props.item.nota_p1 }}</td>
         <td class="text-xs-left">{{ props.item.nota_p2 }}</td>
         <td class="text-xs-left">{{ props.item.nota_p3 }}</td>
           <td class="text-xs-left">{{ props.item.nota_c1 }}</td>
           <td class="text-xs-left">{{ props.item.nota_c2 }}</td>
-          <td class="text-xs-left">{{ props.item.nota_c3 }}</td>
           <td class="text-xs-left">{{ props.item.nota_c3 }}</td>
         <td class="justify-center layout px-0">
           <v-icon
@@ -190,14 +189,18 @@
       save () {
         if (this.editedIndex > -1) {
           Object.assign(this.desserts[this.editedIndex], this.editedItem)
+            let promedio=(parseFloat(this.editedItem.nota_p1)+parseFloat(this.editedItem.nota_p2)+parseFloat(this.editedItem.nota_p3)+( parseFloat(this.editedItem.nota_c1)+parseFloat(this.editedItem.nota_c2)+parseFloat(this.editedItem.nota_c3)/3.0) )/4.0;
+            promedio=Math.round( promedio * 10) / 10;
+            this.editedItem.promedio=promedio;
+            console.log(promedio);
             axios.put('http://192.168.10.10/Seccion_Alumno/'+this.editedItem.codigo, {
                 'nota_p1': this.editedItem.nota_p1,
                 'nota_p2': this.editedItem.nota_p2,
                 'nota_p3': this.editedItem.nota_p3,
                 'nota_c1': this.editedItem.nota_c1,
                 'nota_c2': this.editedItem.nota_c2,
-                'nota_c3': this.editedItem.nota_c3
-                'promedio':
+                'nota_c3': this.editedItem.nota_c3,
+                'promedio': promedio
             }).then(response => {
 
             });
