@@ -15,7 +15,7 @@
                                 Control 2: {{seccion.C2}} <br>
                                 Control 3: {{seccion.C3}} <br>
                                 Promedio: {{seccion.promedio}} <br>
-                                Aprobado: {{seccion.aprobado}}
+                                Aprsobado: {{seccion.aprobado}}
                             </v-card-text>
                         </v-card>
                     </v-expansion-panel-content>

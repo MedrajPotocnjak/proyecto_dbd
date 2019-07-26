@@ -317,8 +317,15 @@ class AlumnoController extends Controller
         $solicitud = new Solicitud;
         $alumno=Alumno::find($id);
         $rut=$alumno->rut;
+        $nombre=$alumno->nombre;
+        $apellido_paterno=$alumno->apellido_paterno;
+        $apellido_materno=$alumno->apellido_materno;
+        $nas=$alumno->nas;
+        $ppa=$alumno->ppa;
+        $nar=$alumno->nar;
+
         $solicitud->contenido= $request->contenido;
-        $solicitud->ruta_formato= $request->ruta_formato;
+        $solicitud->ruta_formato= 'ruta';
         $solicitud->save();
         $solicitud_alumno = new Solicitud_Alumno;
         $solicitud_alumno->rut_alumno=$rut;
