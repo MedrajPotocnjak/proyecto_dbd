@@ -19,7 +19,7 @@ class CreateEstudioTable extends Migration
             $table->foreign('codigo_departamento')
             ->references('codigo')->on('departamento')->onDelete('cascade');
 			$table->string("area",32);
-			$table->string("titulo",32);
+			$table->string("titulo");
 			$table->string("contenido");
 			$table->string("ruta_estudio");
             $table->timestamps();

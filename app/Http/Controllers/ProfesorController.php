@@ -6,6 +6,7 @@ use App\Profesor;
 use App\Alumno;
 use App\Mensaje;
 use App\Asignatura;
+use App\Departamento;
 use App\Seccion;
 use App\Seccion_Alumno;
 use App\Seccion_Sala;
@@ -17,6 +18,7 @@ use App\Estudio;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 
 class ProfesorController extends Controller
 {
@@ -171,29 +173,12 @@ class ProfesorController extends Controller
         $profesor = Profesor::find($id);
         $rut = $profesor->rut;
         $areaP=$profesor->area;
-        $secciones= Seccion::all()->where('rut_profesor','=',$rut);
-        //return $secciones;
-        $codigoAsignaturas= $secciones->pluck('codigo_asignatura');
-        //return $codigoAsignaturas;
-        $carrerasAsig = collect(Carrera_Asignatura::find($codigoAsignaturas));
-        //return $carrerasAsig;
-        $codigoCarreras= $carrerasAsig->pluck('codigo_carrera');
-        $carreras = collect(Carrera::find($codigoCarreras));
-        //return $carreras;
-        $departamentos= $carreras->pluck('codigo_departamento');
-        //return $departamentos;
-        foreach($departamentos as $depto){
-            $estudiosDepartamentos= Estudio::all()->where('codigo_departamento','=',$depto);
-        }
-       // return $estudiosDepartamentos;
-        
-       $collection = collect([]);
-        foreach ($estudiosDepartamentos as $estudios){
-            if($estudios->area == $areaP){
-                $final= $collection-> push($estudios->titulo);
-            }
-        }
-        return $final->all();
+        $departamento=Departamento::find($profesor->codigo_departamento);
+		$estudios=Estudio::all()->where('area','=',$areaP);
+		foreach ($estudios as $estudio) {
+			$collection->push($estudio);
+		}
+		return $collection;
     }
     
     public function verMensajes($id){
@@ -382,4 +367,21 @@ class ProfesorController extends Controller
 		}
         return $salida;
     }
+	public function subirEstudio($id, Request $request) {
+		$profe=Profesor::find($id);
+		$upload = $request->file('file');
+		$estudio= new Estudio();
+        $estudio->area= $profe->area;
+        $estudio->titulo=$upload->getClientOriginalName();
+        $estudio->contenido= '';
+        $estudio->ruta_estudio= '';
+        $estudio->codigo_departamento = $profe->codigo_departamento;
+        $estudio->save();
+		return Storage::putFileAs('',$upload,$estudio->titulo);
+	}
+	
+	public function descargarEstudio(Request $request) {
+		$nombreArchivo=$request->nombreArchivo;
+		return Storage::download($nombreArchivo);
+	}
 }

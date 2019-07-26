@@ -146,6 +146,8 @@ Route::get('/Profesor/verHorario/{id}','ProfesorController@verHorario');
 Route::get('/Profesor/obtenerHorario/{id}','ProfesorController@obtenerHorario');
 Route::post('/Profesor','ProfesorController@store');
 Route::get('/Profesor/obtenerSecciones/{i}','ProfesorController@obtenerSecciones');
+Route::post('Profesor/subirEstudio/{i}','ProfesorController@subirEstudio');
+Route::get('Profesor/bajarEstudio/','ProfesorController@descargarEstudio');
 //Route::get();SHOW
 Route::get('/Profesor/verEstudios/{id}','ProfesorController@verEstudios');
 Route::put('/Profesor/{id}','ProfesorController@update');

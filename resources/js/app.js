@@ -44,6 +44,7 @@ const PHorario=Vue.component('profesor-horario-component', require('./components
 const barraProfe=Vue.component('profesor-sidebar-component', require('./components/profesor/ProfesorSidebar.vue').default);
 const InfoProf=Vue.component('info-prof-component', require('./components/profesor/VerInfoProfesor.vue').default);
 const Notas=Vue.component('notas-prof-component', require('./components/profesor/ProfesorNotas.vue').default);
+const DocP=Vue.component('doc-prof-component', require('./components/profesor/DocumentosProfesor.vue').default);
 
 //Coordinador
 const InfoCoord=Vue.component('info-cood-component',require('./components/coordinador/VerInfoCord.vue').default);
@@ -128,6 +129,7 @@ const routes = [
   { path: '/crearSala',component: crearSala},
   { path: '/seccionHorario',component: seccionHorario},
   { path: '/notas',component: Notas},
+  { path: '/docP',component:DocP}
 ];
 
 const router = new VueRouter({

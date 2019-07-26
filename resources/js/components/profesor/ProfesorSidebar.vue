@@ -49,7 +49,8 @@
                     { title: 'Mis Secciones', icon: 'calendar_today', route: '/phorario'},
                     { title: 'Notas de Secciones', icon: 'calendar_today', route: '/notas'},
                     { title: 'Enviar Mensaje', icon: 'forum' , route: '/mensajesA'},
-                    { title: 'Bandeja de entrada', icon: 'mail_outline' , route: '/listaMensajesProfesor'}
+                    { title: 'Bandeja de entrada', icon: 'mail_outline' , route: '/listaMensajesProfesor'},
+                    { title: 'Mis Estudios', icon: 'folder' , route: '/docP'},
                 ],
             }
         },
