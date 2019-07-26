@@ -96,7 +96,7 @@ class SolicitudController extends Controller
      * @param  \App\Solicitud  $solicitud
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Solicitud $solicitud)
+    public function destroy($id)
     {
         //
         $solicitud = Solicitud::find($id);

@@ -41,6 +41,7 @@ const InfoAlumn=Vue.component('info-alumn-component', require('./components/alum
 const pagoAlumno=Vue.component('pago-alumn-component', require('./components/alumno/PagoAlumno.vue').default);
 const DocA=Vue.component('doc-alumn-component', require('./components/alumno/DocumentoAlumno.vue').default);
 const CrearSolicitud=Vue.component('crear-solalm-component', require('./components/alumno/CrearSolicitud.vue').default);
+const archivoSolicitud=Vue.component('archivo-alumnosol-component', require('./components/alumno/ArchivoSolicitud.vue').default);
 
 //Profesor
 const PHorario=Vue.component('profesor-horario-component', require('./components/profesor/ProfesorHorario.vue').default);
@@ -90,6 +91,7 @@ const VistCrearCorreoAlumno=Vue.component('crear-correo-alumno-component', requi
 
 const routes = [
   
+  { path: '/archivoSolicitud', component: archivoSolicitud },
   { path: '/listaSalasSistema', component: listaSalasSistema },
   { path: '/listaAsignaturasSistema', component: listaAsignaturasSistema },
   { path: '/listaAlumnosSistema', component: listaAlumnosSistema },

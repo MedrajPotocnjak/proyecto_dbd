@@ -52,8 +52,12 @@
                     { title: 'Tomar Asignatura', icon: 'calendar_today', route: '/tomaHorario'},
                     { title: 'Enviar Mensaje', icon: 'forum' , route: '/mensajesP'},
                     { title: 'Bandeja de entrada', icon: 'mail_outline' , route: '/listaMensajesAlumno'},
+
+
+                    
                     { title: 'Documentos', icon: 'folder' , route: '/docA'},
                     { title: 'Enviar Solicitud', icon: 'folder' , route: '/CrearSolicitud'},
+                    { title: 'Archivo Solicitudes', icon: 'folder' , route: '/archivoSolicitud'},
                     { title: 'Pagos', icon: 'payment' , route: '/pagoAlumno' }
                     
                 ],
