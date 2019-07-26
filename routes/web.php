@@ -15,6 +15,7 @@
 
 //Rutas Administrador
 Route::get('/Administrador','AdministradorController@index');
+Route::get('/Administrador/{id}','AdministradorController@show');
 Route::post('/Administrador','AdministradorController@store');
 //Route::get();SHOW
 Route::put('/Administrador/{id}','AdministradorController@update');

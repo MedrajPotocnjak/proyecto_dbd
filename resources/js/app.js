@@ -55,6 +55,7 @@ const SeccionAsignaturaCoord=Vue.component('seccion-asign-coord-component', requ
 const seccionHorario=Vue.component('seccion-horario-component',require('./components/coordinador/SeccionHorario.vue').default);
 
 //Admin
+const InfoAdmin=Vue.component('info-admin-component',require('./components/admin/VerInfoAdmin.vue').default);
 const barraAdmin=Vue.component('administrador-sidebar-component', require('./components/admin/AdministradorSidebar.vue').default);
 const crearAsignatura=Vue.component('crear-asig-component',require('./components/admin/CrearAsignatura.vue').default);
 const crearCarrera=Vue.component('crear-carrera-component',require('./components/admin/CrearCarrera.vue').default);
@@ -114,7 +115,7 @@ const routes = [
   { path: '/info', component: InfoAlumn},
   
   { path: '/infoP', component: InfoProf},
-
+{ path: '/infoA', component: InfoAdmin},
   { path: '/mensajesA', component: VistCrearCorreoAlumno},
   { path: '/mensajesP', component: VistCrearCorreoProfe},
   { path: '/infoCD', component: InfoCoord},

@@ -7,7 +7,7 @@
                         <v-list class="blue-grey darken-2" dark>
                             <v-list-tile >
                                 <v-list-tile-title justify-center class="title">
-                                    <div>{{username}}</div>
+                                    <div>Hola, {{username}}</div>
                                 </v-list-tile-title>
                             </v-list-tile>
                         </v-list>
@@ -44,8 +44,9 @@
         data () {
             return {
                 username: null,
+                userid:0,
                 titles: [
-                    { title: 'Información Personal', icon: 'description' , route: '/'},
+                    { title: 'Información Personal', icon: 'description' , route: '/infoA'},
                     { title: 'Crear Alumnos', icon: 'face' , route: '/crearAlumno'},
                     { title: 'Alumnos Sistema', icon: 'view_stream' , route: '/listaAlumnosSistema'},
                     { title: 'Crear Profesor', icon: 'face', route: '/crearProfesor'},
@@ -70,8 +71,24 @@
 
         methods: {
             getUserName:function() {
-              axios.get('http://192.168.10.10/Alumno')
-                  .then(response=> {this.username=response.data.nombre;});
+                let url=window.location.href;
+                let splitted=url.split("/administrador/");
+                let userId=splitted[1];
+                splitted=userId.split("/");
+                userId=splitted[0];
+                this.userid=userId;
+                axios({
+                    method: 'get',
+                    url: 'http://192.168.10.10/Administrador/' + this.userid,
+                    headers: {
+
+                    },
+                    validateStatus: (status) => {
+                        return true; // I'm always returning true, you may want to do it depending on the status received
+                    }
+                }).then(response => {
+                    this.username = response.data.nombre
+                });
             },
         },
         beforeMount(){

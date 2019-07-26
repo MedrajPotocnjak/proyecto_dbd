@@ -55,9 +55,11 @@ class AdministradorController extends Controller
      * @param  \App\Administrador  $administrador
      * @return \Illuminate\Http\Response
      */
-    public function show(Administrador $administrador)
+    public function show($id)
     {
         //
+		$admin=Administrador::find($id);
+		return $admin;
     }
 
     /**
