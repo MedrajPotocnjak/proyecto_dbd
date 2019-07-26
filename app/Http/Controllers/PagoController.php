@@ -144,10 +144,10 @@ class PagoController extends Controller
         if ($encontrado != 0 ){
             $matricula =$matriculas->last(); 
             if($matricula->estado_matricula = "pagado"){
-                return 'Matricula activa';
+                return 1; //Pagado!!
             }
         }
-        return 'Matricula no activa';
+        return 0;
         //$matricula = Matricula::find($pago->codigo);
 
     }
