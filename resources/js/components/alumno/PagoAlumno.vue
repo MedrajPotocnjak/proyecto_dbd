@@ -55,6 +55,8 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
+
+
       <v-dialog v-model="dialoge" max-width="500px">
           <v-card>
             <v-card-title>
@@ -92,6 +94,43 @@
             </v-card-actions>
           </v-card>
         </v-dialog>
+
+
+      <v-dialog v-model="dialogeMensualidad" max-width="500px">
+          <v-card>
+            <v-card-title>
+              <span class="headline">Metodo de Pago</span>
+            </v-card-title>
+  
+            <v-card-text>
+              <v-container grid-list-md>
+                <v-layout wrap>
+                  <v-container fluid>
+                     <div>
+                      <v-card-text>
+                        <p class="text-xs-center"> Número de Tarjeta = {{targeta_credito}}</p>
+                        <p class="text-xs-center"> Últimos 3 digitos = {{cvc}}</p>
+                        <p class="text-xs-center"> Fecha expiración = {{fecha_caducidad}}</p>
+                      </v-card-text>
+                     </div>
+                      
+                  </v-container>
+                </v-layout>
+              </v-container>
+            </v-card-text>
+  
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="blue darken-1" flat @click="cancelar2">Cancelar</v-btn>
+              <v-btn color="blue darken-1" flat @click="pagarMensualidad">Pagar</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+
+
+
+
+
       <v-expansion-panel dark>
          <v-expansion-panel-content v-bind:class="dark">
             <div slot="header">Pago Matricula</div>
@@ -107,15 +146,14 @@
          <v-expansion-panel-content v-bind:class="dark">
             <div slot="header">Pago Mensualidad</div>
               <p class="text-xs-center">Total = ${{valorMensual}}-.</p>
+              <br>
               
-              !! {{ datosAlumno }} !! {{userid}}
-              <br>
-              {{targeta_credito}}:::{{fecha_caducidad}}:::{{cvcGuardado}}
-              <br>
               <div v-if="estado_matricula">
-                Matricula pagada
+                <p class="text-xs-center"> Matricula pagada </p>
+                
                 <div class="my-2">
-                  <v-btn depressed color="primary" @click="pagar">Pagar</v-btn>
+                  <p class="text-xs-center"> <v-btn depressed color="primary" @click="pagar2">Pagar</v-btn> </p>
+                  
                 </div>
               </div>
               <div v-else class="text-xs-center">
@@ -132,19 +170,23 @@
   export default {
     data () {
       return {
+        numero_mensualidad: 12,
         forma_pago: '1',
         targeta_credito: '',
         fecha_caducidad: '',
         cvcGuardado: '',
+        mensualidad: 'a',
         matricula: 'm',
         dialog: false,
         dialoge: false,
+        dialogeMensualidad: false,
         userid: '',
         datosAlumno: '',
         tarjeta:'',
         cvc:'',
         fecha:'',
         estado_matricula:false,
+        estado_obtenido : 0,
         valorMatri: 90000,
         valorMensual: 4444+2,
         flagTarjeta: false,
@@ -159,6 +201,10 @@
       pagar () {
         
         this.dialoge = true
+      },
+      pagar2 () {
+        
+        this.dialogeMensualidad = true
       },
       getUserName:function() {
             let url = window.location.href;
@@ -194,6 +240,23 @@
         
         this.dialoge = false
       },
+      cancelar2 () {
+        
+        this.dialogeMensualidad = false
+      },
+      estadoMatricula () {
+        if(this.estado_obtenido == 1){
+          this.estado_matricula=true;
+        }
+      },
+      estadoObtenido () {
+        axios.get('http://192.168.10.10/Pago/statusMatricula/'+ this.userid, {
+          }).then(response => {
+            this.estado_obtenido=response.data;
+            this.estadoMatricula();
+          });
+      },
+      
       pagarMatricula () {
         axios.post('http://192.168.10.10/Pago/addPago/' + this.userid, {
                 'tipo_pago': this.matricula,
@@ -204,11 +267,24 @@
             });
         this.dialoge = false
       },
+      pagarMensualidad () {
+        axios.post('http://192.168.10.10/Pago/addPago/' + this.userid, {
+                'tipo_pago': this.mensualidad,
+                'numero_mensualidad': this.numero_mensualidad,
+                'forma_pago': this.forma_pago,
+                'costo': this.valorMensual
+            }).then(response => {
+
+            });
+        this.dialogeMensualidad = false
+      },
     },
       beforeMount(){
           this.getUserName();
           this.getDatosAlumno();
+          this.estadoObtenido();
+          this.estadoMatricula ();
 
-      },
+      }
   }
 </script>
