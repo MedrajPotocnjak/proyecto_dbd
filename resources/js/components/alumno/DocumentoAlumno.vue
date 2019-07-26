@@ -55,11 +55,10 @@
         class="elevation-1"
       >
         <template v-slot:items="props">
-          <td>{{ props.item.name }}</td>
-          <td class="text-xs-right"><v-btn small color = "success"> Descargar </v-btn></td> 
+          <td>{{ props.item.contenido }}</td>
+          <td class="text-xs-right"><v-btn small color = "success"@click="downloadSol(props.item)"> Descargar </v-btn></td>
         </template>
         <template v-slot:no-data>
-          <v-btn color="primary" @click="initialize">Reset</v-btn>
         </template>
       </v-data-table>
                     </v-expansion-panel-content>
@@ -159,10 +158,10 @@
 
                   this.solicitud = [
                       {
-                          name: 'Reincorporación',
+                          contenido: 'Reincorporación',
                       },
                       {
-                          name: 'Cambio Carrera',
+                          contenido: 'Cambio Carrera',
                       },
                   ]
 
@@ -215,6 +214,23 @@
                   const link = document.createElement('a');
                   link.href = url;
                   link.setAttribute('download', 'comprobante.pdf');
+                  document.body.appendChild(link);
+                  link.click();
+              });
+          },
+          downloadSol(item) {
+              axios({
+                  url: 'http://192.168.10.10/Alumno/downloadSolicitud/'+this.userid,
+                  method: 'GET',
+                  responseType: 'blob', // important
+                  params: {
+                      'contenido': item.contenido,
+                  },
+              }).then((response) => {
+                  const url = window.URL.createObjectURL(new Blob([response.data]));
+                  const link = document.createElement('a');
+                  link.href = url;
+                  link.setAttribute('download', 'solicitud.pdf');
                   document.body.appendChild(link);
                   link.click();
               });
