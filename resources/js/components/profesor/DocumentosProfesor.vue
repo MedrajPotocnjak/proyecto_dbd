@@ -133,7 +133,12 @@
 
     deleteItem (item) {
       const index = this.documentos.indexOf(item)
-      confirm('Seguro que deseas eliminar este elemento?') && this.documentos.splice(index, 1)
+        this.editedItem = Object.assign({}, item)
+      if (confirm('Seguro que deseas eliminar este elemento?') && this.documentos.splice(index, 1)) {
+          axios.delete('http://192.168.10.10/Estudio/'+this.editedItem.codigo, {
+          }).then(response => {
+          });
+      }
     },
 
     close () {
