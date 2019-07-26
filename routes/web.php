@@ -55,6 +55,7 @@ Route::get('/Alumno/verHorarioArray/{id}','AlumnoController@verHorarioArray');
 Route::get('/Alumno/getPagos/{id}','AlumnoController@getPagos');
 Route::get('/Alumno/downloadCertificado/{id}','AlumnoController@downloadCertificado');
 Route::get('/Alumno/downloadComprobante/{id}','AlumnoController@downloadComprobante');
+Route::get('/Alumno/downloadSolicitud/{id}','AlumnoController@downloadSolicitud');
 //Rutas Asignatura
 Route::get('/Asignatura','AsignaturaController@index');
 Route::post('/Asignatura','AsignaturaController@store');

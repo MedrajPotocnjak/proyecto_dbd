@@ -7,9 +7,12 @@
 </head>
 
 <body>
-    Nombre,Carrera,Nas,PAS,cositasÑe:
-    
-    Contenido
+    Nombre: {{$nombre}}<br>
+	Rut: {{$rut}}<br>
+	Carrera: {{$carrera}}<br>
+	Contenido:<br>
+	{{$contenido}}
+  
 </body>
 
 </html>

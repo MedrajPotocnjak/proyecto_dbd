@@ -814,4 +814,15 @@ class AlumnoController extends Controller
 		$pdf=PDF::loadView('pagoalumno',$data);
 		return $pdf->download('comprobante.pdf');
 	}
+	
+	public function downloadSolicitud($id, Request $request) {
+		$alumno=Alumno::find($id);
+		$rut=$alumno->rut;
+		$hoy = Carbon::today();
+		$carrera=Carrera::find($alumno->codigo_carrera);
+		$nom_carrera=$carrera->nombre;
+		$data=['nombre'=>$alumno->nombre.' '.$alumno->apellido_paterno.' '.$alumno->apellido_materno,'carrera'=>$nom_carrera ,'rut'=>$rut,'fecha'=>$hoy,'contenido'=>$request->contenido];
+		$pdf=PDF::loadView('solicitudalumno',$data);
+		return $pdf->download('Solicitud.pdf');
+	}
 }
