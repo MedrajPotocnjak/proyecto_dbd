@@ -90,18 +90,18 @@
         class="elevation-1"
       >
         <template v-slot:items="props">
-          <td>{{ props.item.name }}</td>
+          <td>{{ props.item.nombre }}</td>
           <td class="text-xs-right"><v-btn small color = "success"> Descargar </v-btn></td> 
         </template>
         <template v-slot:no-data>
-          <v-btn color="primary" @click="initialize">Reset</v-btn>
+            No hay Comprobantes
         </template>
       </v-data-table>
                     </v-expansion-panel-content>
               </v-expansion-panel>
         </v-container>
       <v-card>
-        <v-card-text> 
+        <v-card-text>
           <v-card-actions>
             <v-btn small color = "primary"> Subir <v-icon right dark> cloud_upload </v-icon> </v-btn>
           </v-card-actions>  
@@ -116,6 +116,7 @@
       data() {
           return {
               dialog: false,
+              comprobante: [],
               headers: [
                   {
                       text: 'Documento',
@@ -135,9 +136,11 @@
       },
 
       created() {
-          this.initialize()
+          this.initialize();
       },
-
+      beforeMount () {
+          this.getUserName();
+      },
       methods: {
           initialize() {
               this.certificado = [
@@ -162,13 +165,8 @@
                       {
                           name: 'Cambio Carrera',
                       },
-                  ],
-
-                  this.comprobante = [
-                      {
-                          name: 'Matrícula',
-                      },
                   ]
+
           },
 
           close() {
@@ -177,6 +175,18 @@
                   this.editedItem = Object.assign({}, this.defaultItem)
                   this.editedIndex = -1
               }, 300)
+          },
+          getUserName:function() {
+              let url=window.location.href;
+              let splitted=url.split("/alumno/");
+              let userId=splitted[1];
+              splitted=userId.split("/");
+              userId=splitted[0];
+              this.userid=userId;
+              axios.get('http://192.168.10.10/Alumno/getPagos/'+this.userid, {
+              }).then(response => {
+                  this.comprobante=response.data;
+              });
           },
       }
   }
