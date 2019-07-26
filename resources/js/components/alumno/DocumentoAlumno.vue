@@ -115,6 +115,7 @@
           return {
               dialog: false,
               comprobante: [],
+              solicitud: [],
               headers: [
                   {
                       text: 'Documento',
@@ -154,16 +155,7 @@
                   {
                       name: 'Beca Estudios'
                   },
-              ],
-
-                  this.solicitud = [
-                      {
-                          contenido: 'Reincorporación',
-                      },
-                      {
-                          contenido: 'Cambio Carrera',
-                      },
-                  ]
+              ]
 
           },
 
@@ -184,6 +176,10 @@
               axios.get('http://192.168.10.10/Alumno/getPagos/'+this.userid, {
               }).then(response => {
                   this.comprobante=response.data;
+              });
+              axios.get('http://192.168.10.10/Alumno/getSolicitud/'+this.userid, {
+              }).then(response => {
+                  this.solicitud=response.data;
               });
           },
           downloadCert(item) {
