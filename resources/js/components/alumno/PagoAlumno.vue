@@ -26,9 +26,9 @@
           </v-card-title>
             
           <v-card-text>
-            <v-text-field v-model="tarjeta" mask="####-####-####-####" label="Número de Targeta"></v-text-field>
+            <v-text-field v-model="targeta_credito" mask="####-####-####-####" label="Número de Targeta"></v-text-field>
             <v-text-field v-model="cvc" mask="###" label="Últimos 3 dígitos"></v-text-field>
-            <v-text-field v-model="fecha" mask="##/##" label="Fecha expiración"></v-text-field>
+            <v-text-field v-model="fecha_caducidad" mask="##/##" label="Fecha expiración"></v-text-field>
           </v-card-text>
   
           <v-divider></v-divider>
@@ -67,16 +67,16 @@
                   <v-container fluid>
                      <div v-if="flagTarjeta">
                       <v-card-text>
-                        <p class="text-xs-center"> Número de Tarjeta = {{tarjeta}}</p>
+                        <p class="text-xs-center"> Número de Tarjeta = {{targeta_credito}}</p>
                         <p class="text-xs-center"> Últimos 3 digitos = {{cvc}}</p>
-                        <p class="text-xs-center"> Fecha expiración = {{fecha}}</p>
+                        <p class="text-xs-center"> Fecha expiración = {{fecha_caducidad}}</p>
                       </v-card-text>
                      </div>
                      <div v-else>
                         <v-card-text>
-                          <v-text-field v-model="tarjeta" mask="####-####-####-####" label="Número de Targeta"></v-text-field>
+                          <v-text-field v-model="targeta_credito" mask="####-####-####-####" label="Número de Targeta"></v-text-field>
                           <v-text-field v-model="cvc" mask="###" label="Últimos 3 dígitos"></v-text-field>
-                          <v-text-field v-model="fecha" mask="##/##" label="Fecha expiración"></v-text-field>
+                          <v-text-field v-model="fecha_caducidad" mask="##/##" label="Fecha expiración"></v-text-field>
                         </v-card-text>
                      </div>
                       
@@ -88,7 +88,7 @@
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="blue darken-1" flat @click="cancelar">Cancelar</v-btn>
-              <v-btn color="blue darken-1" flat @click="realizarPago">Pagar</v-btn>
+              <v-btn color="blue darken-1" flat @click="pagarMatricula">Pagar</v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
@@ -107,6 +107,11 @@
          <v-expansion-panel-content v-bind:class="dark">
             <div slot="header">Pago Mensualidad</div>
               <p class="text-xs-center">Total = ${{valorMensual}}-.</p>
+              
+              !! {{ datosAlumno }} !! {{userid}}
+              <br>
+              {{targeta_credito}}:::{{fecha_caducidad}}:::{{cvcGuardado}}
+              <br>
               <div v-if="estado_matricula">
                 Matricula pagada
                 <div class="my-2">
@@ -124,40 +129,86 @@
 </template>
 
 <script>
-  data () {
-    return {
-      dialog: false,
-      dialoge: false,
-      tarjeta:'',
-      cvc:'',
-      fecha:'',
-      estado_matricula:false,
-      valorMatri: 5555,
-      valorMensual: 4444,
-      flagTarjeta: false,
-    }
-  },
-  methods: {
-    forget() {
-      this.tarjeta='';
-      this.cvc='';
-      this.fecha='';
+  export default {
+    data () {
+      return {
+        forma_pago: '1',
+        targeta_credito: '',
+        fecha_caducidad: '',
+        cvcGuardado: '',
+        matricula: 'm',
+        dialog: false,
+        dialoge: false,
+        userid: '',
+        datosAlumno: '',
+        tarjeta:'',
+        cvc:'',
+        fecha:'',
+        estado_matricula:false,
+        valorMatri: 90000,
+        valorMensual: 4444+2,
+        flagTarjeta: false,
+      }
     },
-    pagar () {
-      
-      this.dialoge = true
+    methods: {
+      forget() {
+        this.targeta_credito='0';
+        this.cvc='0';
+        this.fecha_caducidad='0';
+      },
+      pagar () {
+        
+        this.dialoge = true
+      },
+      getUserName:function() {
+            let url = window.location.href;
+            let splitted = url.split("/alumno/");
+            let userId = splitted[1];
+            splitted = userId.split("/");
+            userId = splitted[0];
+            this.userid = userId;
+      },
+      getDatosAlumno(){
+        axios.get('http://192.168.10.10/Alumno/'+ this.userid, {
+          }).then(response => {
+            this.targeta_credito=response.data.targeta_credito;
+            this.fecha_caducidad=response.data.fecha_caducidad;
+            this.cvc=response.data.cvc;
+          });
+      },
+      guardar () {
+        axios.put('http://192.168.10.10/Alumno/' + this.userid, {
+            'targeta_credito': this.targeta_credito,
+            'fecha_caducidad': this.fecha_caducidad,
+            'cvc': this.cvc
+            }).then(response => {
+            
+        });
+
+        this.flagTarjeta = true,
+
+
+        this.dialog = false
+      },
+      cancelar () {
+        
+        this.dialoge = false
+      },
+      pagarMatricula () {
+        axios.post('http://192.168.10.10/Pago/addPago/' + this.userid, {
+                'tipo_pago': this.matricula,
+                'forma_pago': this.forma_pago,
+                'costo': this.valorMatri
+            }).then(response => {
+
+            });
+        this.dialoge = false
+      },
     },
-    guardar () {
-      this.flagTarjeta = true,
-      this.dialog = false
-    },
-    cancelar () {
-      
-      this.dialoge = false
-    },
-    realizarPago () {
-      
-      this.dialoge = false
-    },
+      beforeMount(){
+          this.getUserName();
+          this.getDatosAlumno();
+
+      },
   }
 </script>
