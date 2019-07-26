@@ -144,6 +144,7 @@ Route::get('/Profesor/verEstudios/{id}','ProfesorController@verEstudios');
 Route::get('/Profesor/verHorario/{id}','ProfesorController@verHorario');
 Route::get('/Profesor/obtenerHorario/{id}','ProfesorController@obtenerHorario');
 Route::post('/Profesor','ProfesorController@store');
+Route::get('/Profesor/obtenerSecciones/{i}','ProfesorController@obtenerSecciones');
 //Route::get();SHOW
 Route::get('/Profesor/verEstudios/{id}','ProfesorController@verEstudios');
 Route::put('/Profesor/{id}','ProfesorController@update');
@@ -169,6 +170,8 @@ Route::put('/Seccion/{id}','SeccionController@update');
 Route::delete('/Seccion/{id}','SeccionController@destroy');
 Route::get('/Seccion/obtenerInfo/{id}','SeccionController@obtenerInfo');
 Route::get('/Seccion/getSalaSeccion/{id}','SeccionController@getSalaSeccion');
+Route::get('/Seccion/obtenerAlumnosVista/{id}','SeccionController@obtenerAlumnosVista');
+
 //Rutas Solicitud
 Route::get('/Solicitud','SolicitudController@index');
 Route::post('/Solicitud','SolicitudController@store');
