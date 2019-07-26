@@ -12,7 +12,7 @@
    Cedula de identidad nacional Numero {{$RutAlumno}},<br> 
    De la carrera {{$CarreraAlumno}}<br> 
    <br> 
-   Para los tramites de: <br>
+   Como Alumno Regular de la Universidad.<br>
 
 
    Fecha Emision: {{$Fecha}}
