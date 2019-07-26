@@ -24,7 +24,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Mail;
-
+use PDF;
 class AlumnoController extends Controller
 {
     /**
@@ -794,5 +794,24 @@ class AlumnoController extends Controller
 			}
 		}
 		return $salida;
+	}
+	public function downloadCertificado($id) {
+		$alumno=Alumno::find($id);
+		$rut=$alumno->rut;
+		$carrera=Carrera::find($alumno->codigo_carrera);
+		$nom_carrera=$carrera->nombre;
+		$hoy = Carbon::today();
+		$data=['NombreAlumno'=>$alumno->nombre.' '.$alumno->apellido_paterno.' '.$alumno->apellido_materno, 'RutAlumno'=>$rut,'CarreraAlumno'=>$nom_carrera,'Fecha'=>$hoy];
+		$pdf=PDF::loadView('certificadoalumno',$data);
+		return $pdf->download('certificado.pdf');
+	}
+	
+	public function downloadComprobante($id, Request $request) {
+		$alumno=Alumno::find($id);
+		$rut=$alumno->rut;
+		$hoy = Carbon::today();
+		$data=['nombre'=>$alumno->nombre.' '.$alumno->apellido_paterno.' '.$alumno->apellido_materno, 'rut'=>$rut,'fecha'=>$hoy,'cosa'=>$request->cosa, 'costo'=>$request->costo];
+		$pdf=PDF::loadView('pagoalumno',$data);
+		return $pdf->download('comprobante.pdf');
 	}
 }
