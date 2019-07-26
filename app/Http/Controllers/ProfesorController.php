@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Mail\NotificacionLoa;
 use App\Profesor;
+use App\Alumno;
 use App\Mensaje;
 use App\Asignatura;
 use App\Seccion;
@@ -15,7 +16,7 @@ use App\Carrera;
 use App\Estudio;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
-
+use Illuminate\Support\Facades\Mail;
 
 class ProfesorController extends Controller
 {
@@ -208,24 +209,57 @@ class ProfesorController extends Controller
 
     }
 
-    public function crearMensaje(Request $request, $id){
-        $mensaje = new Mensaje;
+    //Aqui debe ir lo de enviar Mensaje
 
+
+
+    public function crearMensaje(Request $request, $id){
+        
+
+        $mensaje = new Mensaje;
+        
         $profesor = Profesor::find($id);
+        //Correo Profesor
+        $cooreoProfesor = $profesor->correo;
+        $nombreProfesor = $profesor->nombres;
+        $appProfesor = $profesor->apellido_paterno;
+        $apmProfesor = $profesor->apellido_materno;
+
+        //Informacion Correo
+        $asuntoMensaje = $request->asunto;
+        $contenidoMensaje= $request->contenido;
 
         $mensaje->rut_profesor = $profesor->rut;
-        $mensaje->asunto= $request->asunto;
-        $mensaje->contenido= $request->contenido;
+        $mensaje->asunto= $asuntoMensaje;
+        $mensaje->contenido= $contenidoMensaje;
         $rut_a = $request->rut_alumno;    
+        
 
+        $alumno = Alumno::all()->where('rut','=',$rut_a);
+        $listaRut = $alumno->pluck('correo');
+        $listaNombre= $alumno->pluck('nombre');
+        $listaAPP= $alumno->pluck('apellido_paterno');
+        $listaAPM= $alumno->pluck('apellido_materno');
+        
+        //Datos Alumno
+        $correoAlumno = $listaRut[0];
+        $nombreAlumno = $listaNombre[0];
+        $appAlumno = $listaAPP[0];
+        $apmAlumno = $listaAPM[0];
+
+        
         $mensaje->save();
-
         $mensaje_alumno = new Mensaje_Alumno;
-
         $mensaje_alumno->rut_alumno = $rut_a;
         $mensaje_alumno->codigo_mensaje = $mensaje->id;
-
         $mensaje_alumno->save();
+        //Aqui se guado el mensaje y el mensaje-Alumno
+        //Ahora para enviar el correo
+        
+        Mail::to($correoAlumno)->send(new NotificacionLoa($correoAlumno,$cooreoProfesor,$asuntoMensaje,$contenidoMensaje,$nombreAlumno,$nombreProfesor, $appAlumno,$appProfesor,$apmAlumno,$apmProfesor));
+        
+        
+        
         return response()->json($mensaje);
     }
 
