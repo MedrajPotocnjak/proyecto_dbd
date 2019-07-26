@@ -130,7 +130,7 @@ const routes = [
   { path: '/crearSala',component: crearSala},
   { path: '/seccionHorario',component: seccionHorario},
   { path: '/notas',component: Notas},
-  { path: '/docP',component:DocP}
+  { path: '/docP',component:DocP},
 
   { path: '/pagoAlumno',component: pagoAlumno},
 ];
