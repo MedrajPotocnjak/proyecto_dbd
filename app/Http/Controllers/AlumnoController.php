@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Mail\NotificacionLoa;
 use App\Carrera;
 use App\Carrera_Asignatura;
 use App\Alumno;
@@ -19,6 +20,7 @@ use App\Mensaje_Alumno;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Mail;
 
 class AlumnoController extends Controller
 {
@@ -84,15 +86,44 @@ class AlumnoController extends Controller
         $mensaje = new Mensaje;
         $alumno=Alumno::find($id);
         $rut=$alumno->rut;
-        $mensaje->asunto= $request->asunto;
-        $mensaje->contenido= $request->contenido;
-        $mensaje->rut_profesor= $request->rut_profesor;
+
+        //Informacion Alumno
+        $correoAlumno = $alumno->correo;
+        $nombreAlumno = $alumno->nombre;
+        $appAlumno = $alumno->apellido_paterno;
+        $apmAlumno = $alumno->apellido_materno;
+
+        //Datos Mensaje
+        $asuntoMensaje = $request->asunto;
+        $contenidoMensaje= $request->contenido;
+        $mensaje->asunto= $asuntoMensaje;
+        $mensaje->contenido= $contenidoMensaje;
+        
+        $rutProfesor = $request->rut_profesor;
+        $profe = Profesor::all()->where('rut','=',$rutProfesor);
+        $listaCorreo = $profe->pluck('correo');
+        $listaNombre = $profe->pluck('nombres');
+        $listaAPP = $profe->pluck('apellido_paterno');
+        $listaAPM = $profe->pluck('apellido_materno');
+
+        //DatosProfesor
+        $cooreoProfesor = $listaCorreo[0];
+        $nombreProfesor = $listaNombre[0];
+        $appProfesor = $listaAPP[0];
+        $apmProfesor = $listaAPM[0];
+
+        $mensaje->rut_profesor= $rutProfesor;
         $mensaje->save();
         $mensaje_alumno = new Mensaje_Alumno;
         $mensaje_alumno->codigo_mensaje = $mensaje->id;
         $mensaje_alumno->rut_alumno = $rut;
         $mensaje_alumno->save();
 
+
+        
+
+        Mail::to($cooreoProfesor)->send(new NotificacionLoa($correoAlumno,$cooreoProfesor,$asuntoMensaje,$contenidoMensaje,$nombreAlumno,$nombreProfesor, $appAlumno,$appProfesor,$apmAlumno,$apmProfesor));
+        
         return response()->json($mensaje);
     
     }
