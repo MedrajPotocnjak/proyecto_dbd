@@ -112,71 +112,72 @@
 
 <script>
   export default {
-    name: "DocumentosProfesor",
-    data () {
-    return {
-      dialog: false,
-      headers: [
-        {
-          text: 'Documento',
-          align: 'left',
-          sortable: false,
-          value: 'name'
-        },
-        { text: 'Control 1', value: 'control_1' },
-        {},
-      ],
-    }
-},
-  watch: {
-    dialog (val) {
-      val || this.close()
-    }
-  },
+      name: "DocumentosProfesor",
+      data() {
+          return {
+              dialog: false,
+              headers: [
+                  {
+                      text: 'Documento',
+                      align: 'left',
+                      sortable: false,
+                      value: 'name'
+                  },
+                  {text: 'Control 1', value: 'control_1'},
+                  {},
+              ],
+          }
+      },
+      watch: {
+          dialog(val) {
+              val || this.close()
+          }
+      },
 
-  created () {
-    this.initialize()
-  },
+      created() {
+          this.initialize()
+      },
 
-  methods: {
-    initialize () {
-      this.certificado = [
-        {
-          name: 'Asignación Familiar',
-        },
-        {
-          name: 'Pase Escolar',
-        },
-        {
-          name: 'Rebaja Pasaje',
-        },
-        {
-          name: 'Beca Estudios'
-        },
-      ],
-      
-      this.solicitud = [
-        {
-          name: 'Reincorporación',
-        },
-        {
-          name: 'Cambio Carrera',
-        },
-      ],
-      
-      this.comprobante = [
-        {
-          name: 'Matrícula',
-        },
-      ]  
-    },   
+      methods: {
+          initialize() {
+              this.certificado = [
+                  {
+                      name: 'Asignación Familiar',
+                  },
+                  {
+                      name: 'Pase Escolar',
+                  },
+                  {
+                      name: 'Rebaja Pasaje',
+                  },
+                  {
+                      name: 'Beca Estudios'
+                  },
+              ],
 
-    close () {
-      this.dialog = false
-      setTimeout(() => {
-        this.editedItem = Object.assign({}, this.defaultItem)
-        this.editedIndex = -1
-      }, 300)
-    },
+                  this.solicitud = [
+                      {
+                          name: 'Reincorporación',
+                      },
+                      {
+                          name: 'Cambio Carrera',
+                      },
+                  ],
+
+                  this.comprobante = [
+                      {
+                          name: 'Matrícula',
+                      },
+                  ]
+          },
+
+          close() {
+              this.dialog = false
+              setTimeout(() => {
+                  this.editedItem = Object.assign({}, this.defaultItem)
+                  this.editedIndex = -1
+              }, 300)
+          },
+      }
   }
 </script>
